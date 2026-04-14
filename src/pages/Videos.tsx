@@ -42,7 +42,7 @@ export default function Videos() {
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
   const [playing, setPlaying] = useState<string | null>(null);
 
-  const videosData = useMemo(() => getStoredVideos(), []);
+  const videosData = getStoredVideos();
   const videoTopics = useMemo(() => [...new Set(videosData.map(v => v.topic))], [videosData]);
   const topicVideos = selectedTopic ? videosData.filter((v) => v.topic === selectedTopic) : [];
 
