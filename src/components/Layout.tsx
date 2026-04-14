@@ -10,6 +10,7 @@ const navLinks = [
   { to: "/pyqs", label: "PYQs" },
   { to: "/mocks", label: "Mock Tests" },
   { to: "/videos", label: "Videos" },
+  { to: "/manage-videos", label: "Manage Videos" },
   { to: "/resources", label: "Resources" },
   { to: "/newspaper", label: "Newspaper" },
   { to: "/about", label: "About" },
