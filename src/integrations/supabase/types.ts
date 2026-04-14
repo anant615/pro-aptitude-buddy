@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      mocks: {
+        Row: {
+          created_at: string
+          description: string
+          exams: string[]
+          free: boolean
+          id: string
+          link: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          exams?: string[]
+          free?: boolean
+          id?: string
+          link: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          exams?: string[]
+          free?: boolean
+          id?: string
+          link?: string
+          name?: string
+        }
+        Relationships: []
+      }
       videos: {
         Row: {
           created_at: string
