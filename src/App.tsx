@@ -15,7 +15,7 @@ import ReviewMode from "@/pages/ReviewMode";
 import DPP from "@/pages/DPP";
 import Resources from "@/pages/Resources";
 import NewspaperPage from "@/pages/Newspaper";
-import ManageVideos from "@/pages/ManageVideos";
+import ManageContent from "@/pages/ManageContent";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,7 +34,7 @@ const App = () => (
             <Route path="/pyqs" element={<PYQs />} />
             <Route path="/mocks" element={<MockTests />} />
             <Route path="/videos" element={<Videos />} />
-            <Route path="/manage-videos" element={<ManageVideos />} />
+            <Route path="/manage" element={<ManageContent />} />
             <Route path="/about" element={<About />} />
             <Route path="/review" element={<ReviewMode />} />
             <Route path="/dpp" element={<DPP />} />
