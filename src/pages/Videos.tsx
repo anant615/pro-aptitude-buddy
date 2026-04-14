@@ -1,13 +1,21 @@
-import { useState, useMemo } from "react";
-import { videoTopics as defaultTopics, getYoutubeId, getThumbnail } from "@/data/videos_data";
-import { getStoredVideos } from "@/lib/videoStorage";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { getYoutubeId, getThumbnail } from "@/data/videos_data";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Play, ExternalLink, Calculator, Triangle, Hash, Sigma, Shuffle,
-  ArrowLeft, GraduationCap, Variable, Sparkles, BookOpen,
+  ArrowLeft, GraduationCap, Variable, Sparkles, BookOpen, Loader2,
 } from "lucide-react";
+
+interface VideoRow {
+  id: string;
+  topic: string;
+  title: string;
+  creator: string;
+  link: string;
+}
 
 const topicIcons: Record<string, React.ReactNode> = {
   Arithmetic: <Calculator className="h-6 w-6" />,
@@ -41,10 +49,20 @@ const learningOrder = ["Arithmetic", "Number System", "Algebra", "Geometry", "Mo
 export default function Videos() {
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
   const [playing, setPlaying] = useState<string | null>(null);
+  const [videosData, setVideosData] = useState<VideoRow[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const videosData = getStoredVideos();
-  const videoTopics = useMemo(() => [...new Set(videosData.map(v => v.topic))], [videosData]);
+  useEffect(() => {
+    supabase.from("videos").select("id, topic, title, creator, link").order("created_at", { ascending: true })
+      .then(({ data }) => { setVideosData(data || []); setLoading(false); });
+  }, []);
+
+  const videoTopics = [...new Set(videosData.map(v => v.topic))];
   const topicVideos = selectedTopic ? videosData.filter((v) => v.topic === selectedTopic) : [];
+
+  if (loading) {
+    return <div className="flex justify-center items-center min-h-[60vh]"><Loader2 className="h-8 w-8 animate-spin text-muted-foreground" /></div>;
+  }
 
   return (
     <div className="container py-10 max-w-6xl min-h-[80vh]">
@@ -61,7 +79,6 @@ export default function Videos() {
       <AnimatePresence mode="wait">
         {!selectedTopic ? (
           <motion.div key="topics" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.3 }}>
-            {/* Recommended */}
             <div className="mb-8 rounded-xl border border-accent/30 bg-accent/5 p-4 flex items-center gap-3 flex-wrap">
               <Sparkles className="h-5 w-5 text-accent shrink-0" />
               <span className="text-sm font-medium">
@@ -72,7 +89,6 @@ export default function Videos() {
               </Button>
             </div>
 
-            {/* Learning path */}
             <div className="rounded-xl border bg-card p-5 mb-8">
               <h2 className="font-heading text-sm font-semibold mb-3 flex items-center gap-2 text-muted-foreground uppercase tracking-wide">
                 <GraduationCap className="h-4 w-4" /> Recommended Order
@@ -87,7 +103,6 @@ export default function Videos() {
               </div>
             </div>
 
-            {/* Topic cards */}
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {videoTopics.map((topic, i) => {
                 const count = videosData.filter((v) => v.topic === topic).length;
@@ -137,7 +152,6 @@ export default function Videos() {
               </div>
             </div>
 
-            {/* Quick switch */}
             <div className="flex flex-wrap gap-2 mt-4 mb-8">
               {videoTopics.filter((t) => t !== selectedTopic).map((t) => (
                 <button
@@ -150,11 +164,10 @@ export default function Videos() {
               ))}
             </div>
 
-            {/* Video grid */}
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {topicVideos.map((v, i) => {
                 const vId = getYoutubeId(v.link);
-                const key = `${v.topic}-${i}`;
+                const key = v.id;
                 const isPlaying = playing === key;
 
                 return (
