@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { videosData, videoTopics, getYoutubeId, getThumbnail } from "@/data/videos_data";
+import { useState, useMemo } from "react";
+import { videoTopics as defaultTopics, getYoutubeId, getThumbnail } from "@/data/videos_data";
+import { getStoredVideos } from "@/lib/videoStorage";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
@@ -41,6 +42,8 @@ export default function Videos() {
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
   const [playing, setPlaying] = useState<string | null>(null);
 
+  const videosData = useMemo(() => getStoredVideos(), []);
+  const videoTopics = useMemo(() => [...new Set(videosData.map(v => v.topic))], [videosData]);
   const topicVideos = selectedTopic ? videosData.filter((v) => v.topic === selectedTopic) : [];
 
   return (
