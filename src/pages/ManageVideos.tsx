@@ -1,40 +1,57 @@
-import { useState } from "react";
-import { getStoredVideos, addVideo, deleteVideo } from "@/lib/videoStorage";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { getYoutubeId } from "@/data/videos_data";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Trash2, Plus, Video } from "lucide-react";
+import { Trash2, Plus, Video, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 
 const TOPICS = ["Arithmetic", "Algebra", "Geometry", "Number System", "Modern Math", "Permutation & Combination"];
 
+interface VideoRow {
+  id: string;
+  topic: string;
+  title: string;
+  creator: string;
+  link: string;
+}
+
 export default function ManageVideos() {
-  const [videos, setVideos] = useState(getStoredVideos());
+  const [videos, setVideos] = useState<VideoRow[]>([]);
+  const [loading, setLoading] = useState(true);
   const [topic, setTopic] = useState(TOPICS[0]);
   const [title, setTitle] = useState("");
   const [creator, setCreator] = useState("");
   const [link, setLink] = useState("");
+  const [filter, setFilter] = useState("All");
 
-  const handleAdd = () => {
-    if (!title.trim() || !link.trim()) {
-      toast.error("Title and YouTube link are required");
-      return;
-    }
-    const updated = addVideo({ topic, title: title.trim(), creator: creator.trim() || "Unknown", link: link.trim() });
-    setVideos(updated);
+  const fetchVideos = async () => {
+    const { data, error } = await supabase.from("videos").select("id, topic, title, creator, link").order("created_at", { ascending: true });
+    if (error) { toast.error("Failed to load videos"); return; }
+    setVideos(data || []);
+    setLoading(false);
+  };
+
+  useEffect(() => { fetchVideos(); }, []);
+
+  const handleAdd = async () => {
+    if (!title.trim() || !link.trim()) { toast.error("Title and YouTube link are required"); return; }
+    const { error } = await supabase.from("videos").insert({ topic, title: title.trim(), creator: creator.trim() || "Unknown", link: link.trim() });
+    if (error) { toast.error("Failed to add video"); return; }
     setTitle(""); setCreator(""); setLink("");
     toast.success("Video added!");
+    fetchVideos();
   };
 
-  const handleDelete = (idx: number) => {
-    const updated = deleteVideo(idx);
-    setVideos(updated);
+  const handleDelete = async (id: string) => {
+    const { error } = await supabase.from("videos").delete().eq("id", id);
+    if (error) { toast.error("Failed to delete"); return; }
     toast.success("Video deleted");
+    fetchVideos();
   };
 
-  const [filter, setFilter] = useState("All");
   const filtered = filter === "All" ? videos : videos.filter(v => v.topic === filter);
 
   return (
@@ -84,24 +101,25 @@ export default function ManageVideos() {
         ))}
       </div>
 
-      <div className="space-y-2">
-        {filtered.map((v, i) => {
-          const realIdx = videos.indexOf(v);
-          return (
-            <div key={`${v.topic}-${v.title}-${i}`} className="flex items-center gap-3 rounded-lg border bg-card p-3">
+      {loading ? (
+        <div className="flex justify-center py-12"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /></div>
+      ) : (
+        <div className="space-y-2">
+          {filtered.map(v => (
+            <div key={v.id} className="flex items-center gap-3 rounded-lg border bg-card p-3">
               <img src={`https://img.youtube.com/vi/${getYoutubeId(v.link)}/mqdefault.jpg`} alt="" className="h-12 w-20 rounded object-cover shrink-0" />
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium truncate">{v.title}</p>
                 <p className="text-xs text-muted-foreground">{v.topic} • {v.creator}</p>
               </div>
-              <Button variant="ghost" size="icon" onClick={() => handleDelete(realIdx)} className="shrink-0 text-destructive hover:text-destructive">
+              <Button variant="ghost" size="icon" onClick={() => handleDelete(v.id)} className="shrink-0 text-destructive hover:text-destructive">
                 <Trash2 className="h-4 w-4" />
               </Button>
             </div>
-          );
-        })}
-        {filtered.length === 0 && <p className="text-center text-muted-foreground py-8">No videos found</p>}
-      </div>
+          ))}
+          {filtered.length === 0 && <p className="text-center text-muted-foreground py-8">No videos found</p>}
+        </div>
+      )}
     </div>
   );
 }
