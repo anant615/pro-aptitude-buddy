@@ -10,7 +10,6 @@ const navLinks = [
   { to: "/pyqs", label: "PYQs" },
   { to: "/mocks", label: "Mock Tests" },
   { to: "/videos", label: "Videos" },
-  { to: "/manage-videos", label: "Manage Videos" },
   { to: "/resources", label: "Resources" },
   { to: "/newspaper", label: "Newspaper" },
   { to: "/about", label: "About" },
@@ -55,12 +54,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <Button variant="ghost" size="icon" onClick={toggleDark} className="rounded-full">
               {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="md:hidden"
-              onClick={() => setMobileOpen(!mobileOpen)}
-            >
+            <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setMobileOpen(!mobileOpen)}>
               {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
           </div>
@@ -69,14 +63,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         {mobileOpen && (
           <nav className="md:hidden border-t bg-card pb-4">
             {navLinks.map((l) => (
-              <Link
-                key={l.to}
-                to={l.to}
-                onClick={() => setMobileOpen(false)}
-                className={`block px-6 py-3 text-sm font-medium ${
-                  location.pathname === l.to ? "text-accent" : "text-muted-foreground"
-                }`}
-              >
+              <Link key={l.to} to={l.to} onClick={() => setMobileOpen(false)}
+                className={`block px-6 py-3 text-sm font-medium ${location.pathname === l.to ? "text-accent" : "text-muted-foreground"}`}>
                 {l.label}
               </Link>
             ))}
