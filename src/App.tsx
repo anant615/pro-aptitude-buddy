@@ -34,7 +34,7 @@ const App = () => (
             <Route path="/pyqs" element={<PYQs />} />
             <Route path="/mocks" element={<MockTests />} />
             <Route path="/videos" element={<Videos />} />
-            <Route path="/manage" element={<ManageContent />} />
+            
             <Route path="/about" element={<About />} />
             <Route path="/review" element={<ReviewMode />} />
             <Route path="/dpp" element={<DPP />} />
