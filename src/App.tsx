@@ -15,7 +15,7 @@ import ReviewMode from "@/pages/ReviewMode";
 import DPP from "@/pages/DPP";
 import Resources from "@/pages/Resources";
 import NewspaperPage from "@/pages/Newspaper";
-import ManageContent from "@/pages/ManageContent";
+
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
