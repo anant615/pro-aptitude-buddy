@@ -10,7 +10,11 @@ import { toast } from "sonner";
 
 interface NewsItem { id: string; title: string; description: string; link: string; date: string; source: string; }
 
+import { useAuth } from "@/hooks/useAuth";
+import { FileUpload } from "@/components/FileUpload";
+
 export default function NewspaperPage() {
+  const { isAdmin } = useAuth();
   const [items, setItems] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [manage, setManage] = useState(false);
@@ -70,9 +74,9 @@ export default function NewspaperPage() {
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="font-heading text-3xl font-bold mb-1">Newspaper & Editorials</h1>
         <p className="text-muted-foreground mb-4">Daily reading material to boost your VARC skills</p>
-        <Button variant="ghost" size="sm" className="mb-6 gap-1.5 text-xs text-muted-foreground" onClick={() => setManage(m => !m)}>
+        {isAdmin && (<Button variant="ghost" size="sm" className="mb-6 gap-1.5 text-xs text-muted-foreground" onClick={() => setManage(m => !m)}>
           <Settings className="h-3.5 w-3.5" /> {manage ? "Hide Manage" : "Manage"}
-        </Button>
+        </Button>)}
       </motion.div>
 
       {manage && (

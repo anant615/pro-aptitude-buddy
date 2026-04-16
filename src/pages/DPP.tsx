@@ -11,7 +11,10 @@ import { toast } from "sonner";
 interface DPPRow { id: string; date: string; title: string; question: string; }
 interface DPPDay { date: string; title: string; questions: { id: string; question: string }[]; }
 
+import { useAuth } from "@/hooks/useAuth";
+
 export default function DPP() {
+  const { isAdmin } = useAuth();
   const [rows, setRows] = useState<DPPRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedDay, setSelectedDay] = useState<string | null>(null);
@@ -64,9 +67,9 @@ export default function DPP() {
         <Badge variant="secondary" className="mb-3 gap-1.5"><CalendarDays className="h-3.5 w-3.5" /> Daily Practice</Badge>
         <h1 className="font-heading text-3xl font-bold mb-1">Daily Practice Problems (DPP)</h1>
         <p className="text-muted-foreground mb-4">Fresh questions daily for CAT 2026 & OMET preparation</p>
-        <Button variant="ghost" size="sm" className="mb-6 gap-1.5 text-xs text-muted-foreground" onClick={() => setManage(m => !m)}>
+        {isAdmin && (<Button variant="ghost" size="sm" className="mb-6 gap-1.5 text-xs text-muted-foreground" onClick={() => setManage(m => !m)}>
           <Settings className="h-3.5 w-3.5" /> {manage ? "Hide Manage" : "Manage"}
-        </Button>
+        </Button>)}
       </motion.div>
 
       {manage && (

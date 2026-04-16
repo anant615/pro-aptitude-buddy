@@ -15,7 +15,11 @@ const typeIcons: Record<string, React.ReactNode> = { pdf: <FileText className="h
 const typeColors: Record<string, string> = { pdf: "bg-destructive/10 text-destructive", article: "bg-accent/10 text-accent", tool: "bg-green-500/10 text-green-600 dark:text-green-400", sheet: "bg-amber-500/10 text-amber-600 dark:text-amber-400" };
 const TYPES: ResourceType[] = ["pdf", "article", "tool", "sheet"];
 
+import { useAuth } from "@/hooks/useAuth";
+import { FileUpload } from "@/components/FileUpload";
+
 export default function Resources() {
+  const { isAdmin } = useAuth();
   const [items, setItems] = useState<Resource[]>([]);
   const [loading, setLoading] = useState(true);
   const [manage, setManage] = useState(false);
@@ -52,9 +56,9 @@ export default function Resources() {
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="font-heading text-3xl font-bold mb-1">Resources</h1>
         <p className="text-muted-foreground mb-4">Curated study material, formula sheets, and tools</p>
-        <Button variant="ghost" size="sm" className="mb-6 gap-1.5 text-xs text-muted-foreground" onClick={() => setManage(m => !m)}>
+        {isAdmin && (<Button variant="ghost" size="sm" className="mb-6 gap-1.5 text-xs text-muted-foreground" onClick={() => setManage(m => !m)}>
           <Settings className="h-3.5 w-3.5" /> {manage ? "Hide Manage" : "Manage"}
-        </Button>
+        </Button>)}
       </motion.div>
 
       {manage && (
