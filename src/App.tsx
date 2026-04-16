@@ -15,6 +15,7 @@ import ReviewMode from "@/pages/ReviewMode";
 import DPP from "@/pages/DPP";
 import Resources from "@/pages/Resources";
 import NewspaperPage from "@/pages/Newspaper";
+import Auth from "@/pages/Auth";
 
 import NotFound from "@/pages/NotFound";
 
@@ -40,6 +41,7 @@ const App = () => (
             <Route path="/dpp" element={<DPP />} />
             <Route path="/resources" element={<Resources />} />
             <Route path="/newspaper" element={<NewspaperPage />} />
+            <Route path="/auth" element={<Auth />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>

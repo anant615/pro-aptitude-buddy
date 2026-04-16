@@ -37,7 +37,10 @@ const topicDescriptions: Record<string, string> = {
 };
 const learningOrder = ["Arithmetic", "Number System", "Algebra", "Geometry", "Modern Math", "Permutation & Combination"];
 
+import { useAuth } from "@/hooks/useAuth";
+
 export default function Videos() {
+  const { isAdmin } = useAuth();
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
   const [playing, setPlaying] = useState<string | null>(null);
   const [videosData, setVideosData] = useState<VideoRow[]>([]);
@@ -78,9 +81,9 @@ export default function Videos() {
         <Badge variant="secondary" className="mb-3 gap-1.5"><GraduationCap className="h-3.5 w-3.5" /> Quant Preparation</Badge>
         <h1 className="font-heading text-3xl md:text-4xl font-bold mb-2">Master Quant with <span className="text-gradient-gold">Concept Videos</span></h1>
         <p className="text-muted-foreground max-w-lg mx-auto">Select a topic below to start learning step-by-step</p>
-        <Button variant="ghost" size="sm" className="mt-3 gap-1.5 text-xs text-muted-foreground" onClick={() => setManage(m => !m)}>
+        {isAdmin && (<Button variant="ghost" size="sm" className="mt-3 gap-1.5 text-xs text-muted-foreground" onClick={() => setManage(m => !m)}>
           <Settings className="h-3.5 w-3.5" /> {manage ? "Hide Manage" : "Manage"}
-        </Button>
+        </Button>)}
       </motion.div>
 
       {manage && (

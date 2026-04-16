@@ -10,7 +10,11 @@ import { toast } from "sonner";
 
 interface NewsItem { id: string; title: string; description: string; link: string; date: string; source: string; }
 
+import { useAuth } from "@/hooks/useAuth";
+import { FileUpload } from "@/components/FileUpload";
+
 export default function NewspaperPage() {
+  const { isAdmin } = useAuth();
   const [items, setItems] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [manage, setManage] = useState(false);
@@ -70,9 +74,9 @@ export default function NewspaperPage() {
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="font-heading text-3xl font-bold mb-1">Newspaper & Editorials</h1>
         <p className="text-muted-foreground mb-4">Daily reading material to boost your VARC skills</p>
-        <Button variant="ghost" size="sm" className="mb-6 gap-1.5 text-xs text-muted-foreground" onClick={() => setManage(m => !m)}>
+        {isAdmin && (<Button variant="ghost" size="sm" className="mb-6 gap-1.5 text-xs text-muted-foreground" onClick={() => setManage(m => !m)}>
           <Settings className="h-3.5 w-3.5" /> {manage ? "Hide Manage" : "Manage"}
-        </Button>
+        </Button>)}
       </motion.div>
 
       {manage && (
@@ -84,7 +88,7 @@ export default function NewspaperPage() {
               <div className="flex justify-between items-center"><h3 className="font-semibold text-sm">Add News Item</h3><Button variant="ghost" size="icon" onClick={() => setShowForm(false)}><X className="h-4 w-4" /></Button></div>
               <div className="grid sm:grid-cols-2 gap-3">
                 <div className="space-y-1"><Label className="text-xs">Title</Label><Input value={fTitle} onChange={e => setFTitle(e.target.value)} placeholder="Article title" className="h-9" /></div>
-                <div className="space-y-1"><Label className="text-xs">Link</Label><Input value={fLink} onChange={e => setFLink(e.target.value)} placeholder="https://..." className="h-9" /></div>
+                <div className="space-y-1"><Label className="text-xs">Link</Label><div className="flex gap-2"><Input value={fLink} onChange={e => setFLink(e.target.value)} placeholder="https:// or upload" className="h-9" /><FileUpload onUploaded={setFLink} /></div></div>
                 <div className="space-y-1"><Label className="text-xs">Description</Label><Input value={fDesc} onChange={e => setFDesc(e.target.value)} placeholder="Short description" className="h-9" /></div>
                 <div className="space-y-1"><Label className="text-xs">Source</Label><Input value={fSource} onChange={e => setFSource(e.target.value)} placeholder="e.g. The Hindu" className="h-9" /></div>
               </div>
