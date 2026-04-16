@@ -14,6 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
+      dpps: {
+        Row: {
+          created_at: string
+          date: string
+          id: string
+          question: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          date: string
+          id?: string
+          question?: string
+          title: string
+        }
+        Update: {
+          created_at?: string
+          date?: string
+          id?: string
+          question?: string
+          title?: string
+        }
+        Relationships: []
+      }
       mocks: {
         Row: {
           created_at: string
@@ -41,6 +65,63 @@ export type Database = {
           id?: string
           link?: string
           name?: string
+        }
+        Relationships: []
+      }
+      news: {
+        Row: {
+          created_at: string
+          date: string
+          description: string
+          id: string
+          link: string
+          source: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          date?: string
+          description?: string
+          id?: string
+          link: string
+          source?: string
+          title: string
+        }
+        Update: {
+          created_at?: string
+          date?: string
+          description?: string
+          id?: string
+          link?: string
+          source?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      resources: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          link: string
+          title: string
+          type: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          id?: string
+          link: string
+          title: string
+          type?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          link?: string
+          title?: string
+          type?: string
         }
         Relationships: []
       }

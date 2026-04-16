@@ -1,29 +1,20 @@
-import { useState, useEffect } from "react";
-import { dppData as defaultDpp, type DPPDay } from "@/data/dpp_data";
+import { useState, useEffect, useMemo } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { CalendarDays, CheckCircle2, XCircle, Lightbulb, Settings, Plus, Trash2, X } from "lucide-react";
+import { CalendarDays, Settings, Plus, Trash2, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 
-const STORAGE_KEY = "dppData";
-
-function getStored(): DPPDay[] {
-  try { const s = localStorage.getItem(STORAGE_KEY); if (s) return JSON.parse(s); } catch {}
-  return [];
-}
-function saveStored(d: DPPDay[]) { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); }
+interface DPPRow { id: string; date: string; title: string; question: string; }
+interface DPPDay { date: string; title: string; questions: { id: string; question: string }[]; }
 
 export default function DPP() {
-  const [extra, setExtra] = useState<DPPDay[]>(getStored);
-  const allDpp = [...defaultDpp, ...extra];
-
+  const [rows, setRows] = useState<DPPRow[]>([]);
+  const [loading, setLoading] = useState(true);
   const [selectedDay, setSelectedDay] = useState<string | null>(null);
-  const [answers, setAnswers] = useState<Record<string, number | null>>({});
-  const [checked, setChecked] = useState<Record<string, boolean>>({});
-  const [showSolution, setShowSolution] = useState<Record<string, boolean>>({});
   const [manage, setManage] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [fDate, setFDate] = useState("");
@@ -31,28 +22,40 @@ export default function DPP() {
   const [fQuestion, setFQuestion] = useState("");
 
   const today = new Date().toISOString().split("T")[0];
+
+  const load = async () => {
+    setLoading(true);
+    const { data, error } = await supabase.from("dpps").select("*").order("date", { ascending: false });
+    if (error) toast.error("Failed to load DPPs");
+    else setRows((data || []) as DPPRow[]);
+    setLoading(false);
+  };
+  useEffect(() => { load(); }, []);
+
+  // Group by date+title
+  const allDpp: DPPDay[] = useMemo(() => {
+    const map = new Map<string, DPPDay>();
+    for (const r of rows) {
+      const key = `${r.date}__${r.title}`;
+      if (!map.has(key)) map.set(key, { date: r.date, title: r.title, questions: [] });
+      map.get(key)!.questions.push({ id: r.id, question: r.question });
+    }
+    return Array.from(map.values()).sort((a, b) => b.date.localeCompare(a.date));
+  }, [rows]);
+
   const currentDPP = allDpp.find((d) => d.date === (selectedDay || today)) || allDpp[0];
 
-  const handleSelect = (qId: string, idx: number) => { if (checked[qId]) return; setAnswers((p) => ({ ...p, [qId]: idx })); };
-  const handleCheck = (qId: string) => { setChecked((p) => ({ ...p, [qId]: true })); };
-
-  const handleAdd = () => {
+  const handleAdd = async () => {
     if (!fDate || !fTitle.trim() || !fQuestion.trim()) { toast.error("All fields required"); return; }
-    const newDay: DPPDay = {
-      date: fDate, title: fTitle.trim(),
-      questions: [{ id: `dpp_${Date.now()}`, question: fQuestion.trim(), options: [], correctAnswer: -1, solution: "", topic: "General", difficulty: "medium" }],
-    };
-    const updated = [...extra, newDay];
-    setExtra(updated); saveStored(updated);
-    setFDate(""); setFTitle(""); setFQuestion(""); setShowForm(false);
-    toast.success("DPP added!");
+    const { error } = await supabase.from("dpps").insert({ date: fDate, title: fTitle.trim(), question: fQuestion.trim() });
+    if (error) { toast.error("Failed to add"); return; }
+    setFDate(""); setFTitle(""); setFQuestion(""); setShowForm(false); toast.success("DPP added!"); load();
   };
 
-  const handleDelete = (date: string) => {
-    // Only delete from extra (localStorage)
-    const updated = extra.filter(d => d.date !== date);
-    setExtra(updated); saveStored(updated);
-    toast.success("Deleted");
+  const handleDeleteQuestion = async (id: string) => {
+    const { error } = await supabase.from("dpps").delete().eq("id", id);
+    if (error) { toast.error("Failed to delete"); return; }
+    toast.success("Deleted"); load();
   };
 
   return (
@@ -84,86 +87,47 @@ export default function DPP() {
         </div>
       )}
 
-      {/* Day selector */}
-      <div className="flex flex-wrap gap-2 mb-8">
-        {allDpp.map((d) => (
-          <div key={d.date} className="flex items-center gap-1">
-            <Button
-              variant={(selectedDay || today) === d.date ? "default" : "outline"}
-              size="sm"
-              onClick={() => { setSelectedDay(d.date); setAnswers({}); setChecked({}); setShowSolution({}); }}
-              className="gap-1.5"
-            >
-              <CalendarDays className="h-3.5 w-3.5" />
-              <span className="text-foreground">{d.date === today ? "Today" : d.date}</span>
-            </Button>
-            {manage && extra.some(e => e.date === d.date) && (
-              <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive" onClick={() => handleDelete(d.date)}><Trash2 className="h-3.5 w-3.5" /></Button>
-            )}
-          </div>
-        ))}
-      </div>
-
-      {currentDPP && (
+      {loading ? <p className="text-sm text-muted-foreground">Loading...</p> : allDpp.length === 0 ? <p className="text-sm text-muted-foreground">No DPPs yet.</p> : (
         <>
-          <div className="rounded-xl border bg-card p-5 mb-6">
-            <h2 className="font-heading font-semibold text-lg">{currentDPP.title}</h2>
-            <p className="text-sm text-muted-foreground">{currentDPP.date} · {currentDPP.questions.length} questions</p>
+          <div className="flex flex-wrap gap-2 mb-8">
+            {allDpp.map((d) => (
+              <Button
+                key={d.date + d.title}
+                variant={(selectedDay || today) === d.date ? "default" : "outline"}
+                size="sm"
+                onClick={() => setSelectedDay(d.date)}
+                className="gap-1.5"
+              >
+                <CalendarDays className="h-3.5 w-3.5" />
+                <span className="text-foreground">{d.date === today ? "Today" : d.date}</span>
+              </Button>
+            ))}
           </div>
 
-          <div className="space-y-6">
-            <AnimatePresence>
-              {currentDPP.questions.map((q, qi) => {
-                const isCorrect = checked[q.id] && answers[q.id] === q.correctAnswer;
-                const isWrong = checked[q.id] && answers[q.id] !== q.correctAnswer;
-                return (
-                  <motion.div key={q.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: qi * 0.05 }} className="rounded-xl border bg-card p-6">
-                    <div className="flex items-start justify-between mb-3">
-                      <span className="text-sm font-medium text-muted-foreground">Q{qi + 1}</span>
-                      <div className="flex gap-2">
-                        <Badge variant="outline" className="text-xs capitalize">{q.difficulty}</Badge>
-                        <Badge variant="secondary" className="text-xs">{q.topic}</Badge>
+          {currentDPP && (
+            <>
+              <div className="rounded-xl border bg-card p-5 mb-6">
+                <h2 className="font-heading font-semibold text-lg">{currentDPP.title}</h2>
+                <p className="text-sm text-muted-foreground">{currentDPP.date} · {currentDPP.questions.length} questions</p>
+              </div>
+
+              <div className="space-y-6">
+                <AnimatePresence>
+                  {currentDPP.questions.map((q, qi) => (
+                    <motion.div key={q.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: qi * 0.05 }} className="relative rounded-xl border bg-card p-6">
+                      {manage && (
+                        <Button variant="destructive" size="icon" className="absolute top-2 right-2 h-7 w-7 z-10" onClick={() => handleDeleteQuestion(q.id)}><Trash2 className="h-3.5 w-3.5" /></Button>
+                      )}
+                      <div className="flex items-start justify-between mb-3">
+                        <span className="text-sm font-medium text-muted-foreground">Q{qi + 1}</span>
                       </div>
-                    </div>
-                    <p className="font-medium mb-4">{q.question}</p>
-                    {q.options.length > 0 && (
-                      <div className="grid gap-2 mb-4">
-                        {q.options.map((opt, oi) => {
-                          let cls = "rounded-lg border p-3 text-sm cursor-pointer transition-all hover:border-accent/50";
-                          if (answers[q.id] === oi && !checked[q.id]) cls += " border-accent bg-accent/10";
-                          if (checked[q.id] && oi === q.correctAnswer) cls += " border-green-500 bg-green-500/10 text-green-700 dark:text-green-400";
-                          if (checked[q.id] && answers[q.id] === oi && oi !== q.correctAnswer) cls += " border-destructive bg-destructive/10 text-destructive";
-                          return (
-                            <button key={oi} onClick={() => handleSelect(q.id, oi)} className={cls}>
-                              <span className="font-medium mr-2">{String.fromCharCode(65 + oi)}.</span>{opt}
-                              {checked[q.id] && oi === q.correctAnswer && <CheckCircle2 className="inline ml-2 h-4 w-4" />}
-                              {checked[q.id] && answers[q.id] === oi && oi !== q.correctAnswer && <XCircle className="inline ml-2 h-4 w-4" />}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    )}
-                    {q.options.length > 0 && (
-                      <div className="flex gap-2">
-                        {!checked[q.id] && <Button size="sm" disabled={answers[q.id] == null} onClick={() => handleCheck(q.id)}>Check Answer</Button>}
-                        {checked[q.id] && q.solution && (
-                          <Button size="sm" variant="outline" className="gap-1" onClick={() => setShowSolution((p) => ({ ...p, [q.id]: !p[q.id] }))}>
-                            <Lightbulb className="h-3.5 w-3.5" /> {showSolution[q.id] ? "Hide" : "Show"} Solution
-                          </Button>
-                        )}
-                      </div>
-                    )}
-                    {showSolution[q.id] && q.solution && (
-                      <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="mt-4 rounded-lg bg-muted/50 p-4 text-sm">
-                        <p className="font-medium mb-1 text-accent">Solution:</p>
-                        <p className="text-muted-foreground">{q.solution}</p>
-                      </motion.div>
-                    )}
-                  </motion.div>
-                );
-              })}
-            </AnimatePresence>
-          </div>
+                      <p className="font-medium">{q.question}</p>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </div>
+            </>
+          )}
         </>
       )}
     </div>
