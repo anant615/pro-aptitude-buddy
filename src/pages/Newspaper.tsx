@@ -88,7 +88,7 @@ export default function NewspaperPage() {
               <div className="flex justify-between items-center"><h3 className="font-semibold text-sm">Add News Item</h3><Button variant="ghost" size="icon" onClick={() => setShowForm(false)}><X className="h-4 w-4" /></Button></div>
               <div className="grid sm:grid-cols-2 gap-3">
                 <div className="space-y-1"><Label className="text-xs">Title</Label><Input value={fTitle} onChange={e => setFTitle(e.target.value)} placeholder="Article title" className="h-9" /></div>
-                <div className="space-y-1"><Label className="text-xs">Link</Label><Input value={fLink} onChange={e => setFLink(e.target.value)} placeholder="https://..." className="h-9" /></div>
+                <div className="space-y-1"><Label className="text-xs">Link</Label><div className="flex gap-2"><Input value={fLink} onChange={e => setFLink(e.target.value)} placeholder="https:// or upload" className="h-9" /><FileUpload onUploaded={setFLink} /></div></div>
                 <div className="space-y-1"><Label className="text-xs">Description</Label><Input value={fDesc} onChange={e => setFDesc(e.target.value)} placeholder="Short description" className="h-9" /></div>
                 <div className="space-y-1"><Label className="text-xs">Source</Label><Input value={fSource} onChange={e => setFSource(e.target.value)} placeholder="e.g. The Hindu" className="h-9" /></div>
               </div>
