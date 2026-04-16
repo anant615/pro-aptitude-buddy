@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { newsData as defaultNews, type NewsItem } from "@/data/news_data";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,13 +8,11 @@ import { Newspaper, ExternalLink, Calendar, Settings, Plus, Trash2, X } from "lu
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 
-const STORAGE_KEY = "newsData";
-function getStored(): NewsItem[] { try { const s = localStorage.getItem(STORAGE_KEY); if (s) return JSON.parse(s); } catch {} return []; }
-function saveStored(d: NewsItem[]) { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); }
+interface NewsItem { id: string; title: string; description: string; link: string; date: string; source: string; }
 
 export default function NewspaperPage() {
-  const [extra, setExtra] = useState<NewsItem[]>(getStored);
-  const all = [...defaultNews, ...extra];
+  const [items, setItems] = useState<NewsItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const [manage, setManage] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [fTitle, setFTitle] = useState("");
@@ -23,23 +21,35 @@ export default function NewspaperPage() {
   const [fSource, setFSource] = useState("");
 
   const today = new Date().toISOString().split("T")[0];
-  const todayNews = all.filter(n => n.date === today);
-  const olderNews = all.filter(n => n.date !== today);
 
-  const handleAdd = () => {
+  const load = async () => {
+    setLoading(true);
+    const { data, error } = await supabase.from("news").select("*").order("date", { ascending: false });
+    if (error) toast.error("Failed to load news");
+    else setItems((data || []) as NewsItem[]);
+    setLoading(false);
+  };
+  useEffect(() => { load(); }, []);
+
+  const handleAdd = async () => {
     if (!fTitle.trim() || !fLink.trim()) { toast.error("Title and link required"); return; }
-    const n: NewsItem = { id: `n_${Date.now()}`, title: fTitle.trim(), description: fDesc.trim(), link: fLink.trim(), date: today, source: fSource.trim() || "Custom" };
-    const updated = [...extra, n]; setExtra(updated); saveStored(updated);
-    setFTitle(""); setFLink(""); setFDesc(""); setFSource(""); setShowForm(false); toast.success("News added!");
+    const { error } = await supabase.from("news").insert({ title: fTitle.trim(), description: fDesc.trim(), link: fLink.trim(), source: fSource.trim() || "Custom", date: today });
+    if (error) { toast.error("Failed to add"); return; }
+    setFTitle(""); setFLink(""); setFDesc(""); setFSource(""); setShowForm(false); toast.success("News added!"); load();
   };
 
-  const handleDelete = (id: string) => {
-    const updated = extra.filter(n => n.id !== id); setExtra(updated); saveStored(updated); toast.success("Deleted");
+  const handleDelete = async (id: string) => {
+    const { error } = await supabase.from("news").delete().eq("id", id);
+    if (error) { toast.error("Failed to delete"); return; }
+    toast.success("Deleted"); load();
   };
+
+  const todayNews = items.filter(n => n.date === today);
+  const olderNews = items.filter(n => n.date !== today);
 
   const renderCard = (n: NewsItem, i: number) => (
     <motion.div key={n.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} className="relative rounded-xl border bg-card p-6 flex flex-col card-hover">
-      {manage && extra.some(e => e.id === n.id) && (
+      {manage && (
         <Button variant="destructive" size="icon" className="absolute top-2 right-2 h-7 w-7 z-10" onClick={() => handleDelete(n.id)}><Trash2 className="h-3.5 w-3.5" /></Button>
       )}
       <div className="flex items-start justify-between mb-3">
@@ -84,16 +94,20 @@ export default function NewspaperPage() {
         </div>
       )}
 
-      {todayNews.length > 0 && (
+      {loading ? <p className="text-sm text-muted-foreground">Loading...</p> : items.length === 0 ? <p className="text-sm text-muted-foreground">No news yet.</p> : (
         <>
-          <h2 className="font-heading text-lg font-semibold mb-4">Today's Picks</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">{todayNews.map(renderCard)}</div>
-        </>
-      )}
-      {olderNews.length > 0 && (
-        <>
-          <h2 className="font-heading text-lg font-semibold mb-4">Previous Days</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">{olderNews.map(renderCard)}</div>
+          {todayNews.length > 0 && (
+            <>
+              <h2 className="font-heading text-lg font-semibold mb-4">Today's Picks</h2>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">{todayNews.map(renderCard)}</div>
+            </>
+          )}
+          {olderNews.length > 0 && (
+            <>
+              <h2 className="font-heading text-lg font-semibold mb-4">Previous Days</h2>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">{olderNews.map(renderCard)}</div>
+            </>
+          )}
         </>
       )}
     </div>
