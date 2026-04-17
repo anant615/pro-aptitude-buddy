@@ -30,8 +30,19 @@ export default function Home() {
           <div className="absolute bottom-10 right-20 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
         </div>
         <div className="container relative z-10 text-center">
-          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
-            <span className="inline-block bg-accent/20 text-accent px-4 py-1.5 rounded-full text-sm font-medium mb-4">
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0} className="space-y-3 mb-4">
+            <p className="text-sm md:text-base opacity-90">
+              Managed by{" "}
+              <a
+                href="https://www.linkedin.com/in/aman-pandey-iimk/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent font-semibold hover:underline"
+              >
+                Aman Pandey
+              </a>
+            </p>
+            <span className="inline-block bg-accent/20 text-accent px-4 py-1.5 rounded-full text-sm font-medium">
               CAT 2026 & OMET Preparation Platform
             </span>
           </motion.div>
@@ -55,7 +66,7 @@ export default function Home() {
             <Button asChild size="lg" className="bg-gradient-gold text-accent-foreground font-semibold text-base px-8 hover:opacity-90">
               <Link to="/practice">Start Practicing <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
+            <Button asChild variant="outline" size="lg" className="border-primary-foreground/40 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20 hover:text-primary-foreground">
               <Link to="/dpp">Today's DPP</Link>
             </Button>
           </motion.div>
