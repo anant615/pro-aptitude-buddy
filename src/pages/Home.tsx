@@ -66,7 +66,7 @@ export default function Home() {
             <Button asChild size="lg" className="bg-gradient-gold text-accent-foreground font-semibold text-base px-8 hover:opacity-90">
               <Link to="/practice">Start Practicing <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
+            <Button asChild variant="outline" size="lg" className="border-primary-foreground/40 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20 hover:text-primary-foreground">
               <Link to="/dpp">Today's DPP</Link>
             </Button>
           </motion.div>
