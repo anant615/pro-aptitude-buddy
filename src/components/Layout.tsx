@@ -21,6 +21,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dark, setDark] = useState(false);
   const location = useLocation();
+  const { user } = useAuth();
 
   const toggleDark = () => {
     setDark(!dark);
@@ -56,6 +57,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <Button variant="ghost" size="icon" onClick={toggleDark} className="rounded-full">
               {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </Button>
+            {user ? (
+              <Button variant="ghost" size="icon" className="rounded-full" onClick={() => supabase.auth.signOut()} title="Log out">
+                <LogOut className="h-4 w-4" />
+              </Button>
+            ) : (
+              <Button variant="ghost" size="icon" className="rounded-full" asChild title="Log in">
+                <Link to="/auth"><LogIn className="h-4 w-4" /></Link>
+              </Button>
+            )}
             <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setMobileOpen(!mobileOpen)}>
               {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
