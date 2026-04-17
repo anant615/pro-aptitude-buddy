@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Button } from "@/components/ui/button";
 import { Upload, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -19,12 +18,10 @@ export function FileUpload({ onUploaded }: { onUploaded: (publicUrl: string) => 
     setUp(false);
   };
   return (
-    <Button type="button" variant="outline" size="sm" asChild className="gap-1.5 cursor-pointer" disabled={up}>
-      <label>
-        {up ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Upload className="h-3.5 w-3.5" />}
-        {up ? "Uploading..." : "Upload file"}
-        <input type="file" className="hidden" onChange={handle} accept="application/pdf,image/*" disabled={up} />
-      </label>
-    </Button>
+    <label className={`inline-flex items-center gap-1.5 h-9 px-3 rounded-md border border-input bg-background text-sm font-medium cursor-pointer hover:bg-accent hover:text-accent-foreground whitespace-nowrap ${up ? "opacity-50 pointer-events-none" : ""}`}>
+      {up ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Upload className="h-3.5 w-3.5" />}
+      {up ? "Uploading..." : "Upload"}
+      <input type="file" className="hidden" onChange={handle} accept="application/pdf,image/*" disabled={up} />
+    </label>
   );
 }
