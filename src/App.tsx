@@ -16,6 +16,7 @@ import DPP from "@/pages/DPP";
 import Resources from "@/pages/Resources";
 import NewspaperPage from "@/pages/Newspaper";
 import Auth from "@/pages/Auth";
+import ResetPassword from "@/pages/ResetPassword";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
 import NotFound from "@/pages/NotFound";
@@ -32,6 +33,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/about" element={<About />} />
             <Route path="/practice" element={<ProtectedRoute><Practice /></ProtectedRoute>} />
             <Route path="/lrdi-sets" element={<ProtectedRoute><LRDISets /></ProtectedRoute>} />
