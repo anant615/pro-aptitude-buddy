@@ -14,6 +14,8 @@ const navLinks = [
   { to: "/videos", label: "Videos" },
   { to: "/resources", label: "Resources" },
   { to: "/newspaper", label: "Newspaper" },
+  { to: "/community", label: "Community" },
+  { to: "/leaderboard", label: "Leaderboard" },
   { to: "/about", label: "About" },
 ];
 
