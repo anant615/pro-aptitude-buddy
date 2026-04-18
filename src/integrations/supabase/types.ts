@@ -504,7 +504,16 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      leaderboard: {
+        Row: {
+          current_streak: number | null
+          display_name: string | null
+          longest_streak: number | null
+          total_points: number | null
+          user_id: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       award_points: {
