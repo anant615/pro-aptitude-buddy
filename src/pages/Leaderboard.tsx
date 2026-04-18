@@ -18,7 +18,7 @@ export default function Leaderboard() {
 
   useEffect(() => {
     (async () => {
-      const { data } = await supabase.from("user_points").select("*").order("total_points", { ascending: false }).limit(50);
+      const { data } = await (supabase as any).from("leaderboard").select("*").limit(50);
       setRows(data || []);
       setLoading(false);
     })();
