@@ -38,9 +38,12 @@ const topicDescriptions: Record<string, string> = {
 const learningOrder = ["Arithmetic", "Number System", "Algebra", "Geometry", "Modern Math", "Permutation & Combination"];
 
 import { useAuth } from "@/hooks/useAuth";
+import { useActivityTracker } from "@/hooks/useActivityTracker";
+import ProgressHeader from "@/components/ProgressHeader";
 
 export default function Videos() {
   const { isAdmin } = useAuth();
+  const { completed: watched, track } = useActivityTracker("video_watched");
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
   const [playing, setPlaying] = useState<string | null>(null);
   const [videosData, setVideosData] = useState<VideoRow[]>([]);
@@ -85,6 +88,14 @@ export default function Videos() {
           <Settings className="h-3.5 w-3.5" /> {manage ? "Hide Manage" : "Manage"}
         </Button>)}
       </motion.div>
+
+      <ProgressHeader
+        title="Quant Video Progress"
+        completed={videosData.filter(v => watched.has(v.id)).length}
+        total={videosData.length}
+        pointsPerItem={3}
+        icon={<Play className="h-5 w-5" />}
+      />
 
       {manage && (
         <div className="mb-6 space-y-3">
@@ -183,7 +194,7 @@ export default function Videos() {
                       <h3 className="font-medium text-sm leading-snug mb-1 line-clamp-2">{v.title}</h3>
                       <p className="text-xs text-muted-foreground mb-3">{v.creator}</p>
                       <div className="mt-auto flex gap-2">
-                        <Button size="sm" className="flex-1 gap-1.5" onClick={() => setPlaying(isPlaying ? null : key)}><Play className="h-3.5 w-3.5" /> {isPlaying ? "Close" : "Watch"}</Button>
+                        <Button size="sm" className="flex-1 gap-1.5" onClick={() => { setPlaying(isPlaying ? null : key); if (!isPlaying) track(v.id); }}><Play className="h-3.5 w-3.5" /> {isPlaying ? "Close" : watched.has(v.id) ? "Watched ✓" : "Watch"}</Button>
                         <Button size="sm" variant="outline" asChild><a href={v.link} target="_blank" rel="noopener noreferrer"><ExternalLink className="h-3.5 w-3.5" /></a></Button>
                       </div>
                     </div>
