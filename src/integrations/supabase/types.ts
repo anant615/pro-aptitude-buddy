@@ -14,6 +14,113 @@ export type Database = {
   }
   public: {
     Tables: {
+      community_answers: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          is_accepted: boolean
+          is_anonymous: boolean
+          question_id: string
+          updated_at: string
+          user_id: string
+          vote_count: number
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          is_accepted?: boolean
+          is_anonymous?: boolean
+          question_id: string
+          updated_at?: string
+          user_id: string
+          vote_count?: number
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          is_accepted?: boolean
+          is_anonymous?: boolean
+          question_id?: string
+          updated_at?: string
+          user_id?: string
+          vote_count?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "community_answers_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "community_questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      community_questions: {
+        Row: {
+          answer_count: number
+          body: string
+          category: string
+          created_at: string
+          id: string
+          is_anonymous: boolean
+          title: string
+          updated_at: string
+          user_id: string
+          vote_count: number
+        }
+        Insert: {
+          answer_count?: number
+          body?: string
+          category: string
+          created_at?: string
+          id?: string
+          is_anonymous?: boolean
+          title: string
+          updated_at?: string
+          user_id: string
+          vote_count?: number
+        }
+        Update: {
+          answer_count?: number
+          body?: string
+          category?: string
+          created_at?: string
+          id?: string
+          is_anonymous?: boolean
+          title?: string
+          updated_at?: string
+          user_id?: string
+          vote_count?: number
+        }
+        Relationships: []
+      }
+      community_votes: {
+        Row: {
+          created_at: string
+          id: string
+          target_id: string
+          target_type: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          target_id: string
+          target_type: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          target_id?: string
+          target_type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       dpps: {
         Row: {
           correct_answer: number | null
@@ -122,6 +229,33 @@ export type Database = {
         }
         Relationships: []
       }
+      point_events: {
+        Row: {
+          created_at: string
+          event_type: string
+          id: string
+          points: number
+          ref_id: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          event_type: string
+          id?: string
+          points: number
+          ref_id?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          event_type?: string
+          id?: string
+          points?: number
+          ref_id?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -167,6 +301,36 @@ export type Database = {
           link?: string
           title?: string
           type?: string
+        }
+        Relationships: []
+      }
+      user_points: {
+        Row: {
+          current_streak: number
+          display_name: string | null
+          last_active_date: string | null
+          longest_streak: number
+          total_points: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          current_streak?: number
+          display_name?: string | null
+          last_active_date?: string | null
+          longest_streak?: number
+          total_points?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          current_streak?: number
+          display_name?: string | null
+          last_active_date?: string | null
+          longest_streak?: number
+          total_points?: number
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -223,6 +387,15 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      award_points: {
+        Args: {
+          _event_type: string
+          _points: number
+          _ref_id?: string
+          _user_id: string
+        }
+        Returns: undefined
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
