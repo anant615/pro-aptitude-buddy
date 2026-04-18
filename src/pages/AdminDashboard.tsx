@@ -25,22 +25,30 @@ export default function AdminDashboard() {
       const hrs = RANGE_HOURS[range];
       const since = hrs ? new Date(Date.now() - hrs * 3600_000).toISOString() : null;
 
-      const [usersRes, viewsRes, clicksRes, fbRes] = await Promise.all([
-        supabase.from("user_points").select("user_id, updated_at"),
+      const sevenAgoIso = new Date(Date.now() - 7 * 24 * 3600_000).toISOString();
+      const [usersCountRes, active7Res, viewsCountRes, viewsRes, clicksCountRes, clicksRes, fbCountRes, fbRes] = await Promise.all([
+        supabase.from("user_points").select("user_id", { count: "exact", head: true }),
+        supabase.from("user_points").select("user_id", { count: "exact", head: true }).gte("updated_at", sevenAgoIso),
         since
-          ? supabase.from("page_views").select("path, created_at").gte("created_at", since)
-          : supabase.from("page_views").select("path, created_at"),
+          ? supabase.from("page_views").select("id", { count: "exact", head: true }).gte("created_at", since)
+          : supabase.from("page_views").select("id", { count: "exact", head: true }),
         since
-          ? supabase.from("link_clicks").select("url, source_path, link_type, created_at").gte("created_at", since)
-          : supabase.from("link_clicks").select("url, source_path, link_type, created_at"),
+          ? supabase.from("page_views").select("path").gte("created_at", since).limit(5000)
+          : supabase.from("page_views").select("path").limit(5000),
+        since
+          ? supabase.from("link_clicks").select("id", { count: "exact", head: true }).eq("link_type", "youtube").gte("created_at", since)
+          : supabase.from("link_clicks").select("id", { count: "exact", head: true }).eq("link_type", "youtube"),
+        since
+          ? supabase.from("link_clicks").select("source_path").eq("link_type", "youtube").gte("created_at", since).limit(5000)
+          : supabase.from("link_clicks").select("source_path").eq("link_type", "youtube").limit(5000),
+        supabase.from("feedback").select("id", { count: "exact", head: true }),
         supabase.from("feedback").select("*").order("created_at", { ascending: false }).limit(50),
       ]);
 
-      const users = usersRes.data?.length || 0;
-      const sevenAgo = Date.now() - 7 * 24 * 3600_000;
-      const signups7d = (usersRes.data || []).filter((u: any) => new Date(u.updated_at).getTime() > sevenAgo).length;
-      const views = viewsRes.data?.length || 0;
-      const ytClicks = (clicksRes.data || []).filter((c: any) => c.link_type === "youtube").length;
+      const users = usersCountRes.count || 0;
+      const signups7d = active7Res.count || 0;
+      const views = viewsCountRes.count || 0;
+      const ytClicks = clicksCountRes.count || 0;
 
       // top pages
       const pageCounts: Record<string, number> = {};
