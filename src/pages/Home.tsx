@@ -292,6 +292,16 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Feedback CTA */}
+      <section className="py-14 bg-card border-y">
+        <div className="container max-w-2xl text-center">
+          <MessageSquareText className="h-8 w-8 text-accent mx-auto mb-3" />
+          <h2 className="font-heading text-2xl md:text-3xl font-bold mb-2">We'd love your feedback</h2>
+          <p className="text-muted-foreground mb-5">Spotted a bug? Have an idea? Tap the floating button (bottom-right) anywhere on the site to share — it goes straight to the team.</p>
+          <p className="text-xs text-muted-foreground">Ratings, bug reports, content requests — all welcome 🙏</p>
+        </div>
+      </section>
+
       {/* PYQ CTA */}
       <section className="py-14 bg-gradient-navy text-primary-foreground">
         <div className="container text-center">
