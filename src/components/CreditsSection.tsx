@@ -27,6 +27,9 @@ export default function CreditsSection({ context = "mock tests, videos, and stud
       </div>
       <p className="text-sm text-muted-foreground leading-relaxed mb-4">
         All {context} featured here are the intellectual property of their respective creators and platforms.
+        Special heartfelt thanks to <span className="font-semibold text-accent">Ravi Prakash Sir</span> —
+        most of the concept videos featured on this platform belong to him, and his teaching has been
+        invaluable for students preparing for CAT and other MBA entrance exams.
         ProAptitude is a free aggregator built to help students discover quality learning resources — we claim
         no ownership over any third-party content. Heartfelt gratitude to:
       </p>
