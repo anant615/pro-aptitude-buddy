@@ -17,6 +17,9 @@ import Resources from "@/pages/Resources";
 import NewspaperPage from "@/pages/Newspaper";
 import Auth from "@/pages/Auth";
 import ResetPassword from "@/pages/ResetPassword";
+import Community from "@/pages/Community";
+import CommunityQuestion from "@/pages/CommunityQuestion";
+import Leaderboard from "@/pages/Leaderboard";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
 import NotFound from "@/pages/NotFound";
@@ -44,6 +47,9 @@ const App = () => (
             <Route path="/dpp" element={<ProtectedRoute><DPP /></ProtectedRoute>} />
             <Route path="/resources" element={<ProtectedRoute><Resources /></ProtectedRoute>} />
             <Route path="/newspaper" element={<ProtectedRoute><NewspaperPage /></ProtectedRoute>} />
+            <Route path="/community" element={<Community />} />
+            <Route path="/community/:id" element={<CommunityQuestion />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>
