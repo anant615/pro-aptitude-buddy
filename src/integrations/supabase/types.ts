@@ -169,6 +169,69 @@ export type Database = {
         }
         Relationships: []
       }
+      feedback: {
+        Row: {
+          category: string
+          created_at: string
+          email: string | null
+          id: string
+          message: string
+          page_path: string | null
+          rating: number | null
+          resolved: boolean
+          user_id: string | null
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          email?: string | null
+          id?: string
+          message: string
+          page_path?: string | null
+          rating?: number | null
+          resolved?: boolean
+          user_id?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          email?: string | null
+          id?: string
+          message?: string
+          page_path?: string | null
+          rating?: number | null
+          resolved?: boolean
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      link_clicks: {
+        Row: {
+          created_at: string
+          id: string
+          link_type: string
+          source_path: string | null
+          url: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          link_type?: string
+          source_path?: string | null
+          url: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          link_type?: string
+          source_path?: string | null
+          url?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       mocks: {
         Row: {
           created_at: string
@@ -226,6 +289,36 @@ export type Database = {
           link?: string
           source?: string
           title?: string
+        }
+        Relationships: []
+      }
+      page_views: {
+        Row: {
+          created_at: string
+          id: string
+          path: string
+          referrer: string | null
+          session_id: string | null
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          path: string
+          referrer?: string | null
+          session_id?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          path?: string
+          referrer?: string | null
+          session_id?: string | null
+          user_agent?: string | null
+          user_id?: string | null
         }
         Relationships: []
       }
