@@ -56,6 +56,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </nav>
 
           <div className="flex items-center gap-2">
+            {isAdmin && (
+              <Button variant="ghost" size="sm" className="rounded-full gap-1 hidden sm:flex" asChild title="Admin dashboard">
+                <Link to="/admin"><Shield className="h-4 w-4 text-accent" /> Admin</Link>
+              </Button>
+            )}
             <Button variant="ghost" size="icon" onClick={toggleDark} className="rounded-full">
               {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </Button>
