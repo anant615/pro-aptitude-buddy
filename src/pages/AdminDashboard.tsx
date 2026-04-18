@@ -50,20 +50,20 @@ export default function AdminDashboard() {
       const views = viewsCountRes.count || 0;
       const ytClicks = clicksCountRes.count || 0;
 
-      // top pages
+      // top pages (sample of up to 5000 recent views)
       const pageCounts: Record<string, number> = {};
       (viewsRes.data || []).forEach((v: any) => { pageCounts[v.path] = (pageCounts[v.path] || 0) + 1; });
       const top = Object.entries(pageCounts).map(([path, count]) => ({ path, count })).sort((a, b) => b.count - a.count).slice(0, 10);
 
       // top YT source pages
       const ytCounts: Record<string, number> = {};
-      (clicksRes.data || []).filter((c: any) => c.link_type === "youtube").forEach((c: any) => {
+      (clicksRes.data || []).forEach((c: any) => {
         const p = c.source_path || "unknown";
         ytCounts[p] = (ytCounts[p] || 0) + 1;
       });
       const topY = Object.entries(ytCounts).map(([source_path, count]) => ({ source_path, count })).sort((a, b) => b.count - a.count).slice(0, 10);
 
-      setStats({ users, signups7d, views, ytClicks, feedbackCount: fbRes.data?.length || 0 });
+      setStats({ users, signups7d, views, ytClicks, feedbackCount: fbCountRes.count || 0 });
       setTopPages(top);
       setTopYt(topY);
       setFeedback(fbRes.data || []);
