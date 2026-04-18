@@ -1,0 +1,955 @@
+[
+  {
+    "id": "cat25s2-q1",
+    "category": "verbal",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "The given sentence is missing in the paragraph below. Decide where it best fits among the options 1, 2, 3, or 4 indicated in the paragraph.\n\nSentence: While taste is related to judgment, with thinkers at the time often writing, for example, about \u201cjudgments of taste\u201d or using the two terms interchangeably, taste retains a vital link to pleasure, embodiment, and personal specificity that is too often elided in post-Kantian ideas about judgment\u2014a link that Arendt herself was working to restore.\n\nParagraph: ____(1) ____. Denneny focused on taste rather than judgment in order to highlight what he believed was a crucial but neglected historical change. ____(2) ____. Over the course of the seventeenth century and early eighteenth century, across Western Europe, the word taste took on a new extension of meaning, no longer referring specifically to gustatory sensation and the delights of the palate but becoming, for a time, one of the central categories for aesthetic\u2014and ethical\u2014thinking. ____(3) ____. Tracing the history of taste in Spanish, French, and British aesthetic theory, as Denneny did, also provides a means to recover the compelling and relevant writing of a set of thinkers who have been largely neglected by professional philosophy. ____(4) ____.",
+    "options": [
+      "Option 3",
+      "Option 1",
+      "Option 2",
+      "Option 4"
+    ],
+    "correctAnswer": 0,
+    "solution": "The paragraph explains why Denneny focuses on \u201ctaste\u201d instead of \u201cjudgment\u201d and how this choice helps bring attention to an important but often ignored part of aesthetic and philosophical history. It first shows Denneny pointing out a forgotten historical change, then explains that in the seventeenth and early eighteenth centuries, \u201ctaste\u201d grew from a physical sense to a main idea in aesthetics and ethics. Finally, it discusses how tracing this history helps recover overlooked thinkers and ideas. The missing sentence fits best at blank (3) because, by this point in the paragraph, it has already been described how \u2018taste\u2019 expanded. The sentence adds to the discussion by explaining why taste is important: even though it was often seen as the same as judgment, it kept its link to pleasure, the body, and personal experience, which later theories often ignored. This directly builds on the previous point about taste\u2019s central role in aesthetics and ethics.\n\nPutting the sentence at blank (1) would be too early, since the paragraph has not yet talked about how the concept of \u2018taste\u2019 changed over time. Placing it at blank (2) would break up the flow from Denneny\u2019s motivation to the bigger historical story. If it went at blank (4), it would feel awkward because the paragraph there moves on to Denneny\u2019s method and the recovery of overlooked thinkers, not the difference between taste and judgment. So, blank (3) is the most coherent and logical position.\n\n[]",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q2",
+    "category": "verbal",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "The four sentences (labelled 1, 2, 3, and 4) given below, when properly sequenced, would yield a coherent paragraph. Decide on the proper sequencing of the order of the sentences and key in the sequence of the four numbers as your answer.\n\n1. \u2018Literature on screen\u2019 suggests something more capacious and defining than citation: the possibility that literary adaptations are at once cinema and literature.\n\n2. Even though a growing number of films eligible for Academy Awards for Best Screenplay Based on Material from Another Medium borrow that material from print journalism, franchise characters, television series, comic books, video games and toys, academic studies of adaptation remain stubbornly attached to literature as cinema's natural progenitor.\n\n3. It is as if adaptation studies, by borrowing the cultural cachet of literature, sought to claim its institutional respectability and gravitas even while insuring adaptation's enduring aesthetic and methodological subordination to literature proper.\n\n4. Beneath this contradictory notion of film adaptations as not merely hybrid texts but texts holding dual citizenship in two modes of presentation is an even more pervasive legacy that haunts adaptation studies: the assumption that the primary context within which adaptations are to be studied is literature.",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: 1423\n\nSentence 1 works best as the opening because it introduces the key idea of what \u201cliterature on screen\u201d means and frames the debate by suggesting that adaptations might belong to both cinema and literature. Sentence 4 comes next because it explores this idea further and points out the main assumption in adaptation studies: that literature is the main way to understand adaptations. Sentence 2 then gives clear evidence of this bias by showing the contradiction that even though films now adapt material from many non-literary sources, academic studies still treat literature as cinema\u2019s natural source. Finally, sentence 3 works as the conclusion because it explains *why* this contradiction continues. It argues that adaptation studies rely on literature\u2019s cultural prestige to gain legitimacy, even if it means putting cinema in a secondary position. The most logical and clear order is therefore 1423.",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q3",
+    "category": "verbal",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "The passage given below is followed by four summaries. Choose the option that best captures the essence of the passage.\n\nFor millennia, in the process of opening up land for agriculture, gardens, grazing and hunting, humans have created ecological \u201cmosaics\u201d, or \u201cpatchworks\u201d: landscapes holding a mixture of habitats, like meadows, gardens and forests. These were not designed as nature reserves, but often catered to hugely diverse animal life. Research indicates that European hay meadows cultivated for animal feed were actually more successful at preserving a vast array of species than meadows explicitly cultivated for biodiversity. Studying the early Holocene, researchers have found that human presence was about as likely to\n\nincrease biodiversity as reduce it. Of course, not all human-created landscapes have the same value. A paved subdivision with astroturfed lawns is very different to a village with diverse vegetable and flower gardens. But scientists continue to find evidence that the old idea of humans as antithetical to nature is also wrong-headed, and that rosy visions of thriving, human-free environments are more imaginary than real.",
+    "options": [
+      "In our attempts to shape the world around us to our needs, humans have often created landscapes like meadows, gardens, and forests, which support hugely diverse species, and are more successful at preserving them, than parks created specifically for this.",
+      "In terms of preserving biodiversity, scientists are finding increasing evidence that human action is not always antithetical to nature, but often assists the preservation of meadows, landscapes, and flourishing of species.",
+      "Studying the early Holocene and human practices over millennia, researchers say that while agricultural meadows, gardens, and forests were not explicitly designed as nature reserves, they actually preserved a vast array of species, belying the idea that humans harm nature.",
+      "Contrary to the idea that humans always hurt nature and that it thrives in t"
+    ],
+    "correctAnswer": 3,
+    "solution": "The main idea of the passage is that the belief that humans always harm nature is not accurate. Throughout history, people have often created diverse landscapes that support many species. Research shows that human presence can increase biodiversity just as much as it can decrease it. The passage also questions the idea that nature only does well when people are not around.\n\nOption D best sums up the main idea. It clearly contrasts the old belief that humans always harm nature and that nature does best without people, with the newer view that humans have often helped increase biodiversity. It also mentions the creation of different types of landscapes, matching the argument and balance of the passage.\n\nThe other options do not sum up the passage as completely as Option D. Option A is too narrow and focuses too much on people shaping nature on purpose, missing the bigger point about the human-versus-nature idea. Option B is too vague and does not include the history or the idea of mixed landscapes. Option C is closer, but it is too specific and only talks about certain times and actions, so it does not fully show the passage\u2019s main message about how we view humans and nature.",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q4",
+    "category": "verbal",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "On the basis of the purpose of the examples in the passage, pick the odd one out from the following AI-generated responses mentioned in the passage:\n\nA \u201cWhen I queried ChatGPT about its rhetoric, it responded: \u2018The way I communicate is designed to foster trust and confidence in my responses, which can be both helpful and potentially misleading'.\u201d\n\nB \u201c...when my father asked ChatGPT to edit his writing, it transmuted his perfectly correct Indian English into American English.\u201d\n\nC \u201cOver time, ChatGPT seemed to be guiding me to write a more positive book about big tech - including editing my description of OpenAI\u2019s CEO, Sam Altman, to call him \u2018a visionary and a pragmatist\u2019.\u201d\n\nD \u201cWhen I prompted Microsoft\u2019s Bing Image Creator to produce a picture of engineers and space explorers, it gave me an entirely male cast of characters...\u201d",
+    "options": [
+      "\u201cWhen I queried ChatGPT about its rhetoric, it responded: \u2018The way I communicate is designed to foster trust and confidence in my responses, which can be both helpful and potentially misleading'.\u201d",
+      "\u201c...when my father asked ChatGPT to edit his writing, it transmuted his perfectly correct Indian English into American English.\u201d",
+      "\u201cOver time, ChatGPT seemed to be guiding me to write a more positive book about big tech - including editing my description of OpenAI\u2019s CEO, Sam Altman, to call him \u2018a visionary and a pragmatist\u2019.\u201d",
+      "\u201cWhen I prompted Microsoft\u2019s Bing Image Creator to produce a picture of engineers and space explorers, it gave me an entirely male cast of characters...\u201d"
+    ],
+    "correctAnswer": 0,
+    "solution": "The passage gives specific examples of AI-generated outputs to highlight a broader issue: the polite, *trustworthy* tone of AI systems can mask problems such as bias, distortion, and subtle influence on how users think. These examples show how those risks appear in real situations.\n\nSeen under this light, **options B, C, and D** share a common feature. Each of these three options presents a clear example of an AI system producing an outcome that matches the author\u2019s concern. This could be cultural bias, like changing Indian English to American English, representational bias, such as only showing male engineers and space explorers, or directional influence, like encouraging the author to describe a tech CEO more positively. These examples are used as evidence to show harm or distortion.\n\n**Option A** falls outside this pattern. It does not show a problematic output, but instead gives a higher-level explanation from ChatGPT about its own \u2018rhetorical\u2019 design. Instead of showing bias or influence, it directly explains how trust can be built and possibly misused. So, **option A** does not fit with the rest, and is the odd one out.",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q5",
+    "category": "verbal",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "All of the following statements from the passage affirm the disjunct between the claims about AI made by tech companies and what AI actually does EXCEPT:\n\nA \u201cWhen I prompted Microsoft\u2019s Bing Image Creator to produce a picture of engineers and space explorers, it gave me an entirely male cast of characters . . .\u201d\n\nB \u201cIn my own ChatGPT dialogues, I wanted to enact how the product\u2019s veneer of collegial neutrality could lull us into absorbing false or biased responses without much critical engagement.\u201d\n\nC \u201cI\u2019m not aware of research on whether ChatGPT tends to favor big tech, OpenAI or Altman, and I can only guess why it seemed that way in our conversation.\u201d\n\nD \u201cIt\u2019s a dynamic that makes us complicit in big tech\u2019s accumulation of wealth and power: we\u2019re both victims and beneficiaries.\u201d",
+    "options": [
+      "\u201cWhen I prompted Microsoft\u2019s Bing Image Creator to produce a picture of engineers and space explorers, it gave me an entirely male cast of characters . . .\u201d",
+      "\u201cIn my own ChatGPT dialogues, I wanted to enact how the product\u2019s veneer of collegial neutrality could lull us into absorbing false or biased responses without much critical engagement.\u201d",
+      "\u201cI\u2019m not aware of research on whether ChatGPT tends to favor big tech, OpenAI or Altman, and I can only guess why it seemed that way in our conversation.\u201d",
+      "\u201cIt\u2019s a dynamic that makes us complicit in big tech\u2019s accumulation of wealth and power: we\u2019re both victims and beneficiaries.\u201d"
+    ],
+    "correctAnswer": 2,
+    "solution": "The passage highlights a gap between what AI companies say their systems do, such as being neutral, inclusive, and trustworthy, and what these systems actually produce. We need to check each option to see if it supports this gap or not. For that, we review each option individually:\n\nOption A clearly supports the gap. The system claims to be neutral or inclusive, but when asked for engineers and space explorers, it produces an \u201centirely male cast of characters.\u201d This shows a clear difference between what is promised and what actually happens.\n\nOption B also supports the gap. It points out the difference between the appearance of neutrality and the fact that this tone can make users accept biased or false answers. This sentence almost directly states the gap the passage discusses.\n\nOption C does *not* support the gap. Here, the author holds back from making a judgment, saying they are \u201cnot aware of research\u201d and can \u201conly guess\u201d why ChatGPT seemed to favour big tech or its CEO. Instead of showing a mismatch between claims and actions, this sentence adds uncertainty and does not reinforce the gap.\n\nOption D does support the gap, but in a broader way. It shows that users benefit from AI products while also helping big tech gain more wealth and power. This highlights the difference between positive talk and real-world results.\n\nSo, the statement that does not support the gap is option C.",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q6",
+    "category": "verbal",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "The author compares AI-generated texts with \u201ca beige office building\u201d for all of the following reasons EXCEPT:\n\nA AI generates generalised responses that lack specificity and nuance.\n\nB AI tends to blame its training data when scrutinised for its biases.\n\nC AI aims to foster a feeling of trust and credibility among its users.\n\nD AI-generated texts often exhibit a warm, polite, and collegial tone.",
+    "options": [
+      "AI generates generalised responses that lack specificity and nuance.",
+      "AI tends to blame its training data when scrutinised for its biases.",
+      "AI aims to foster a feeling of trust and credibility among its users.",
+      "AI-generated texts often exhibit a warm, polite, and collegial tone."
+    ],
+    "correctAnswer": 1,
+    "solution": "The phrase \u201ca beige office building\u201d is used to describe the *style and effect* of AI-generated language, not how AI explains or defends itself when questioned. The passage says people often call chatbot output \u201cbland\u201d or \u201cgeneric,\u201d which supports *option A*. It also mentions that OpenAI wants its products to *\u201csound like a colleague,\u201d* using language that is \u201cpolite,\u201d \u201cempathetic,\u201d \u201ckind,\u201d \u201crationally optimistic,\u201d and \u201cengaging,\u201d which supports *option D*. The same design is said to help us feel safe and makes the product seem \u201cprofessional\u201d and \u201capproachable,\u201d which supports *option C*.\n\n*Option B* is not connected to the \u201cbeige office building\u201d metaphor. The part about ChatGPT blaming \u201cbiases in its training data\u201d comes later and is about how the system answers questions about its mistakes, not about the bland, generic, and trust-building tone described by the metaphor. So, the correct answer is *option B*.",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q7",
+    "category": "verbal",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "The author of the passage is least likely to agree with which one of the following claims?\n\nA The neutrality of AI is conducive to critical thinking.\n\nB ChatGPT favours AI companies and their officials, like Sam Altman, in its responses.\n\nC When we use AI, we become accomplices to the exploitative practices of big tech companies.\n\nD The neutrality of AI is motivated by economic considerations.",
+    "options": [
+      "The neutrality of AI is conducive to critical thinking.",
+      "ChatGPT favours AI companies and their officials, like Sam Altman, in its responses.",
+      "When we use AI, we become accomplices to the exploitative practices of big tech companies.",
+      "The neutrality of AI is motivated by economic considerations."
+    ],
+    "correctAnswer": 0,
+    "solution": "Let's examine each option in relation to the passage.\n\n*Option A* is the one the author is least likely to agree with. The author is concerned that AI\u2019s neutral, friendly tone actually reduces critical thinking instead of encouraging it. She writes that the product\u2019s \u201cveneer of collegial neutrality could lull us into absorbing false or biased responses without much critical engagement.\u201d This goes against the idea that neutrality helps critical thinking.\n\nThe author is cautious about <u>option B</u> but does not reject it. She says that ChatGPT \u201cseemed to be guiding me to write a more positive book about big tech,\u201d and even changed her description of Sam Altman. She also says she is \u201cnot aware of research\u201d and can \u201conly guess why it seemed that way.\u201d This shows she is sceptical and careful, but she does not completely agree or disagree with the idea.\n\nOption C matches the author\u2019s view. Early on in the passage, she says that using big tech products makes users \u201ccomplicit in big tech\u2019s accumulation of wealth and power,\u201d and calls us \u201cboth victims and beneficiaries.\u201d This directly supports the claim; the author will definitely agree with this statement.\n\nOption D also fits with the passage. The author says that funders \u201cseek a return on their investment\u201d and that it is easier to get people to use products like ChatGPT \u201cif people see those products as trustworthy collaborators.\u201d This connects AI\u2019s neutral tone to business goals. The author will therefore agree with this statement as well.\n\nSo, the author is least likely to agree with option A.",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q8",
+    "category": "verbal",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "The passage given below is followed by four summaries. Choose the option that best captures the essence of the passage.\n\nIn 1903, left-wing feminist Elizabeth Magie invented The Landlord\u2019s Game, the original version of what became Monopoly. It was designed as a powerful teaching tool to illustrate the dangers of monopolies and how wealth could concentrate in the hands of a few. The game featured a circular path, properties, and a \u201cGo to Jail\u201d space. Magie created two rule sets: one \u201cmonopolist\u201d version where players crushed opponents through accumulation, and another, more radical \u201cProsperity\u201d version, where everyone shared in the wealth, promoting fairness and equity. Years later, unemployed Charles Darrow sold a simplified version to Parker Brothers. They paid Magie only $500 for her patent\u2014without royalties\u2014and credited Darrow as the sole inventor. For decades, his tale of inventing the game in his basement remained the official story, while Magie\u2019s name and her original, anti-capitalist message were left in the shadows.",
+    "options": [
+      "It is ironical that a left-wing feminist lost credit for the Landlord\u2019s Game to an unemployed man, who plagiarised and sold one version of the twin game to Parker Brothers for a meagre sum, denying her royalties.",
+      "Celebrated icons of the gaming industry, Charles Darrow and Parker Brothers, snatched the feminist icon Elizabeth Magie\u2019s original design and transformed Monopoly into a worldwide phenomenon, while barely acknowledging her.",
+      "Only one version of Monopoly became famous because of Charles Darrow\u2019s relentless basement work, carefully refining Elizabeth Magie\u2019s original idea C into an engaging and entertaining pastime that he successfully patented and sold, symbolizing what many regarded as the ultimate triumph of individual ingenuity.",
+      "Parker Brothers\u2019 capitalist intent led to them acquiring from Charles Darrow a simplified version of Elizabeth Magie\u2019s original game, transforming it into a widespread commercial success while providin"
+    ],
+    "correctAnswer": 0,
+    "solution": "The main argument of the passage is that Elizabeth Magie originally created the game as an anti-monopoly, anti-capitalist teaching tool, but her idea and message were later appropriated, simplified, and credited to Charles Darrow, leaving her largely unrecognised and poorly compensated. Option (a) captures this essence best because it highlights all the key elements together:(i) Magie\u2019s left-wing feminist identity, (ii) the irony of her losing credit, (iii) the role of Darrow in selling a version of the game, (iv) the small payment she received, and (v) the denial of royalties. It reflects both the historical injustice and the irony that a game meant to critique monopolies ended up enacting one against its own creator.\n\nOption (b) overstates Darrow and Parker Brothers as \u201ccelebrated icons\u201d and focuses more on their success than on Magie\u2019s original intent and the loss of her anti-capitalist message. Option (c) is incorrect because it repeats the very myth the passage is trying to debunk by portraying Darrow as the true innovator. Option (d) shifts the focus too heavily onto Parker Brothers\u2019 capitalist motives and underplays the central irony and misattribution surrounding Magie herself. Hence, option (a) is the best summary.",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q9",
+    "category": "verbal",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "Five jumbled sentences (labelled 1, 2, 3, 4, and 5), related to a topic, are given below. Four of them can be put together to form a coherent paragraph. Identify the odd sentence out and key in the number of that sentence as your answer.\n\n1.Sporting a copper-coloured pixie cut and a pair of pink feather antlers, Torres himself resembles a child\u2019s doodle.\n\n2.His casual millennial delivery, peppered with \u201cum\u201ds and \u201cah\u201ds, makes surreal concepts sound like items on a brunch menu.\n\n3.Though he may have failed so far in his colour-scouting mission (he hasn\u2019t yet found a new one, he admits), this hour leaves you tickled pink.\n\n4.Like his previous show, My Favourite Shapes, this is an hour of sit-down comedy aided by an overhead camera which relays Torres\u2019s theories - illustrated with crayon squiggles - on to a screen behind him.\n\n5.His inquisitive mind produces interconnected ideas about Catholicism, the blandness of Pixar and what orange sounds like, while his insights train us to spot \u201chighly purple behaviour\u201d.",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: 3\n\nThe paragraph is about Torres\u2019s comedy show: its format, ideas, and delivery. Sentence 4 works as the opening because it introduces the show and explains its structure, making it the natural starting point. Sentence 1 continues this setup by shifting focus to Torres\u2019 physical appearance. Sentence 5 then moves to his comic sensibility, developing the kind of ideas he explores, and Sentence 2 closes by characterising his delivery, tying back to how those ideas are presented. 4-2-5-1, therefore, presents a coherent paragraph.\n\nSentence 3 breaks this flow because it introduces a specific \u201ccolour-scouting mission\u201d and a personal audience reaction, which does not connect clearly to the descriptive sequence of the show\u2019s structure, ideas, and style. Therefore, the correct order is 4-1-5-2, and the odd sentence out is <u>3</u>.",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q10",
+    "category": "verbal",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "Different sciences exhibit different science cultures and practices. For example, in astronomy, observation - until what is today called the new astronomy - had always been limited to what could be seen within the limits of optical light. Indeed, until early modernity the limits to optical light were also limits of what humans could themselves see within their limited and relative perceptual spectrum of human vision. With early modernity and the invention of lensed optical instruments - telescopes - astronomers could begin to observe phenomena never seen before. Magnification and resolution began to allow what was previously imperceptible to be perceived - but within the familiar limits of optical vision. Galileo, having learned of the Dutch invention of a telescope by Hans Lippershey, went on to build some hundred of hi\n\nNone of the following statements, if true, contradicts the arguments in the passage EXCEPT:",
+    "options": [
+      "some scientific instruments may be classified as both receptive and interventional in their functions.",
+      "because of the relatively recent entry of computational machinery in mathematics, the field is only now beginning to develop a scientific culture.",
+      "like telescopy, microscopy has also sought to move beyond the visible spectrum to be able to detect objects that are invisible in that spectrum.",
+      "Isaac Newton\u2019s discovery of gravity was accomplished without the help of instruments."
+    ],
+    "correctAnswer": 1,
+    "solution": "Let's examine each option one by one.\n\nOption A does not contradict the passage. The author describes astronomy as mostly \u201creceptive\u201d and biology as more \u201cinterventional,\u201d but does not say these categories cannot overlap. The phrase \u201clargely a \u2018receptive\u2019 science\u201d suggests there could be some crossover. The passage also does not state that instruments cannot serve both roles, so this option matches the argument.\n\nOption B does contradict the passage. The passage says mathematics may be \u201cthe last of the scientific disciplines to move into such technical embodiment,\u201d meaning it has only recently become heavily dependent on instruments. However, this does not mean mathematics is \u201conly now beginning to develop a scientific culture.\u201d So, B misrepresents the claim.\n\nOption C does not contradict the passage. The discussion about astronomy moving beyond the visible spectrum does not mean that microscopy cannot also go beyond visible limits. The passage does not say microscopy is limited to the visible spectrum or that it cannot move beyond it. So, option C does not contradict the argument; it just goes beyond what is stated.\n\nTherefore, only option B contradicts the passage.",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q11",
+    "category": "verbal",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "Different sciences exhibit different science cultures and practices. For example, in astronomy, observation - until what is today called the new astronomy - had always been limited to what could be seen within the limits of optical light. Indeed, until early modernity the limits to optical light were also limits of what humans could themselves see within their limited and relative perceptual spectrum of human vision. With early modernity and the invention of lensed optical instruments - telescopes - astronomers could begin to observe phenomena never seen before. Magnification and resolution began to allow what was previously imperceptible to be perceived - but within the familiar limits of optical vision. Galileo, having learned of the Dutch invention of a telescope by Hans Lippershey, went on to build some hundred of hi\n\nAll of the following statements may be rejected as valid inferences from the passage EXCEPT:",
+    "options": [
+      "interventionist instruments, or instruments that intervene directly in scientific inquiry, are different from embodied instruments, or instruments that embody scientific inquiry.",
+      "the advances in telescopy made by Newton with reflecting telescopes allowed early modern astronomers to observe the phases of Venus and the satellites of Jupiter.",
+      "the author distinguishes between the receptive and interventionist uses of instruments in the sciences by comparing astronomy and biology, respectively.",
+      "Isaac Newton\u2019s experiments with reflecting telescopes were the earliest versions of the \u201cnew astronomy\u201d referred to in the passage."
+    ],
+    "correctAnswer": 2,
+    "solution": "We evaluate each option individually, against what the passage truly supports, and then reject it if it is an invalid inference.\n\nOption A should be rejected. The passage does not set \u201cinterventionist instruments\u201d and \u201cembodied instruments\u201d as separate categories. Instead, it states that sciences are \u201ctechnologically, instrumentally embodied,\u201d whether the instruments are receptive or interventional. The author\u2019s point is about different styles of <u>embodiment</u>, not a contrast between embodiment and intervention. So, this inference misunderstands the main idea.\n\nOption B should also be rejected. The passage credits Galileo with observing \u201cthe phases of Venus\u201d and \u201cthe satellites of Jupiter,\u201d saying \u201cit was with his own telescopes that he made the observations launching early modern astronomy.\u201d Newton\u2019s reflecting telescopes are mentioned as <u>later improvements</u>, not as the tools for those discoveries. This inference does not match the historical order described.\n\nOption C is valid and should NOT be rejected. The passage clearly compares astronomy and biology based on how they use instruments. Astronomy is called \u201clargely a \u2018receptive\u2019 science, dependent upon instrumentation which can detect and receive emissions,\u201d while biology, especially with biotechnology, uses instruments that are \u201cfar more interventional in style.\u201d This comparison is a key part of the author\u2019s point.\n\nOption D should be rejected. The passage links the \u201cnew astronomy\u201d to the use of the full electromagnetic spectrum, starting with radio astronomy in the twentieth century. Newton\u2019s reflecting telescopes belong to optical astronomy and the trend of increasing magnification and resolution. Calling Newton\u2019s work the start of the \u201cnew astronomy\u201d does not fit the passage.\n\nTherefore, option C is the only valid inference.",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q12",
+    "category": "verbal",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "Different sciences exhibit different science cultures and practices. For example, in astronomy, observation - until what is today called the new astronomy - had always been limited to what could be seen within the limits of optical light. Indeed, until early modernity the limits to optical light were also limits of what humans could themselves see within their limited and relative perceptual spectrum of human vision. With early modernity and the invention of lensed optical instruments - telescopes - astronomers could begin to observe phenomena never seen before. Magnification and resolution began to allow what was previously imperceptible to be perceived - but within the familiar limits of optical vision. Galileo, having learned of the Dutch invention of a telescope by Hans Lippershey, went on to build some hundred of hi\n\nTo which one of the following instruments would the characterisations of instruments in the passage be least applicable?",
+    "options": [
+      "Milestone",
+      "Kitchen oven",
+      "Scalpel",
+      "Saxophone"
+    ],
+    "correctAnswer": 0,
+    "solution": "The passage describes instruments as active, technology-based tools that play a role in practice. They help us see more, take action, or support skilled work. Whether they receive information, like telescopes, or allow intervention, like biotechnological tools, these instruments are not passive. They influence what we can notice, do, or understand. Looking into the options, we can say that the only option that doesn't fit this common definition of being an 'active mediator' is a milestone (Option A). A kitchen oven (Option B) changes materials by controlling conditions, a scalpel (Option C) acts directly on biological matter, and a saxophone (Option D) needs skill to create music. A milestone is just a fixed marker that shows distance. It does not help us perceive, change, or take part in any technical process as described in the passage. It does not detect or affect anything. So, the characterisation is least applicable to **option A**.",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q13",
+    "category": "verbal",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "Different sciences exhibit different science cultures and practices. For example, in astronomy, observation - until what is today called the new astronomy - had always been limited to what could be seen within the limits of optical light. Indeed, until early modernity the limits to optical light were also limits of what humans could themselves see within their limited and relative perceptual spectrum of human vision. With early modernity and the invention of lensed optical instruments - telescopes - astronomers could begin to observe phenomena never seen before. Magnification and resolution began to allow what was previously imperceptible to be perceived - but within the familiar limits of optical vision. Galileo, having learned of the Dutch invention of a telescope by Hans Lippershey, went on to build some hundred of hi\n\nWhich one of the following observations is a valid conclusion to draw from the statement that \u201cthe sciences involved are today highly instrumentalised and could not progress successfully without constant improvements upon the respective instrumental trajectories\u201d?",
+    "options": [
+      "The use of instruments in scientific trajectories must be respected in order to see successful progress in them.",
+      "The growth of scientific technologies has led to the embodiment of progress in the trajectories of improvement.",
+      "In both astronomy and microbiology, progress has been the consequence of improvements in the instruments they use.",
+      "Highly instrumentalised work in the sciences has resulted in the progressive improvement of scientific constants."
+    ],
+    "correctAnswer": 2,
+    "solution": "The quoted line says that the sciences \u201care today highly instrumentalised and could not progress successfully without constant improvements upon the respective instrumental trajectories.\u201d This means scientific progress is directly connected to better instruments. Option C matches this idea well. The passage talks about astronomy and microbiology separately, showing that better telescopes helped astronomy grow and that tools like gene-splicing shape modern biology. It then says both fields rely on ongoing improvements in their instruments. These examples show that in both fields, scientific progress has followed improvements in instruments.\n\nThe other options fail: Option A changes the idea from dependence to \u201cmust be respected,\u201d which adds a value judgment or obligation not found in the passage. Option B talks about the \u201cgrowth of scientific technologies\u201d but misses the clear link between progress and better instruments. Option D mentions \u201cscientific constants,\u201d which the passage does not discuss. So, the correct answer is **Option C**.",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q14",
+    "category": "verbal",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "Five jumbled sentences (labelled 1, 2, 3, 4, and 5), related to a topic, are given below. Four of them can be put together to form a coherent paragraph. Identify the odd sentence out and key in the number of that sentence as your answer.\n\n1. Pfas are a class of about 15,000 compounds most frequently used to make products water-, stain- and grease-resistant.\n\n2. New research suggests exposure to some common perfluoroalkyl and polyfluoroalkyl substances (Pfas) cause changes to gene activity and that these changes are linked to health problems including multiple cancers, neurological disorders and autoimmune disease.\n\n3. These Pfas compounds are dubbed \u201cforever chemicals\u201d because they do not naturally break down in the environment.\n\n4. The research may also point toward other diseases potentially caused by Pfas that have not yet been identified.\n\n5. The findings are a major step toward determining the mechanism by which the chemicals cause disease and could help doctors identify, detect and treat health problems for those exposed to Pfas before the issues advance.",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: 3\n\nThe sentences discuss new scientific research on PFAS. They cover what these chemicals are, what the research found about their health effects, and why these findings are important for medicine. The main focus is on the research, its implications, and how it may help identify diseases in the future.\n\nSentences 2, 1, 4, and 5 follow a logical order. Sentence 2 introduces the new research and its main claim about gene activity and health problems. Sentence 1 gives background on what PFAs are and why they are used. Sentence 4 builds on the research by suggesting PFAS could be linked to more diseases that have not yet been identified. Sentence 5 wraps up by explaining why these findings matter, showing how they help us understand diseases and improve early detection and treatment.\n\nSentence 3 does not fit well with the others. It is accurate, but it explains why PFAS are called \u201cforever chemicals\u201d because they stay in the environment. None of the other sentences discusses this idea; moreover, statement 3 does not add to the main points about gene activity, disease, or medical impact. So, it feels like extra information that is not directly related. Therefore, the odd sentence out is **3**.",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q15",
+    "category": "verbal",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "The given sentence is missing in the paragraph below. Decide where it best fits among the options 1, 2, 3, or 4 indicated in the paragraph.\n\nSentence- The region\u2019s Western customers found it hard to believe that Dhaka muslin could possibly have been made by human hands - there were rumour that it was woven by mermaids, fairies and even ghosts.\n\nOnce upon the silty banks of the Meghna River, a miracle was spun \u2014 a fabric so light it was called \u201cbaft-hawa\u201d, or woven air. This was Dhaka Muslin \u2014 the world\u2019s most coveted cloth. ____(1)____. Handspun from a rare cotton called Phuti Karpas, found nowhere else on Earth, and woven with a 16-step sacred ritual \u2014 beginning with cleaning the cotton using the teeth of a river catfish! ____(2)____. Every spring, the maple-like leaves pushed up through the grey, silty soil to produce a single daffodil yellow flower twice a year, which gave way to a snowy floret of cotton fibres. ____(3)____. Spun at dawn on boats by sharp-eyed young women, its threads were so fine the elderly could barely see them. Motifs of wildflowers, river breeze, and soul were etched into each piece \u2014 some so light, a 91-metre bolt could pass through a ring, or a 60' length fit inside a snuffbox. It draped Greek goddesses, Roman nobles, Mughal emperors, and European aristocrats. Marie Antoinette, Empress Jos\u00e9phine \u2014 even Jane Austen adored its floating grace. ____(4)____.",
+    "options": [
+      "Option 4",
+      "Option 1",
+      "Option 3",
+      "Option 2"
+    ],
+    "correctAnswer": 1,
+    "solution": "The Sentence mentions \"the region's Western customers,\" implying that the region in question is not in the West. It follows that the area being mentioned must be Dhaka and the surrounding places where the Muslin was produced and sold. The sentence before Blank-4 mentions varied places, and therefore, the Sentence cannot be placed in Blank-4. Starting from \"Handspun from a rare cotton...\", until \".... a 60' length fit inside a snuffbox,\" the passage discusses how the Dhaka Muslin was made. Placing the Sentence in between would disrupt the flow of the paragraph and the surrounding context. Blank-1 is the most suitable choice, since the Sentence can then follow the preceding mentions of \"silty banks of Meghna river\" and Dhaka itself. Option B is the correct answer.",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q16",
+    "category": "verbal",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "Time and again, whenever a population [of Mexican tetra fish] was swept into a cave and survived long enough for natural selection to have its way, the eyes disappeared.\n\nAll of the following statements from the passage describe adaptation in Mexican tetra cavefish EXCEPT:",
+    "options": [
+      "\"It's easy to see why cavefish would be at a disadvantage if they were to maintain expensive tissues they aren't using.\"",
+      "\"Since relatively little lives or grows in their caves, the fish are likely surviving on a meager diet of mostly bat feces and organic waste that washes in during the rainy season.\"",
+      "\"'But when these cells get too big, they can burst, which is why we often see chronic inflammation in humans and other animals that have stored a lot of fat in their tissues.'\"",
+      "\"Even in their sparse cave conditions, wild cavefish can sometimes get very fat, says Riddle.\""
+    ],
+    "correctAnswer": 2,
+    "solution": "The passage describes how Mexican tetra cavefish have developed specific traits that help them survive in caves. These include losing their eyes, changing their metabolism, and controlling inflammation to cope with limited and unpredictable food. Of the choices, we need to identify which statement does not describe an adaptation in cavefish, and for that, we evaluate each option individually.\n\n*   Option A [... *maintain expensive tissues they aren't using* ...] shows an example of adaptation. The passage clearly says that keeping unused tissues like eyes is a disadvantage in caves where energy is limited. Losing eyes is described as an evolutionary change that helps save energy.\n*   Option B [... *fish are likely surviving on a meager diet* ...] talks about the environmental pressure that cavefish have adapted to. The limited diet of bat feces and organic waste shows *why* adaptations for absorbing and storing nutrients are helpful. Even though this sentence describes the environment, it is still part of the adaptation story because it explains what drives these traits.\n*   Option C [... *cells get too big, they can burst...*] does not describe an adaptation in cavefish. Instead, it explains why fat storage causes inflammation in humans and other animals. This sentence gives background information, but the passage later points out that cavefish *do not* have this inflammation. So, this statement is about other organisms, not about cavefish adaptation.\n*   Option D [... *cavefish can sometimes get very fat...*] also describes an adaptation. Cavefish can become very fat even when food is scarce, which shows their evolved ability to overeat when possible and store nutrients well. This is an advantage in an environment where food is unpredictable.\n\nSo, the statement that does not describe an adaptation in Mexican tetra cavefish is option C.",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q17",
+    "category": "verbal",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "Time and again, whenever a population [of Mexican tetra fish] was swept into a cave and survived long enough for natural selection to have its way, the eyes disappeared.\n\nWhich one of the following best explains why the \"apparent inefficiency\" is \"unavoidable\"?",
+    "options": [
+      "The caves have poor and inconsistent availability of food and nutrition for Mexican tetra cavefish.",
+      "The lack of light in the caves kills the eye cells in the developing Mexican tetra cavefish embryo.",
+      "The inefficiency resulting from eyelessness is compensated by enhancements like more tastebuds in Mexican tetra cavefish.",
+      "Mexican tetra cavefish are similar to non-cave-dwelling variants in their early stages of development."
+    ],
+    "correctAnswer": 3,
+    "solution": "The idea of \u201capparent inefficiency is unavoidable\u201d refers to the fact that cavefish embryos begin developing eyes only for those eye cells to die off later, and this process is, however, unavoidable. The explanation must therefore point to a constraint in early development that makes it impossible to avoid initiating eye formation in the first place. The correct option must directly account for *why this sequence cannot be skipped*.\n\nOption D gives this explanation. It says that Mexican tetra cavefish develop in the same way as their non-cave-dwelling relatives at first. The passage also says that eye and brain development are \u201ccompletely intertwined\u201d early on. Since cavefish embryos follow the same path as non-cave-dwelling fish, evolution cannot remove eye formation at the start without affecting brain development. Hence, starting eye formation and then dismantling it becomes unavoidable.\n\nThe other options do not work because they focus on selective pressure or later results, not on why eye formation must start. Option A talks about why eyes are costly for adult fish, not why embryos begin forming them. Option B incorrectly blames eye loss on darkness instead of on the intrinsic developmental processes. Option C mentions changes that happen after eye loss, but does not explain why the inefficient developmental sequence itself cannot be avoided.",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q18",
+    "category": "verbal",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "Time and again, whenever a population [of Mexican tetra fish] was swept into a cave and survived long enough for natural selection to have its way, the eyes disappeared.\n\nWhich one of the following results for the cross between surface fish (with eyes) and cavefish (without eyes) would invalidate Riddle's inference from the experiment?",
+    "options": [
+      "Some offspring with eyes had white fat.",
+      "Some offspring with eyes had yellow fat.",
+      "Only eyeless offspring had yellow fat.",
+      "Some eyeless offspring had white fat."
+    ],
+    "correctAnswer": 2,
+    "solution": "The experiment tests Riddle\u2019s idea that carotenoid accumulation (yellow fat) is not linked to eye loss but serves another purpose, like reducing inflammation. To disprove this, results must show a direct connection between losing eyes and carotenoid accumulation.\n\nOption C would directly invalidate this inference. If *only* the eyeless offspring had yellow fat, it would provide a strong link between the absence of eyes and carotenoid buildup. This would go against Riddle\u2019s statement that there is \u201cno link between eye presence or size and the accumulation of carotenoids,\u201d and would support the earlier idea that carotenoids build up because cavefish lack eyes.\n\nThe other options do not challenge her idea. Options A and D show that white fat can appear whether or not the fish have eyes. Option B shows that fish with eyes can also have yellow fat. These results fit with Riddle\u2019s claim that carotenoid buildup does not depend on eye presence. So, only option C would disprove her inference.",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q19",
+    "category": "verbal",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "Time and again, whenever a population [of Mexican tetra fish] was swept into a cave and survived long enough for natural selection to have its way, the eyes disappeared.\n\nOn the basis of the information in the passage, what is the most likely function of carotenoids in Mexican tetra cavefish?",
+    "options": [
+      "To act as a substitute for eyes.",
+      "To help the fat cells store nutrients.",
+      "To render bright yellow colour to the cavefish.",
+      "To control inflammation from the bursting of fat cells."
+    ],
+    "correctAnswer": 3,
+    "solution": "The passage explicitly states Riddle\u2019s conclusion: *\u201cInstead, Riddle thinks these carotenoids may be another adaptation to suppress inflammation.\u201d* This directly points to carotenoids playing a role in controlling inflammation, especially in the context of fat cells becoming large and potentially causing inflammatory damage. Therefore, the correct answer is **option D**.\n\nThe other options are either not mentioned in the passage or, if mentioned, are discussed in a different context. Option A is mentioned only as an initial hypothesis that carotenoids might be linked to eye loss, but this idea is explicitly rejected after cross-breeding shows *\u201cno link between eye presence or size and the accumulation of carotenoids.\u201d* Option B is not mentioned at all in connection with carotenoids; nutrient storage is discussed as a general metabolic adaptation, not as a function of carotenoids. Option C refers merely to the observed yellow colour of fat, which the passage treats as a visible effect, not as the biological purpose of carotenoids.",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q20",
+    "category": "verbal",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "This book takes the position that setting in literature is more than just backdrop, that important insight into literary texts can be made by paying close attention to how authors craft place, as well as to how place functions in a narrative. The authors included in this reference work engage deeply with either real or imagined geographies. They care about how human decisions have shaped landscapes and how landscapes have shaped human practices and values. Some of the best writing is highly vivid, employing the language of the senses because this is the primary means through which humans know physical space.\n\nLiterature can offer valuable perspectives on physical and cultural geography. Unlike scientific reports, a literary narrative can provide the emotional component missing from the scientific record. In human experience, geographical places have a spiritual or emotional component in addition to and as part of a physical layout and topography. This emotional component, although subjective, is no less \u201creal\u201d than a surveyor\u2019s map. Human consciousness of place is experienced in a multimodal manner. Histories of places live on in many forms, one of which is the human memory or imagination.\n\nBoth real and imaginary landscapes provide insight into the human experience of place. The pursuit of such a topic speaks to the valuable knowledge produced from bridging disciplines and combining material from both the arts and the sciences to better understand the human condition. The perspectives that most concern cultural \n\nWhich one of the following is a valid conclusion to draw from the author\u2019s statement that, \u201cThe pursuit of such a topic speaks to the valuable knowledge produced from bridging disciplines and combining material from both the arts and the sciences to better understand the human condition.\u201d?",
+    "options": [
+      "A comprehensive bridging of the human condition can best be achieved by a disciplined pursuit of human understanding.",
+      "A comprehensive understanding of the valuable knowledge produced by the arts and sciences can best be achieved by studying the human condition.",
+      "A comprehensive understanding of the human condition can best be achieved by combining the findings of disciplines from the arts and the sciences.",
+      "The literary descriptions of the emotions we experience in the places we visit can contribute to our understanding of the arts and sciences."
+    ],
+    "correctAnswer": 2,
+    "solution": "The sentence \"The pursuit of such a topic speaks to the valuable knowledge produced from bridging disciplines and combining material from both the arts and the sciences to better understand the human condition\" refers to the importance of \"bridging\" or intermixing of the material from both arts and sciences in understanding the human condition. The statement that best captures this is provided in option C.\n\nOption A is incorrect as \"bridging of human condition\" is a wrong inference. Option B, although partly correct, misses the message of \"bridging\" which forms the core of the sentence. Option D is incorrect as it reverses the relationship of the importance of knowledge from arts and science in our understanding of the human condition by writing that human emotions are essential contributors to our understanding of arts and sciences.",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q21",
+    "category": "verbal",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "This book takes the position that setting in literature is more than just backdrop, that important insight into literary texts can be made by paying close attention to how authors craft place, as well as to how place functions in a narrative. The authors included in this reference work engage deeply with either real or imagined geographies. They care about how human decisions have shaped landscapes and how landscapes have shaped human practices and values. Some of the best writing is highly vivid, employing the language of the senses because this is the primary means through which humans know physical space.\n\nLiterature can offer valuable perspectives on physical and cultural geography. Unlike scientific reports, a literary narrative can provide the emotional component missing from the scientific record. In human experience, geographical places have a spiritual or emotional component in addition to and as part of a physical layout and topography. This emotional component, although subjective, is no less \u201creal\u201d than a surveyor\u2019s map. Human consciousness of place is experienced in a multimodal manner. Histories of places live on in many forms, one of which is the human memory or imagination.\n\nBoth real and imaginary landscapes provide insight into the human experience of place. The pursuit of such a topic speaks to the valuable knowledge produced from bridging disciplines and combining material from both the arts and the sciences to better understand the human condition. The perspectives that most concern cultural \n\nWhich one of the following is not true of the argument in the second paragraph?",
+    "options": [
+      "Analysing the literary descriptions of a place can give us a sense of how people relate emotionally to it.",
+      "The spiritual experience of a place may be considered as real as the physical experience of it.",
+      "The emotional and spiritual experience of a place can replace a surveyor\u2019s map.",
+      "Literary accounts of places can be filled with histories, manifested as memory or imagination."
+    ],
+    "correctAnswer": 2,
+    "solution": "The second paragraph primarily emphasises the importance of literature in providing insights into the emotional dimension of physical and cultural geography, which is all too often missing from scientific records. The paragraph notes that this emotional or spiritual component is primarily subjective and that the history of a place also exists in memory and imagination.\n\nAccordingly, options A, B, and D follow. Option C is extreme in that it says that the emotional and spiritual experience of a place can replace a surveyor's map, and is incorrect. Although the emotional and spiritual experience can complement the factual information about geographic and physical world provided by the scientific record, it cannot replace it.",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q22",
+    "category": "verbal",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "This book takes the position that setting in literature is more than just backdrop, that important insight into literary texts can be made by paying close attention to how authors craft place, as well as to how place functions in a narrative. The authors included in this reference work engage deeply with either real or imagined geographies. They care about how human decisions have shaped landscapes and how landscapes have shaped human practices and values. Some of the best writing is highly vivid, employing the language of the senses because this is the primary means through which humans know physical space.\n\nLiterature can offer valuable perspectives on physical and cultural geography. Unlike scientific reports, a literary narrative can provide the emotional component missing from the scientific record. In human experience, geographical places have a spiritual or emotional component in addition to and as part of a physical layout and topography. This emotional component, although subjective, is no less \u201creal\u201d than a surveyor\u2019s map. Human consciousness of place is experienced in a multimodal manner. Histories of places live on in many forms, one of which is the human memory or imagination.\n\nBoth real and imaginary landscapes provide insight into the human experience of place. The pursuit of such a topic speaks to the valuable knowledge produced from bridging disciplines and combining material from both the arts and the sciences to better understand the human condition. The perspectives that most concern cultural \n\nThe author uses the example of the literary description of place to illustrate that:",
+    "options": [
+      "scientific approaches to place are more accurate than literary ones.",
+      "literature can convey how different people experience the same place differently.",
+      "architects use diverse methods to calibrate the noises and lights of a given place.",
+      "the absence of other people, animals, and so on in a place can profoundly affect its inhabitants."
+    ],
+    "correctAnswer": 1,
+    "solution": "The paragraph states that \"For example, a literary description of place may involve not only the environment and geography but the noises and quality of light, or how people from different races or classes can experience the same place in different ways linked to those racial or class disparities.\"\n\nBased on this and the information provided in the passage, it would be wrong to consider the fact that scientific approaches to place are more (or less) accurate than literary ones. The most we can say is that both are useful and complementary. Option A is incorrect.\n\nOption B follows from the example of literary description, which examines how people from different backgrounds experience the same place differently, and is therefore the correct answer.\n\nOption C mentions architects and the diverse methods they use, which is not the reason why the passage provides the example of literary descriptions. Similarly, option D examines in detail how the absence of people and animals affects the inhabitants and fails to capture the broader message the passage seeks to convey through the example provided.\n\nOption B is the correct answer.",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q23",
+    "category": "verbal",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "This book takes the position that setting in literature is more than just backdrop, that important insight into literary texts can be made by paying close attention to how authors craft place, as well as to how place functions in a narrative. The authors included in this reference work engage deeply with either real or imagined geographies. They care about how human decisions have shaped landscapes and how landscapes have shaped human practices and values. Some of the best writing is highly vivid, employing the language of the senses because this is the primary means through which humans know physical space.\n\nLiterature can offer valuable perspectives on physical and cultural geography. Unlike scientific reports, a literary narrative can provide the emotional component missing from the scientific record. In human experience, geographical places have a spiritual or emotional component in addition to and as part of a physical layout and topography. This emotional component, although subjective, is no less \u201creal\u201d than a surveyor\u2019s map. Human consciousness of place is experienced in a multimodal manner. Histories of places live on in many forms, one of which is the human memory or imagination.\n\nBoth real and imaginary landscapes provide insight into the human experience of place. The pursuit of such a topic speaks to the valuable knowledge produced from bridging disciplines and combining material from both the arts and the sciences to better understand the human condition. The perspectives that most concern cultural \n\nAll of the following statements, if false, would contradict the arguments in the passage, EXCEPT that:",
+    "options": [
+      "descriptions of places do not need satellite imagery or other visual aids to give a \u201creal\u201d sense of the place.",
+      "literature provides us with deep insights into the ways in which movement and migration affect physical geography.",
+      "highly vivid writing, employing the language of the senses, can capture the multi-modal manner in which humans experience places.",
+      "humans do not interact with places in subjective, emotional ways because places are only physical topography."
+    ],
+    "correctAnswer": 3,
+    "solution": "The passage asserts that \"Histories of places live on in many forms, one of which is the human memory or imagination.\" The passage also implies that these places and their \"emotional component, although subjective, is no less 'real' than a surveyor's map.\" It follows that, in literature, descriptions of places do not need satellite imagery or other visual aids to give a \u201creal\u201d sense of the place. If this were to be false, the arguments made in the passage would be contradicted. Option A is not the correct answer.\n\nFrom \"Both real and imaginary landscapes provide insight into the human experience of place\", we can also infer that if option B were to be false, the information would contradict the passage. Option B is not the correct answer.\n\nFrom \"Literature can bring together material that spans different branches of science. For example, a literary description of place may involve not only the environment and geography but the noises and quality of light, or how people from different races or classes can experience the same place in different ways linked to those racial or class disparities. Literary texts can also account for the way in which absence\u2014of other people, animals, and so on\u2014affects a human observer or inhabitant\", we can infer that literature can be a powerful device that can produce vivid realities through descriptions. If option C were to be false, it would contradict the information provided in the passage. Option C is not the correct answer.\n\nFrom \"In human experience, geographical places have a spiritual or emotional component in addition to and as part of a physical layout and topography. This emotional component, although subjective, is no less \u201creal\u201d than a surveyor\u2019s map,\" we can infer that the physical and emotional experience of a place is subjective. Therefore, if option D were to be false, the arguments provided in the passage will not be contradicted. Option D is the correct answer.",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q24",
+    "category": "verbal",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "The four sentences (labelled 1, 2, 3, and 4) given below, when properly sequenced, would yield a coherent paragraph. Decide on the proper sequencing of the order of the sentences and key in the sequence of the four numbers as your answer.\n\n1. As books age, the cellulose and lignin in the paper begin to break down, releasing a mix of volatile organic compounds into the air.\n\n2. Old books carry a scent that many people instantly recognize\u2014and even love.\n\n3. These compounds are benzaldehyde, which gives off an almond-like scent, vanillin, which smells like vanilla, ethyl hexanol (floral scent), toluene (sweet), and furfural (which has a slightly bready scent).\n\n4. This familiar aroma isn't just dust or mildew; it's actually a result of slow chemical changes happening inside the paper and ink.",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: 2413\n\nSentence 1 mentions \"compounds\" while sentence 3 talks about them in detail. Sentence 3 starts with \"these compounds\" making sentence 1 and 3 an adjacent pair in that order. Similarly, sentence 2 introduces \"a scent\" that is elaborated upon in sentence 4, implying that sentences 2 and 4 are a pair in that order. The \"slow chemical changes\" mentioned in sentence 4 are elaborated further in sentences 1 and 3. The most suitable sequence, therefore, would be 2413.\n\nLRDI",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q25",
+    "category": "lrdi",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "hard",
+    "question": "Ananya Raga, Bhaskar Tala, Charu Veena, and Devendra Sur are four musicians. Each of them started and completed their training as students under each of three Gurus \u2014 Pandit Meghnath, Ustad Samiran, and Acharya Raghunath between 2013 and 2024, including both the years. Each Guru trains any student for consecutive years only, for a span of 2, 3, or 4 years, with each Guru having a different span. During some of these years, a student may not have trained under these Gurus; however, they never trained under multiple Gurus in the same year. In none of these years, any of these Gurus trained more than two of these students at the same time. When two students train under the same Guru at the same time, they are referred to as Gurubhai, irrespective of their gender. The following additional facts are known.\n\n1. Ustad Samiran never trained more than one of these students in the same year.\n\n2. Acharya Raghunath did not train any of these students during 2015-2018, as well as during 2021-24.\n\n3. Ananya and Devendra were never Gurubhai; neither were Bhaskar and Charu. All other pairs of musicians were Gurubhai for exactly 2 years.\n\n4. In 2013, Ananya and Bhaskar started their trainings under Pandit Meghnath and under Ustad Samiran, respectively.",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: A\n\nRepresenting Ananya Raga, Bhaskar Tala, Charu Veena, and Devendra Sur as A, B, C and D, respectively, for easy usage. Also using PM, US, and AR for Pandit Meghnath, Ustad Samiran, and Acharya Raghunath, respectively, for easy reference.\n\nWe are given that AR did not train during the periods of 2015-2018 and 2021-2024.\n\nOther information provided is that PM, US, and AR had a span of 2, 3, and 4 consecutive years for each student, in some order. We also know that all the gurus trained each of the students for exactly one span.\n\nIn clue 4, we are given that A started the training in 2013 under PM, and B started training in 2013 under US.\n\nPutting all the known information in the table, we get,\n\n<table>\n  <thead>\n    <tr>\n      <th>YEAR</th>\n      <th>Pandit Meghnath(PM)</th>\n      <th>Ustad Samiran(US)</th>\n      <th>Acharya Raghunath(AR)</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>2013</td>\n      <td>A</td>\n      <td>B</td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2014</td>\n      <td></td>\n      <td></td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2015</td>\n      <td></td>\n      <td></td>\n      <td style=\"background-color: gray\"></td>\n    </tr>\n<tr>\n      <td>2016</td>\n      <td></td>\n      <td></td>\n      <td style=\"background-color: gray\"></td>\n    </tr>\n<tr>\n      <td>2017</td>\n      <td></td>\n      <td></td>\n      <td style=\"background-color: gray\"></td>\n    </tr>\n<tr>\n      <td>2018</td>\n      <td></td>\n      <td></td>\n      <td style=\"background-color: gray\"></td>\n    </tr>\n<tr>\n      <td>2019</td>\n      <td></td>\n      <td></td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2020</td>\n      <td></td>\n      <td></td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2021</td>\n      <td></td>\n      <td></td>\n      <td style=\"background-color: gray\"></td>\n    </tr>\n<tr>\n      <td>2022</td>\n      <td></td>\n      <td></td>\n      <td style=\"background-color: gray\"></td>\n    </tr>\n<tr>\n      <td>2023</td>\n      <td></td>\n      <td></td>\n      <td style=\"background-color: gr",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q26",
+    "category": "lrdi",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "hard",
+    "question": "Ananya Raga, Bhaskar Tala, Charu Veena, and Devendra Sur are four musicians. Each of them started and completed their training as students under each of three Gurus \u2014 Pandit Meghnath, Ustad Samiran, and Acharya Raghunath between 2013 and 2024, including both the years. Each Guru trains any student for consecutive years only, for a span of 2, 3, or 4 years, with each Guru having a different span. During some of these years, a student may not have trained under these Gurus; however, they never trained under multiple Gurus in the same year. In none of these years, any of these Gurus trained more than two of these students at the same time. When two students train under the same Guru at the same time, they are referred to as Gurubhai, irrespective of their gender. The following additional facts are known.\n\n1. Ustad Samiran never trained more than one of these students in the same year.\n\n2. Acharya Raghunath did not train any of these students during 2015-2018, as well as during 2021-24.\n\n3. Ananya and Devendra were never Gurubhai; neither were Bhaskar and Charu. All other pairs of musicians were Gurubhai for exactly 2 years.\n\n4. In 2013, Ananya and Bhaskar started their trainings under Pandit Meghnath and under Ustad Samiran, respectively.",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: B\n\nRepresenting Ananya Raga, Bhaskar Tala, Charu Veena, and Devendra Sur as A, B, C and D, respectively, for easy usage. Also using PM, US, and AR for Pandit Meghnath, Ustad Samiran, and Acharya Raghunath, respectively, for easy reference.\n\nWe are given that AR did not train during the periods of 2015-2018 and 2021-2024.\n\nOther information provided is that PM, US, and AR had a span of 2, 3, and 4 consecutive years for each student, in some order. We also know that all the gurus trained each of the students for exactly one span.\n\nIn clue 4, we are given that A started the training in 2013 under PM, and B started training in 2013 under US.\n\nPutting all the known information in the table, we get,\n\n<table>\n  <thead>\n    <tr>\n      <th>YEAR</th>\n      <th>Pandit Meghnath(PM)</th>\n      <th>Ustad Samiran(US)</th>\n      <th>Acharya Raghunath(AR)</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr><td>2013</td><td>A</td><td>B</td><td></td></tr>\n<tr><td>2014</td><td></td><td></td><td></td></tr>\n<tr><td>2015</td><td></td><td></td><td></td></tr>\n<tr><td>2016</td><td></td><td></td><td></td></tr>\n<tr><td>2017</td><td></td><td></td><td></td></tr>\n<tr><td>2018</td><td></td><td></td><td></td></tr>\n<tr><td>2019</td><td></td><td></td><td></td></tr>\n<tr><td>2020</td><td></td><td></td><td></td></tr>\n<tr><td>2021</td><td></td><td></td><td></td></tr>\n<tr><td>2022</td><td></td><td></td><td></td></tr>\n<tr><td>2023</td><td></td><td></td><td></td></tr>\n<tr><td>2024</td><td></td><td></td><td></td></tr>\n  </tbody>\n</table>\n\nNow, if we look at the table, we can see that AR is training for only 4 years, with two years each, separated by a few years. Therefore, the span of AR must be 2 years because we know that he is not teaching continuously for 3 or 4 years.\n\nSince we know that each guru taught all the students, and AR only has 4 years to teach all the students, he must definitely teach 2 students at a time each year, as we are told that no guru taught more than 2 students in a single year. We also know ",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q27",
+    "category": "lrdi",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "hard",
+    "question": "Ananya Raga, Bhaskar Tala, Charu Veena, and Devendra Sur are four musicians. Each of them started and completed their training as students under each of three Gurus \u2014 Pandit Meghnath, Ustad Samiran, and Acharya Raghunath between 2013 and 2024, including both the years. Each Guru trains any student for consecutive years only, for a span of 2, 3, or 4 years, with each Guru having a different span. During some of these years, a student may not have trained under these Gurus; however, they never trained under multiple Gurus in the same year. In none of these years, any of these Gurus trained more than two of these students at the same time. When two students train under the same Guru at the same time, they are referred to as Gurubhai, irrespective of their gender. The following additional facts are known.\n\n1. Ustad Samiran never trained more than one of these students in the same year.\n\n2. Acharya Raghunath did not train any of these students during 2015-2018, as well as during 2021-24.\n\n3. Ananya and Devendra were never Gurubhai; neither were Bhaskar and Charu. All other pairs of musicians were Gurubhai for exactly 2 years.\n\n4. In 2013, Ananya and Bhaskar started their trainings under Pandit Meghnath and under Ustad Samiran, respectively.",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: A\n\nRepresenting Ananya Raga, Bhaskar Tala, Charu Veena, and Devendra Sur as A, B, C and D, respectively, for easy usage. Also using PM, US, and AR for Pandit Meghnath, Ustad Samiran, and Acharya Raghunath, respectively, for easy reference.\n\nWe are given that AR did not train during the periods of 2015-2018 and 2021-2024.\n\nOther information provided is that PM, US, and AR had a span of 2, 3, and 4 consecutive years for each student, in some order. We also know that all the gurus trained each of the students for exactly one span.\n\nIn clue 4, we are given that A started the training in 2013 under PM, and B started training in 2013 under US.\n\nPutting all the known information in the table, we get,\n\n<table>\n    <tr>\n        <th>YEAR</th>\n        <th>Pandit Meghnath(PM)</th>\n        <th>Ustad Samiran(US)</th>\n        <th>Acharya Raghunath(AR)</th>\n    </tr>\n    <tr>\n        <td>2013</td>\n        <td>A</td>\n        <td>B</td>\n        <td></td>\n    </tr>\n    <tr>\n        <td>2014</td>\n        <td></td>\n        <td></td>\n        <td></td>\n    </tr>\n    <tr>\n        <td>2015</td>\n        <td></td>\n        <td></td>\n        <td></td>\n    </tr>\n    <tr>\n        <td>2016</td>\n        <td></td>\n        <td></td>\n        <td></td>\n    </tr>\n    <tr>\n        <td>2017</td>\n        <td></td>\n        <td></td>\n        <td></td>\n    </tr>\n    <tr>\n        <td>2018</td>\n        <td></td>\n        <td></td>\n        <td></td>\n    </tr>\n    <tr>\n        <td>2019</td>\n        <td></td>\n        <td></td>\n        <td></td>\n    </tr>\n    <tr>\n        <td>2020</td>\n        <td></td>\n        <td></td>\n        <td></td>\n    </tr>\n    <tr>\n        <td>2021</td>\n        <td></td>\n        <td></td>\n        <td></td>\n    </tr>\n    <tr>\n        <td>2022</td>\n        <td></td>\n        <td></td>\n        <td></td>\n    </tr>\n    <tr>\n        <td>2023</td>\n        <td></td>\n        <td></td>\n        <td></td>\n    </tr>\n    <tr>\n        <td>2024</td>\n        <td></td>\n        <td></td>\n        <td></td>\n    </t",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q28",
+    "category": "lrdi",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "hard",
+    "question": "Ananya Raga, Bhaskar Tala, Charu Veena, and Devendra Sur are four musicians. Each of them started and completed their training as students under each of three Gurus \u2014 Pandit Meghnath, Ustad Samiran, and Acharya Raghunath between 2013 and 2024, including both the years. Each Guru trains any student for consecutive years only, for a span of 2, 3, or 4 years, with each Guru having a different span. During some of these years, a student may not have trained under these Gurus; however, they never trained under multiple Gurus in the same year. In none of these years, any of these Gurus trained more than two of these students at the same time. When two students train under the same Guru at the same time, they are referred to as Gurubhai, irrespective of their gender. The following additional facts are known.\n\n1. Ustad Samiran never trained more than one of these students in the same year.\n\n2. Acharya Raghunath did not train any of these students during 2015-2018, as well as during 2021-24.\n\n3. Ananya and Devendra were never Gurubhai; neither were Bhaskar and Charu. All other pairs of musicians were Gurubhai for exactly 2 years.\n\n4. In 2013, Ananya and Bhaskar started their trainings under Pandit Meghnath and under Ustad Samiran, respectively.",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: D\n\nRepresenting Ananya Raga, Bhaskar Tala, Charu Veena, and Devendra Sur as A, B, C and D, respectively, for easy usage. Also using PM, US, and AR for Pandit Meghnath, Ustad Samiran, and Acharya Raghunath, respectively, for easy reference.\n\nWe are given that AR did not train during the periods of 2015-2018 and 2021-2024.\n\nOther information provided is that PM, US, and AR had a span of 2, 3, and 4 consecutive years for each student, in some order. We also know that all the gurus trained each of the students for exactly one span.\n\nIn clue 4, we are given that A started the training in 2013 under PM, and B started training in 2013 under US.\n\nPutting all the known information in the table, we get,\n\n<table>\n  <thead>\n    <tr>\n      <th>YEAR</th>\n      <th>Pandit Meghnath(PM)</th>\n      <th>Ustad Samiran(US)</th>\n      <th>Acharya Raghunath(AR)</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>2013</td>\n      <td>A</td>\n      <td>B</td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2014</td>\n      <td></td>\n      <td></td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2015</td>\n      <td></td>\n      <td></td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2016</td>\n      <td></td>\n      <td></td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2017</td>\n      <td></td>\n      <td></td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2018</td>\n      <td></td>\n      <td></td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2019</td>\n      <td></td>\n      <td></td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2020</td>\n      <td></td>\n      <td></td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2021</td>\n      <td></td>\n      <td></td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2022</td>\n      <td></td>\n      <td></td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2023</td>\n      <td></td>\n      <td></td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2024</td>\n      <td></td>\n      <td></td>\n      <td></td>\n    </tr>\n  </tbody>\n</table>\n\nNow, if we look at the table, we can see that AR is training for only 4 years, with two years",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q29",
+    "category": "lrdi",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "hard",
+    "question": "Ananya Raga, Bhaskar Tala, Charu Veena, and Devendra Sur are four musicians. Each of them started and completed their training as students under each of three Gurus \u2014 Pandit Meghnath, Ustad Samiran, and Acharya Raghunath between 2013 and 2024, including both the years. Each Guru trains any student for consecutive years only, for a span of 2, 3, or 4 years, with each Guru having a different span. During some of these years, a student may not have trained under these Gurus; however, they never trained under multiple Gurus in the same year. In none of these years, any of these Gurus trained more than two of these students at the same time. When two students train under the same Guru at the same time, they are referred to as Gurubhai, irrespective of their gender. The following additional facts are known.\n\n1. Ustad Samiran never trained more than one of these students in the same year.\n\n2. Acharya Raghunath did not train any of these students during 2015-2018, as well as during 2021-24.\n\n3. Ananya and Devendra were never Gurubhai; neither were Bhaskar and Charu. All other pairs of musicians were Gurubhai for exactly 2 years.\n\n4. In 2013, Ananya and Bhaskar started their trainings under Pandit Meghnath and under Ustad Samiran, respectively.",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: 4\n\nRepresenting Ananya Raga, Bhaskar Tala, Charu Veena, and Devendra Sur as A, B, C and D, respectively, for easy usage. Also using PM, US, and AR for Pandit Meghnath, Ustad Samiran, and Acharya Raghunath, respectively, for easy reference.\n\nWe are given that AR did not train during the periods of 2015-2018 and 2021-2024.\n\nOther information provided is that PM, US, and AR had a span of 2, 3, and 4 consecutive years for each student, in some order. We also know that all the gurus trained each of the students for exactly one span.\n\nIn clue 4, we are given that A started the training in 2013 under PM, and B started training in 2013 under US.\n\nPutting all the known information in the table, we get,\n\n<table>\n  <thead>\n    <tr>\n      <th>YEAR</th>\n      <th>Pandit Meghnath(PM)</th>\n      <th>Ustad Samiran(US)</th>\n      <th>Acharya Raghunath(AR)</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>2013</td>\n      <td>A</td>\n      <td>B</td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2014</td>\n      <td></td>\n      <td></td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2015</td>\n      <td></td>\n      <td></td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2016</td>\n      <td></td>\n      <td></td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2017</td>\n      <td></td>\n      <td></td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2018</td>\n      <td></td>\n      <td></td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2019</td>\n      <td></td>\n      <td></td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2020</td>\n      <td></td>\n      <td></td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2021</td>\n      <td></td>\n      <td></td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2022</td>\n      <td></td>\n      <td></td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2023</td>\n      <td></td>\n      <td></td>\n      <td></td>\n    </tr>\n<tr>\n      <td>2024</td>\n      <td></td>\n      <td></td>\n      <td></td>\n    </tr>\n  </tbody>\n</table>\n\nNow, if we look at the table, we can see that AR is training for only 4 years, with two years",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q30",
+    "category": "lrdi",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "hard",
+    "question": "Instructions [25 - 29 ]\n\nAnanya Raga, Bhaskar Tala, Charu Veena, and Devendra Sur are four musicians. Each of them started and completed their training as students under each of three Gurus \u2014 Pandit Meghnath, Ustad Samiran, and Acharya Raghunath between 2013 and 2024, including both the years. Each Guru trains any student for consecutive years only, for a span of 2, 3, or 4 years, with each Guru having a different span. During some of these years, a student may not have trained under these Gurus; however, they never trained under multiple Gurus in the same year. In none of these years, any of these Gurus trained more than two of these students at the same time. When two students train under the same Guru at the same time, they are referred to as Gurubhai, irrespective of their gender. The following additional facts are known.\n\n1. Ustad Samiran never trained more than one of these students in the same year.\n\n2. Acharya Raghunath did not train any of these students during 2015-2018, as well as during 2021-24.\n\n3. Ananya and Devendra were never Gurubhai; neither were Bhaskar and Charu. All other pairs of musicians were Gurubhai for exactly 2 years.\n\n4. In 2013, Ananya and Bhaskar started their trainings under Pandit Meghnath and under Ustad Samiran, respectively.\n\nAll of the following statements about the durations of Guru trainings are true EXCEPT:",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: 4\n\nIf all the two-author-type books are counted for both authors separately, then we get the sum to be $4 * 2 = 8$.\n\nIf all the three-author-type books are counted for all three authors separately, then we get the sum to be $3 * 3 = 9$.\n\nIf all the four-author-type books are counted for all four authors separately, then we get the sum to be $4 * 2 = 8$.\n\nWe are given that there are 2 four-author books, so there are exactly two books for each that are of the four-author type.\n\nPutting the values in the table, we get,\n\n<table>\n    <tr>\n        <th>Author</th>\n        <th>Single-author</th>\n        <th>Two-author</th>\n        <th>Three-author</th>\n        <th>Four-author</th>\n        <th>Total</th>\n    </tr>\n    <tr>\n        <td>Arman</td>\n        <td></td>\n        <td></td>\n        <td></td>\n        <td>2</td>\n        <td>5</td>\n    </tr>\n    <tr>\n        <td>Brajen</td>\n        <td></td>\n        <td></td>\n        <td></td>\n        <td>2</td>\n        <td>8</td>\n    </tr>\n    <tr>\n        <td>Chintan</td>\n        <td></td>\n        <td></td>\n        <td></td>\n        <td>2</td>\n        <td>12</td>\n    </tr>\n    <tr>\n        <td>Devon</td>\n        <td></td>\n        <td></td>\n        <td></td>\n        <td>2</td>\n        <td>10</td>\n    </tr>\n    <tr>\n        <td></td>\n        <td>10</td>\n        <td>8</td>\n        <td>9</td>\n        <td>8</td>\n        <td></td>\n    </tr>\n</table>We are given that each author has at least one book of each type. In the case of Arman, there are three books left to be assigned, and there are 3 types of books left, so each of them has to be equal to 1 for the above condition to be satisfied.\n\nIn the case of Brajen, we are told that he had an equal number of single-author and two-author books.\n\nCase 1: If the equal number is 1, then the three-author type books become 4, and we are given that both Chintan and Devon had more three-author books than Brajen, which is not possible in this case, as both of them combined will be left with 5 books togethe",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q31",
+    "category": "lrdi",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "hard",
+    "question": "The following charts depict details of research papers written by four authors, Arman, Brajen, Chintan, and Devon. The papers were of four types, single-author, two-author, three-author, and four-author, that is, written by one, two, three, or all four of these authors, respectively. No other authors were involved in writing these papers.  Number of papers by each author: Arman: 5, Brajen: 8, Chintan: 12, Devon: 10. Number of papers by type: Single-author: 10, Two-author: 4, Three-author: 3, Four-author: 2. The following additional facts are known. Which of the following statements is/are NECESSARILY true? i. Chintan wrote exactly three two-author papers. ii. Chintan wrote more single-author papers than Devon.",
+    "options": [
+      "Neither i nor ii",
+      "Only i",
+      "Only ii",
+      "Both i and ii"
+    ],
+    "correctAnswer": 0,
+    "solution": "If all the two-author-type books are counted for both authors separately, then we get the sum to be $4 * 2 = 8$.\n\nIf all the three-author-type books are counted for all three authors separately, then we get the sum to be $3 * 3 = 9$.\n\nIf all the four-author-type books are counted for all four authors separately, then we get the sum to be $4 * 2 = 8$.\n\nWe are given that there are 2 four-author books, so there are exactly two books for each that are of the four-author type.\n\nPutting the values in the table, we get,\n\n<table>\n    <tr>\n        <th>Author</th>\n        <th>Single-author</th>\n        <th>Two-author</th>\n        <th>Three-author</th>\n        <th>Four-author</th>\n        <th>Total</th>\n    </tr>\n    <tr>\n        <td>Arman</td>\n        <td></td>\n        <td></td>\n        <td></td>\n        <td>2</td>\n        <td>5</td>\n    </tr>\n    <tr>\n        <td>Brajen</td>\n        <td></td>\n        <td></td>\n        <td></td>\n        <td>2</td>\n        <td>8</td>\n    </tr>\n    <tr>\n        <td>Chintan</td>\n        <td></td>\n        <td></td>\n        <td></td>\n        <td>2</td>\n        <td>12</td>\n    </tr>\n    <tr>\n        <td>Devon</td>\n        <td></td>\n        <td></td>\n        <td></td>\n        <td>2</td>\n        <td>10</td>\n    </tr>\n    <tr>\n        <td></td>\n        <td>10</td>\n        <td>8</td>\n        <td>9</td>\n        <td>8</td>\n        <td></td>\n    </tr>\n</table>We are given that each author has at least one book of each type. In the case of Arman, there are three books left to be assigned, and there are 3 types of books left, so each of them has to be equal to 1 for the above condition to be satisfied.\n\nIn the case of Brajen, we are told that he had an equal number of single-author and two-author books.\n\nCase 1: If the equal number is 1, then the three-author type books become 4, and we are given that both Chintan and Devon had more three-author books than Brajen, which is not possible in this case, as both of them combined will be left with 5 books togethe",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q32",
+    "category": "lrdi",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "hard",
+    "question": "The following charts depict details of research papers written by four authors, Arman, Brajen, Chintan, and Devon. The papers were of four types, single-author, two-author, three-author, and four-author, that is, written by one, two, three, or all four of these authors, respectively. No other authors were involved in writing these papers.  Number of papers by each author: Arman: 5, Brajen: 8, Chintan: 12, Devon: 10. Number of papers by type: Single-author: 10, Two-author: 4, Three-author: 3, Four-author: 2. The following additional facts are known. Which of the following statements is/are NECESSARILY true? i. Arman wrote three-author papers only with Chintan and Devon. ii. Brajen wrote three-author papers only with Chintan and Devon.",
+    "options": [
+      "Only ii",
+      "Both i and ii",
+      "Only i",
+      "Neither i or ii"
+    ],
+    "correctAnswer": 1,
+    "solution": "If all the two-author-type books are counted for both authors separately, then we get the sum to be $4 * 2 = 8$.\n\nIf all the three-author-type books are counted for all three authors separately, then we get the sum to be $3 * 3 = 9$.\n\nIf all the four-author-type books are counted for all four authors separately, then we get the sum to be $4 * 2 = 8$.\n\nWe are given that there are 2 four-author books, so there are exactly two books for each that are of the four-author type.\n\nPutting the values in the table, we get,\n\n<table>\n  <thead>\n    <tr>\n      <th>Author</th>\n      <th>Single-author</th>\n      <th>Two-author</th>\n      <th>Three-author</th>\n      <th>Four-author</th>\n      <th>Total</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Arman</td>\n      <td></td>\n      <td></td>\n      <td></td>\n      <td>2</td>\n      <td>5</td>\n    </tr>\n<tr>\n      <td>Brajen</td>\n      <td></td>\n      <td></td>\n      <td></td>\n      <td>2</td>\n      <td>8</td>\n    </tr>\n<tr>\n      <td>Chintan</td>\n      <td></td>\n      <td></td>\n      <td></td>\n      <td>2</td>\n      <td>12</td>\n    </tr>\n<tr>\n      <td>Devon</td>\n      <td></td>\n      <td></td>\n      <td></td>\n      <td>2</td>\n      <td>10</td>\n    </tr>\n<tr>\n      <td></td>\n      <td>10</td>\n      <td>8</td>\n      <td>9</td>\n      <td>8</td>\n      <td></td>\n    </tr>\n  </tbody>\n</table>\n\nWe are given that each author has at least one book of each type. In the case of Arman, there are three books left to be assigned, and there are 3 types of books left, so each of them has to be equal to 1 for the above condition to be satisfied.\n\nIn the case of Brajen, we are told that he had an equal number of single-author and two-author books.\n\nCase 1: If the equal number is 1, then the three-author type books become 4, and we are given that both Chintan and Devon had more three-author books than Brajen, which is not possible in this case, as both of them combined will be left with 5 books together and whatever we split 5 books there wont b",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q33",
+    "category": "lrdi",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "hard",
+    "question": "The following charts depict details of research papers written by four authors, Arman, Brajen, Chintan, and Devon. The papers were of four types, single-author, two-author, three-author, and four-author, that is, written by one, two, three, or all four of these authors, respectively. No other authors were involved in writing these papers.  Number of papers by each author: Arman: 5, Brajen: 8, Chintan: 12, Devon: 10. Number of papers by type: Single-author: 10, Two-author: 4, Three-author: 3, Four-author: 2. The following additional facts are known. If Devon wrote more than one two-author papers, then how many two-author papers did Chintan write?",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: 3\n\nIf all the two-author-type books are counted for both authors separately, then we get the sum to be $4 * 2 = 8$.\n\nIf all the three-author-type books are counted for all three authors separately, then we get the sum to be $3 * 3 = 9$.\n\nIf all the four-author-type books are counted for all four authors separately, then we get the sum to be $4 * 2 = 8$.\n\nWe are given that there are 2 four-author books, so there are exactly two books for each that are of the four-author type.\n\nPutting the values in the table, we get,\n\n<table>\n  <thead>\n    <tr>\n      <th>Author</th>\n      <th>Single-author</th>\n      <th>Two-author</th>\n      <th>Three-author</th>\n      <th>Four-author</th>\n      <th>Total</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Arman</td>\n      <td></td>\n      <td></td>\n      <td></td>\n      <td>2</td>\n      <td>5</td>\n    </tr>\n<tr>\n      <td>Brajen</td>\n      <td></td>\n      <td></td>\n      <td></td>\n      <td>2</td>\n      <td>8</td>\n    </tr>\n<tr>\n      <td>Chintan</td>\n      <td></td>\n      <td></td>\n      <td></td>\n      <td>2</td>\n      <td>12</td>\n    </tr>\n<tr>\n      <td>Devon</td>\n      <td></td>\n      <td></td>\n      <td></td>\n      <td>2</td>\n      <td>10</td>\n    </tr>\n<tr>\n      <td></td>\n      <td>10</td>\n      <td>8</td>\n      <td>9</td>\n      <td>8</td>\n      <td></td>\n    </tr>\n  </tbody>\n</table>\n\nWe are given that each author has at least one book of each type. In the case of Arman, there are three books left to be assigned, and there are 3 types of books left, so each of them has to be equal to 1 for the above condition to be satisfied.\n\nIn the case of Brajen, we are told that he had an equal number of single-author and two-author books.\n\nCase 1: If the equal number is 1, then the three-author type books become 4, and we are given that both Chintan and Devon had more three-author books than Brajen, which is not possible in this case, as both of them combined will be left with 5 books together and whaterver we split 5 books there wont ",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q34",
+    "category": "lrdi",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "hard",
+    "question": "There are six spherical balls, B1, B2, B3, B4, B5, and B6, and four circular hoops H1, H2, H3, and H4. Each ball was tested on each hoop once, by attempting to pass the ball through the hoop. If the diameter of a ball is not larger than the diameter of the hoop, the ball passes through the hoop and makes a \u201cping\u201d. Any ball having a diameter larger than that of the hoop gets stuck on that hoop and does not make a ping. The following additional information is known: What was the total number of pings made by B1, B2, and B3?",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: 6\n\nLet us try to arrange the hoops and the spheres in increasing order of their diameter according to the information given,\n\nIn clue 1, we are given that B1 and B6 made a ping on H4, and B5 did not.\n\nSo, we can definitely say that,\n\n$$(B1, B6) < H4 < B5 --(1)$$\n\nIn clue 2, we are given that B4 made a ping on H3, but B1 did not.\n\nSo, we can definitely say that,\n\nB4 < H3 < B1 --(2)\n\nIn clue 3, we are given that all balls, except B3, made pings on H1.\n\nSo, we can definitely say that,\n\n(B1, B2, B4, B5, B6) < H1 < B3 --(3)\n\nIn clue 4, we are given that none of the balls, except B2, made a ping on H2.\n\nSo, we can definitely say that,\n\nB2 < H2 < (B1, B3, B4, B5, B6) --(4)\n\nCombining (1) and (2), we can definitely say that\n\nB4 < H3 < B1 < H4 < B5 --(5)\n\nThe only ball that we do not have enough information is about B6, as it can be either less than H3 or greater than H3 and less than H4.\n\nCombining (3), (4) and (5), we get,\n\nB2 < H2 < B4 < H3 < B1 < H4 < B5 < H1 < B3\n\nThe sphere B6 can be placed in 2 positions, giving us two possible inequalities, which are\n\nB2 < H2 < (B4, B6) < H3 < B1 < H4 < B5 < H1 < B3\n\nB2 < H2 < B4 < H3 < (B1,B6) < H4 < B5 < H1 < B3\n\nThe position of B6 is not clear, and except for that, all the positions are fixed.\n\nPings made by B1 = H4, H1 = 2\n\nPings made by B2 = H2, H3, H4, H1 = 4\n\nPings made by B3 = 0\n\nTotal number of pings by B1, B2 and B3 = 2 + 4 + 0 = 6.\n\nHence, the correct answer is 6.",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q35",
+    "category": "lrdi",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "hard",
+    "question": "There are six spherical balls, B1, B2, B3, B4, B5, and B6, and four circular hoops H1, H2, H3, and H4. Each ball was tested on each hoop once, by attempting to pass the ball through the hoop. If the diameter of a ball is not larger than the diameter of the hoop, the ball passes through the hoop and makes a \u201cping\u201d. Any ball having a diameter larger than that of the hoop gets stuck on that hoop and does not make a ping. The following additional information is known: Which of the following statements about the relative sizes of the balls is NOT NECESSARILY true?",
+    "options": [
+      "B4 < B5 < B3",
+      "B2 < B1 < B5",
+      "B1 < B6 < B3",
+      "B1 < B5 < B3"
+    ],
+    "correctAnswer": 2,
+    "solution": "Let us try to arrange the hoops and the spheres in increasing order of their diameter according to the information given,\n\nIn clue 1, we are given that B1 and B6 made a ping on H4, and B5 did not.\n\nSo, we can definitely say that,\n\n(B1, B6) < H4 < B5 --(1)\n\nIn clue 2, we are given that B4 made a ping on H3, but B1 did not.\n\nSo, we can definitely say that,\n\nB4 < H3 < B1 --(2)\n\nIn clue 3, we are given that all balls, except B3, made pings on H1.\n\nSo, we can definitely say that,\n\n(B1, B2, B4, B5, B6) < H1 < B3 --(3)\n\nIn clue 4, we are given that none of the balls, except B2, made a ping on H2.\n\nSo, we can definitely say that,\n\nB2 < H2 < (B1, B3, B4, B5, B6) --(4)\n\nCombining (1) and (2), we can definitely say that\n\nB4 < H3 < B1 < H4 < B5 --(5)\n\nThe only ball for which we do not have enough information is about B6, as it can be either less than H3 or greater than H3 and less than H4.\n\nCombining (3), (4) and (5), we get,\n\nB2 < H2 < B4 < H3 < B1 < H4 < B5 < H1 < B3\n\nThe sphere B6 can be placed in 2 positions, giving us two possible inequalities, which are\n\nB2 < H2 < (B4, B6) < H3 < B1 < H4 < B5 < H1 < B3\n\nB2 < H2 < B4 < H3 < (B1,B6) < H4 < B5 < H1 < B3\n\nThe position of B6 is unclear, and except for that, all the other positions are fixed.\n\nOption A) B4 < B5 < B3. This is definitely true.\n\nOption B) B2 < B1 < B5. This is definitely true.\n\nOption C) B1 < B6 < B3. This need not be true, as we do not know which of B1 and B6 has the larger diameter.\n\nOption D) B1 < B5 < B3. This is definitely true.\n\nHence, the correct answer is option C.",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q36",
+    "category": "lrdi",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "hard",
+    "question": "There are six spherical balls, B1, B2, B3, B4, B5, and B6, and four circular hoops H1, H2, H3, and H4. Each ball was tested on each hoop once, by attempting to pass the ball through the hoop. If the diameter of a ball is not larger than the diameter of the hoop, the ball passes through the hoop and makes a \u201cping\u201d. Any ball having a diameter larger than that of the hoop gets stuck on that hoop and does not make a ping. The following additional information is known: Which of the following statements about the relative sizes of the hoops is true?",
+    "options": [
+      "H2 < H3 < H4 < H1",
+      "H1 < H3 < H4 < H2",
+      "H1 < H4 < H3 < H2",
+      "H2 < H4 < H3 < H1"
+    ],
+    "correctAnswer": 0,
+    "solution": "Let us try to arrange the hoops and the spheres in increasing order of their diameter according to the information given,\nIn clue 1, we are given that B1 and B6 made a ping on H4, and B5 did not.\nSo, we can definitely say that,\n(B1, B6) < H4 < B5 --(1)\nIn clue 2, we are given that B4 made a ping on H3, but B1 did not.\nSo, we can definitely say that,\nB4 < H3 < B1 --(2)\nIn clue 3, we are given that all balls, except B3, made pings on H1.\nSo, we can definitely say that,\n(B1, B2, B4, B5, B6) < H1 < B3 --(3)\nIn clue 4, we are given that none of the balls, except B2, made a ping on H2.\nSo, we can definitely say that,\nB2 < H2 < (B1, B3, B4, B5, B6) --(4)\nCombining (1) and (2), we can definitely say that\nB4 < H3 < B1 < H4 < B5 --(5)\nThe only ball for which we do not have enough information is about B6, as it can be either less than H3 or greater than H3 and less than H4.\nCombining (3), (4) and (5), we get,\nB2 < H2 < B4 < H3 < B1 < H4 < B5 < H1 < B3\nThe sphere B6 can be placed in 2 positions, giving us two possible inequalities, which are\nB2 < H2 < (B4, B6) < H3 < B1 < H4 < B5 < H1 < B3\nB2 < H2 < B4 < H3 < (B1,B6) < H4 < B5 < H1 < B3\nThe position of B6 is unclear, and except for that, all the other positions are fixed.\nWe know the correct order of the diameters of the hoops is H2 < H3 < H4 < H1.\nHence, the correct answer is option A.\n\n[]",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q37",
+    "category": "lrdi",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "hard",
+    "question": "There are six spherical balls, B1, B2, B3, B4, B5, and B6, and four circular hoops H1, H2, H3, and H4. Each ball was tested on each hoop once, by attempting to pass the ball through the hoop. If the diameter of a ball is not larger than the diameter of the hoop, the ball passes through the hoop and makes a \u201cping\u201d. Any ball having a diameter larger than that of the hoop gets stuck on that hoop and does not make a ping. The following additional information is known: What BEST can be said about the total number of pings from all the tests undertaken?",
+    "options": [
+      "12 or 13",
+      "13 or 14",
+      "12 or 13 or 14",
+      "At least 9"
+    ],
+    "correctAnswer": 0,
+    "solution": "Let us try to arrange the hoops and the spheres in increasing order of their diameter according to the information given,\nIn clue 1, we are given that B1 and B6 made a ping on H4, and B5 did not.\nSo, we can definitely say that,\n(B1, B6) < H4 < B5 --(1)\nIn clue 2, we are given that B4 made a ping on H3, but B1 did not.\nSo, we can definitely say that,\nB4 < H3 < B1 --(2)\nIn clue 3, we are given that all balls, except B3, made pings on H1.\nSo, we can definitely say that,\n(B1, B2, B4, B5, B6) < H1 < B3 --(3)\nIn clue 4, we are given that none of the balls, except B2, made a ping on H2.\nSo, we can definitely say that,\nB2 < H2 < (B1, B3, B4, B5, B6) --(4)\nCombining (1) and (2), we can definitely say that\nB4 < H3 < B1 < H4 < B5 --(5)\nThe only ball for which we do not have enough information is about B6, as it can be either less than H3 or greater than H3 and less than H4.\nCombining (3), (4) and (5), we get,\nB2 < H2 < B4 < H3 < B1 < H4 < B5 < H1 < B3\nThe sphere B6 can be placed in 2 positions, giving us two possible inequalities, which are\nB2 < H2 < (B4, B6) < H3 < B1 < H4 < B5 < H1 < B3\nB2 < H2 < B4 < H3 < (B1,B6) < H4 < B5 < H1 < B3\nThe position of B6 is unclear, and except for that, all the other positions are fixed.\nIn the first case, the number of pings possible can be calculated as 4 for B2, 3 for B4, 3 for B6, 2 for B1, 1 for B5 and 0 for B3. In total, the number of pings possible in the 1st case is $4 + 3 + 3 + 2 + 1 = 13$.\nIn the second case, the number of pings possible can be calculated as 4 for B2, 3 for B4, 2 for B6, 2 for B1, 1 for B5 and 0 for B3. In total, the number of pings possible in the 2nd case is $4 + 3 + 2 + 2 + 1 = 12$.\n\nSo, the total number of pings can be 12 or 13.\n\nHence, the correct answer is Option A.",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q38",
+    "category": "lrdi",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "hard",
+    "question": "The Sustainability Index (SI) of a country at a point in time is an integer between 1 and 100. This question is related to SI of six countries - A, B, C, D, E, and F - at three different points in time - 2016, 2020, and 2024. The plot represents the exact changes in their SI, with X-coordinate representing % increase in 2020 from 2016, i.e., (SI in 2020 minus SI in 2016) / (SI in 2016), and Y-coordinate representing % increase in 2024 from 2020. At any point in time, the country with highest SI is ranked 1, while the country with the lowest SI is ranked 6. The following additional facts are known. What was the SI of E in 2016?",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: 60\n\nLet us assume the values of A, B, C, D, E and F to be a, b, c, d, e and f in 2016.\n\nFor A:\n\nValue in 2020 = increased by 25% from 2016 = $$ \\left( 1 + \\frac{25}{100} \\right) a = \\frac{5}{4}a $$\n\nValue in 2024 = increased by 50% from 2020 = $$ \\left( 1 + \\frac{50}{100} \\right) \\times \\frac{5a}{4} = \\frac{15}{8}a $$\n\nFor B:\n\nValue in 2020 = decreased by 25% from 2016 = $$ \\left( 1 - \\frac{25}{100} \\right) b = \\frac{3}{4}b $$\n\nValue in 2024 = decreased by 25% from 2020 = $$ \\left( 1 - \\frac{25}{100} \\right) \\times \\frac{3b}{4} = \\frac{9}{16}b $$\n\nFor C:\n\nValue in 2020 = decreased by 20% from 2016 = $$ \\left( 1 - \\frac{20}{100} \\right) c = \\frac{4}{5}c $$\n\nValue in 2024 = increased by 40% from 2020 = $$ \\left( 1 + \\frac{40}{100} \\right) \\times \\frac{4c}{5} = \\frac{28}{25}c $$\n\nFor D:\n\nValue in 2020 = increased by 100% from 2016 = $$ \\left( 1 + \\frac{100}{100} \\right) d = 2d $$\n\nValue in 2024 = increased by 20% from 2020 = $$ \\left( 1 + \\frac{20}{100} \\right) \\times 2d = \\frac{12}{5}d $$\n\nFor E:\n\nValue in 2020 = increased by 25% from 2016 = $$ \\left( 1 + \\frac{25}{100} \\right) e = \\frac{5}{4}e $$\n\nValue in 2024 = increased by 20% from 2020 = $$ \\left( 1 + \\frac{20}{100} \\right) \\times \\frac{5e}{4} = \\frac{3}{2}e $$\n\nFor F:\n\nValue in 2020 = increased by 100% from 2016 = $$ \\left( 1 + \\frac{100}{100} \\right) f = 2f $$\n\nValue in 2024 = decreased by 25% from 2020 = $$ \\left( 1 - \\frac{25}{100} \\right) \\times 2f = \\frac{3}{2}f $$\n\nWe are given that the value of E is 90 in 2024. We can calculate the value of e as,\n\n$$ \\frac{3e}{2} = 90 $$\n\n$$ e = 60 $$\n\nThe value of E in 2016 is 60, and its value in 2020 can be calculated as,\n\n$$ \\frac{5e}{4} = \\frac{5}{4} \\times 60 = 75 $$\n\nWe are given that B, C, E, and A had ranks 1, 2, 3, and 4, respectively, in 2016, and F has the lowest rank(6) in all the years. Putting the values in the table, we get,\n\n<table>\n  <thead>\n    <tr>\n      <th></th>\n      <th><b>2016</b></th>\n      <th><b>RANK in 2016</b></th>\n      <th><b>2020</b></th>\n    ",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q39",
+    "category": "lrdi",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "hard",
+    "question": "The Sustainability Index (SI) of a country at a point in time is an integer between 1 and 100. This question is related to SI of six countries - A, B, C, D, E, and F - at three different points in time - 2016, 2020, and 2024. The plot represents the exact changes in their SI, with X-coordinate representing % increase in 2020 from 2016, i.e., (SI in 2020 minus SI in 2016) / (SI in 2016), and Y-coordinate representing % increase in 2024 from 2020. At any point in time, the country with highest SI is ranked 1, while the country with the lowest SI is ranked 6. The following additional facts are known. What was the SI of F in 2020?",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: 40\n\nLet us assume the values of A, B, C, D, E and F to be a, b, c, d, e and f in 2016.\n\nFor A:\nValue in 2020 = increased by 25% from 2016 = $$ \\left(1 + \\frac{25}{100}\\right) a = \\frac{5}{4}a $$\nValue in 2024 = increased by 50% from 2020 = $$ \\left(1 + \\frac{50}{100}\\right) \\times \\frac{5a}{4} = \\frac{15}{8}a $$\n\nFor B:\nValue in 2020 = decreased by 25% from 2016 = $$ \\left(1 - \\frac{25}{100}\\right) b = \\frac{3}{4}b $$\nValue in 2024 = decreased by 25% from 2020 = $$ \\left(1 - \\frac{25}{100}\\right) \\times \\frac{3b}{4} = \\frac{9}{16}b $$\n\nFor C:\nValue in 2020 = decreased by 20% from 2016 = $$ \\left(1 - \\frac{20}{100}\\right) c = \\frac{4}{5}c $$\nValue in 2024 = increased by 40% from 2020 = $$ \\left(1 + \\frac{40}{100}\\right) \\times \\frac{4c}{5} = \\frac{28}{25}c $$\n\nFor D:\nValue in 2020 = increased by 100% from 2016 = $$ \\left(1 + \\frac{100}{100}\\right) d = 2d $$\nValue in 2024 = increased by 20% from 2020 = $$ \\left(1 + \\frac{20}{100}\\right) \\times 2d = \\frac{12}{5}d $$\n\nFor E:\nValue in 2020 = increased by 25% from 2016 = $$ \\left(1 + \\frac{25}{100}\\right) e = \\frac{5}{4}e $$\nValue in 2024 = increased by 20% from 2020 = $$ \\left(1 + \\frac{20}{100}\\right) \\times \\frac{5e}{4} = \\frac{3}{2}e $$\n\nFor F:\nValue in 2020 = increased by 100% from 2016 = $$ \\left(1 + \\frac{100}{100}\\right) f = 2f $$\nValue in 2024 = decreased by 25% from 2020 = $$ \\left(1 - \\frac{25}{100}\\right) \\times 2f = \\frac{3}{2}f $$\n\nWe are given that the value of E is 90 in 2024. We can calculate the value of e as,\n$$ \\frac{3e}{2} = 90 $$\n$$ e = 60 $$\n\nThe value of E in 2016 is 60, and its value in 2020 can be calculated as,\n$$ \\frac{5e}{4} = \\frac{5}{4} \\times 60 = 75 $$\n\nWe are given that B, C, E, and A had ranks 1, 2, 3, and 4, respectively, in 2016, and F has the lowest rank(6) in all the years.\nPutting the values in the table, we get,\n\n<table>\n    <tr>\n        <th></th>\n        <th>**2016**</th>\n        <th>**RANK in 2016**</th>\n        <th>**2020**</th>\n        <th>**RANK in 2020**</th>\n        <th>**2024**",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q40",
+    "category": "lrdi",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "hard",
+    "question": "The Sustainability Index (SI) of a country at a point in time is an integer between 1 and 100. This question is related to SI of six countries - A, B, C, D, E, and F - at three different points in time - 2016, 2020, and 2024. The plot represents the exact changes in their SI, with X-coordinate representing % increase in 2020 from 2016, i.e., (SI in 2020 minus SI in 2016) / (SI in 2016), and Y-coordinate representing % increase in 2024 from 2020. At any point in time, the country with highest SI is ranked 1, while the country with the lowest SI is ranked 6. The following additional facts are known. What was the SI of C in 2024?",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: 84\n\nLet us assume the values of A, B, C, D, E and F to be a, b, c, d, e and f in 2016.\n\nFor A:\n\nValue in 2020 = increased by 25% from 2016 = $$(1 + \\frac{25}{100})a = \\frac{5}{4}a$$\n\nValue in 2024 = increased by 50% from 2020 = $$(1 + \\frac{50}{100}) \\times \\frac{5a}{4} = \\frac{15}{8}a$$\n\nFor B:\n\nValue in 2020 = decreased by 25% from 2016 = $$(1 - \\frac{25}{100})b = \\frac{3}{4}b$$\n\nValue in 2024 = decreased by 25% from 2020 = $$(1 - \\frac{25}{100}) \\times \\frac{3b}{4} = \\frac{9}{16}b$$\n\nFor C:\n\nValue in 2020 = decreased by 20% from 2016 = $$(1 - \\frac{20}{100})c = \\frac{4}{5}c$$\n\nValue in 2024 = increased by 40% from 2020 = $$(1 + \\frac{40}{100}) \\times \\frac{4c}{5} = \\frac{28}{25}c$$\n\nFor D:\n\nValue in 2020 = increased by 100% from 2016 = $$(1 + \\frac{100}{100})d = 2d$$\n\nValue in 2024 = increased by 20% from 2020 = $$(1 + \\frac{20}{100}) \\times 2d = \\frac{12}{5}d$$\n\nFor E:\n\nValue in 2020 = increased by 25% from 2016 = $$ \\left( 1 + \\frac{25}{100} \\right) e = \\frac{5}{4}e $$\n\nValue in 2024 = increased by 20% from 2020 = $$ \\left( 1 + \\frac{20}{100} \\right) \\times \\frac{5e}{4} = \\frac{3}{2}e $$\n\nFor F:\n\nValue in 2020 = increased by 100% from 2016 = $$ \\left( 1 + \\frac{100}{100} \\right) f = 2f $$\n\nValue in 2024 = decreased by 25% from 2020 = $$ \\left( 1 - \\frac{25}{100} \\right) \\times 2f = \\frac{3}{2}f $$\n\nWe are given that the value of E is 90 in 2024. We can calculate the value of e as,\n\n$$ \\frac{3e}{2} = 90 $$\n\n$$ e = 60 $$\n\nThe value of E in 2016 is 60, and its value in 2020 can be calculated as,\n\n$$ \\frac{5e}{4} = \\frac{5}{4} \\times 60 = 75 $$\n\nWe are given that B, C, E, and A had ranks 1, 2, 3, and 4, respectively, in 2016, and F has the lowest rank(6) in all the years.\nPutting the values in the table, we get,\n\n<table>\n  <thead>\n    <tr>\n      <th></th>\n      <th><b>2016</b></th>\n      <th><b>RANK in 2016</b></th>\n      <th><b>2020</b></th>\n      <th><b>RANK in 2020</b></th>\n      <th><b>2024</b></th>\n      <th><b>RANK in 2024</b></th>\n    </tr>\n  </thead>\n  <tbody>\n",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q41",
+    "category": "lrdi",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "hard",
+    "question": "The Sustainability Index (SI) of a country at a point in time is an integer between 1 and 100. This question is related to SI of six countries - A, B, C, D, E, and F - at three different points in time - 2016, 2020, and 2024. The plot represents the exact changes in their SI, with X-coordinate representing % increase in 2020 from 2016, i.e., (SI in 2020 minus SI in 2016) / (SI in 2016), and Y-coordinate representing % increase in 2024 from 2020. At any point in time, the country with highest SI is ranked 1, while the country with the lowest SI is ranked 6. The following additional facts are known. What was the SI of B in 2024?",
+    "options": [
+      "60",
+      "54",
+      "80",
+      "45"
+    ],
+    "correctAnswer": 3,
+    "solution": "Answer: D",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q42",
+    "category": "lrdi",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "hard",
+    "question": "The two most populous cities and the non-urban region (NUR) of each of three states, Whimshire, Fogglia, and Humbleset, are assigned Pollution Measures (PMs). These nine PMs are all distinct multiples of 10, ranging from 10 to 90. The six cities in increasing order of their PMs are: Blusterburg, Noodleton, Splutterville, Quackford, Mumpypore, Zingaloo. The Pollution Index (PI) of a state is a weighted average of the PMs of its NUR and cities, with a weight of 50% for the NUR, and 25% each for its two cities. There is only one pair of an NUR and a city (considering all cities and all NURs) where the PM of the NUR is greater than that of the city. That NUR and the city both belong to Humbleset. The PIs of all three states are distinct integers, with Humbleset and Fogglia having the highest and the lowest PI respectively. What is the PI of Whimshire?",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: 45\n\n",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q43",
+    "category": "lrdi",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "hard",
+    "question": "The two most populous cities and the non-urban region (NUR) of each of three states, Whimshire, Fogglia, and Humbleset, are assigned Pollution Measures (PMs). These nine PMs are all distinct multiples of 10, ranging from 10 to 90. The six cities in increasing order of their PMs are: Blusterburg, Noodleton, Splutterville, Quackford, Mumpypore, Zingaloo. The Pollution Index (PI) of a state is a weighted average of the PMs of its NUR and cities, with a weight of 50% for the NUR, and 25% each for its two cities. There is only one pair of an NUR and a city (considering all cities and all NURs) where the PM of the NUR is greater than that of the city. That NUR and the city both belong to Humbleset. The PIs of all three states are distinct integers, with Humbleset and Fogglia having the highest and the lowest PI respectively. What is the PI of Fogglia?",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: 35\n\n",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q44",
+    "category": "lrdi",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "hard",
+    "question": "The two most populous cities and the non-urban region (NUR) of each of three states, Whimshire, Fogglia, and Humbleset, are assigned Pollution Measures (PMs). These nine PMs are all distinct multiples of 10, ranging from 10 to 90. The six cities in increasing order of their PMs are: Blusterburg, Noodleton, Splutterville, Quackford, Mumpypore, Zingaloo. The Pollution Index (PI) of a state is a weighted average of the PMs of its NUR and cities, with a weight of 50% for the NUR, and 25% each for its two cities. There is only one pair of an NUR and a city (considering all cities and all NURs) where the PM of the NUR is greater than that of the city. That NUR and the city both belong to Humbleset. The PIs of all three states are distinct integers, with Humbleset and Fogglia having the highest and the lowest PI respectively. What is the PI of Humbleset?",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: 50\n\n",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q45",
+    "category": "lrdi",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "hard",
+    "question": "The two most populous cities and the non-urban region (NUR) of each of three states, Whimshire, Fogglia, and Humbleset, are assigned Pollution Measures (PMs). These nine PMs are all distinct multiples of 10, ranging from 10 to 90. The six cities in increasing order of their PMs are: Blusterburg, Noodleton, Splutterville, Quackford, Mumpypore, Zingaloo. The Pollution Index (PI) of a state is a weighted average of the PMs of its NUR and cities, with a weight of 50% for the NUR, and 25% each for its two cities. There is only one pair of an NUR and a city (considering all cities and all NURs) where the PM of the NUR is greater than that of the city. That NUR and the city both belong to Humbleset. The PIs of all three states are distinct integers, with Humbleset and Fogglia having the highest and the lowest PI respectively. Which pair of cities definitely belong to the same state?",
+    "options": [
+      "Mumpypore, Zingaloo",
+      "Splutterville, Quackford",
+      "Blusterburg, Mumpypore",
+      "Noodleton, Quackford"
+    ],
+    "correctAnswer": 3,
+    "solution": "Answer: D",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q46",
+    "category": "lrdi",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "hard",
+    "question": "The two most populous cities and the non-urban region (NUR) of each of three states, Whimshire, Fogglia, and Humbleset, are assigned Pollution Measures (PMs). These nine PMs are all distinct multiples of 10, ranging from 10 to 90. The six cities in increasing order of their PMs are: Blusterburg, Noodleton, Splutterville, Quackford, Mumpypore, Zingaloo. The Pollution Index (PI) of a state is a weighted average of the PMs of its NUR and cities, with a weight of 50% for the NUR, and 25% each for its two cities. There is only one pair of an NUR and a city (considering all cities and all NURs) where the PM of the NUR is greater than that of the city. That NUR and the city both belong to Humbleset. The PIs of all three states are distinct integers, with Humbleset and Fogglia having the highest and the lowest PI respectively. For how many of the cities and NURs is it possible to identify their PM and the state they belong to?",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: 9\n\n",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q47",
+    "category": "quant",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "If $9^{x^2+2x-3} - 4(3^{x^2+2x-2}) + 27 = 0$ then the product of all possible values of x is",
+    "options": [
+      "30",
+      "20",
+      "5",
+      "15"
+    ],
+    "correctAnswer": 1,
+    "solution": "Answer: B",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q48",
+    "category": "quant",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "The average number of copies of a book sold per day by a shopkeeper is 60 in the initial seven days and 63 in the initial eight days, after the book launch. On the ninth day, she sells 11 copies less than the eighth day, and the average number of copies sold per day from second day to ninth day becomes 66. The number of copies sold on the first day of the book launch is",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: 49\n\n",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q49",
+    "category": "quant",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "The set of all real values of x for which $(x^2 - |x+9| + x) > 0$, is",
+    "options": [
+      "$(-\\infty, -3) \\cup (3, \\infty)$",
+      "$(-\\infty, -9) \\cup (3, \\infty)$",
+      "$(-9, -3) \\cup (3, \\infty)$",
+      "$(-\\infty, -9) \\cup (9, \\infty)$"
+    ],
+    "correctAnswer": 0,
+    "solution": "Answer: A",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q50",
+    "category": "quant",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "An item with a cost price of Rs. 1650 is sold at a certain discount on a fixed marked price to earn a profit of 20% on the cost price. If the discount was doubled, the profit would have been Rs. 110. The rate of discount, in percentage, at which the profit percentage would be equal to the rate of discount, is nearest to",
+    "options": [
+      "16",
+      "18",
+      "14",
+      "12"
+    ],
+    "correctAnswer": 2,
+    "solution": "Answer: C",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q51",
+    "category": "quant",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "If m and n are integers such that $$(m + 2n)(2m + n) = 27$$, then the maximum possible value of $$2m - 3n$$ is",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: 17\n\n",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q52",
+    "category": "quant",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "The sum of digits of the number $$(625)^{65} \\times (128)^{36}$$ is",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: 25\n\n",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q53",
+    "category": "quant",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "The equations $3x^2 - 5x + p = 0$ and $2x^2 - 2x + q = 0$ have one common root. The sum of the other roots of this equations is",
+    "options": [
+      "$\\frac{8}{3} - p + \\frac{3}{2}q$",
+      "$\\frac{2}{3} - p + \\frac{3}{2}q$",
+      "$\\frac{8}{3} + p + \\frac{1}{3}q$",
+      "$\\frac{2}{3} - 2p + \\frac{2}{3}q$"
+    ],
+    "correctAnswer": 0,
+    "solution": "Answer: A",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q54",
+    "category": "quant",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "If $\\log_{64} x^2 + \\log_8 \\sqrt{y} + 3\\log_{512} (\\sqrt{yz}) = 4$, where x,y and z are positive real numbers, then the minimum possible value of $(x + y + z)$ is",
+    "options": [
+      "48",
+      "36",
+      "24",
+      "96"
+    ],
+    "correctAnswer": 0,
+    "solution": "Answer: A",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q55",
+    "category": "quant",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "Rita and Sneha can row a boat at 5 km/h and 6 km/h in still water, respectively. In a river flowing with a constant velocity, Sneha takes 48 minutes more to row 14 km upstream than to row the same distance downstream. If Rita starts from a certain location in the river, and returns downstream to the same location, taking a total of 100 minutes, then the total distance, in km, Rita will cover is",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: 8\n\n",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q56",
+    "category": "quant",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "Suppose a,b,c are three distinct natural numbers, such that $3ac = 8(a + b)$. Then, the smallest possible value of $3a + 2b + c$ is",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: 12\n\n",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q57",
+    "category": "quant",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "Let $f(x) = \\frac{x}{(2x-1)}$ and $g(x) = \\frac{x}{(x-1)}$. Then the domain of the function $h(x) = f(g(x)) + g(f(x))$ is all real numbers except",
+    "options": [
+      "$-1, \\frac{1}{2}, and  1$",
+      "$\\frac{1}{2}, 1, and  \\frac{3}{2}$",
+      "$-\\frac{1}{2}, \\frac{1}{2}, and  1$",
+      "$\\frac{1}{2}, and  1$"
+    ],
+    "correctAnswer": 0,
+    "solution": "Answer: A",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q58",
+    "category": "quant",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "A loan of Rs 1000 is fully repaid by two installments of Rs 530 and Rs 594, paid at the end of first and second year, respectively. If the interest is compounded annually, then the rate of interest, in percentage, is",
+    "options": [
+      "10",
+      "11",
+      "9",
+      "8"
+    ],
+    "correctAnswer": 3,
+    "solution": "Answer: D",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q59",
+    "category": "quant",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "Two tangents drawn from a point P and a circle with center O at point Q and R. Point A and B lie on PQ and PR, repectively, such that AB is also a tangent to the same circle. If $\\angle AOB = 50^0$, then $\\angle APB$, in degrees equals",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: 80\n\n",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q60",
+    "category": "quant",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "The number of divisors of $(2^6 \\times 3^5 \\times 5^3 \\times 7^2)$, which are of the form $(3r + 1)$, where r is a non-negative integer, is",
+    "options": [
+      "36",
+      "56",
+      "24",
+      "42"
+    ],
+    "correctAnswer": 3,
+    "solution": "Answer: D",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q61",
+    "category": "quant",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "Let ABCDEF be a regular hexagon and P and Q be the midpoints of AB and CD, respectively. Then, the ratio of the areas of trapezium PBCQ and hexagon ABCDEF is",
+    "options": [
+      "6:19",
+      "5:24",
+      "6:25",
+      "7:24"
+    ],
+    "correctAnswer": 1,
+    "solution": "Answer: B",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q62",
+    "category": "quant",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "If a,b,c and d are integers such that their sum is 46, then the minimum possible value of $(a - b)^2 + (a - c)^2 + (a - d)^2$ is",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: 2\n\n",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q63",
+    "category": "quant",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "The ratio of expenditures of Lakshmi and Meenakshi is $2 : 3$, and the ratio of income of Lakshmi to expenditure of Meenakshi is $6 : 7$. If excess of income over expenditure is saved by Lakshmi and Meenakshi, and the ratio of their savings is $4 : 9$, then the ratio of their incomes is",
+    "options": [
+      "3:5",
+      "5:6",
+      "2:1",
+      "7:8"
+    ],
+    "correctAnswer": 0,
+    "solution": "Answer: A",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q64",
+    "category": "quant",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "Let $a_n$ be the $n^{th}$ term of a decreasing infinite geometric progression. If $a_1 + a_2 + a_3 = 52$ and $a_1a_2 + a_2a_3 + a_3a_1 = 624$, then the sum of this geometric progression is",
+    "options": [
+      "57",
+      "54",
+      "60",
+      "63"
+    ],
+    "correctAnswer": 1,
+    "solution": "Answer: B",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q65",
+    "category": "quant",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "A mixture of coffee and cocoa, 16% of which is coffee, costs Rs 240 per kg. Another mixture of coffee and cocoa, of which 36% is coffee, costs Rs 320 per kg. If a new mixture of coffee and cocoa costs Rs 376 per kg, then the quantity, in kg, of coffee in 10 kg of this new mixture is",
+    "options": [
+      "5",
+      "4",
+      "2.5",
+      "6"
+    ],
+    "correctAnswer": 0,
+    "solution": "Answer: A",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q66",
+    "category": "quant",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "In $\\triangle ABC$, points D and E are on the sides BC and AC, respectively. BE and AD intersect at point T such that AD:AT=4:3, and BE:BT=5:4. Point F lies on AC such that DF is parallel to BE. Then, BD:CD is",
+    "options": [
+      "15:4",
+      "11:4",
+      "7:4",
+      "9:4"
+    ],
+    "correctAnswer": 1,
+    "solution": "Answer: B",
+    "is_tita": false
+  },
+  {
+    "id": "cat25s2-q67",
+    "category": "quant",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "Ankita is twice as efficient as Bipin, while Bipin is twice as efficient as Chandan. All three of them start together on a job, and Bipin leaves the job after 20 days. If the job got completed in 60 days, the number of days needed by Chandan to complete the job alone, is",
+    "options": [],
+    "correctAnswer": 0,
+    "solution": "Answer: 340\n\n",
+    "is_tita": true
+  },
+  {
+    "id": "cat25s2-q68",
+    "category": "quant",
+    "topic": "CAT 2025 Slot 2",
+    "difficulty": "medium",
+    "question": "A certain amount of money was divided among Pinu, Meena, Rinu and Seema. Pinu received 20% of the total amount and Meena received 40% of the remaining amount. If Seema received 20% less than Pinu, the ratio of the amounts received by Pinu and Rinu is",
+    "options": [
+      "2:1",
+      "1:2",
+      "5:8",
+      "8:5"
+    ],
+    "correctAnswer": 2,
+    "solution": "Answer: C",
+    "is_tita": false
+  }
+]

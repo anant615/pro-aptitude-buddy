@@ -20,7 +20,10 @@ import ResetPassword from "@/pages/ResetPassword";
 import Community from "@/pages/Community";
 import CommunityQuestion from "@/pages/CommunityQuestion";
 import Leaderboard from "@/pages/Leaderboard";
+import AdminDashboard from "@/pages/AdminDashboard";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import FeedbackButton from "@/components/FeedbackButton";
+import PageTracker from "@/components/PageTracker";
 
 import NotFound from "@/pages/NotFound";
 
@@ -32,6 +35,8 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <PageTracker />
+        <FeedbackButton />
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -50,6 +55,7 @@ const App = () => (
             <Route path="/community" element={<Community />} />
             <Route path="/community/:id" element={<CommunityQuestion />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>
