@@ -94,7 +94,7 @@ export default function Home() {
                 <p className="text-xs opacity-80 leading-none mb-1">Managed by</p>
                 <EditableLink
                   storageKey="aman"
-                  defaultValue="https://www.linkedin.com/in/aman-pandey-iimk/"
+                  defaultValue="https://www.youtube.com/@amanpandey1_"
                   isAdmin={isAdmin}
                   className="font-heading text-lg md:text-xl font-bold text-accent hover:underline"
                 >
