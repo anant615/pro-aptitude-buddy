@@ -40,6 +40,7 @@ const learningOrder = ["Arithmetic", "Number System", "Algebra", "Geometry", "Mo
 import { useAuth } from "@/hooks/useAuth";
 import { useActivityTracker } from "@/hooks/useActivityTracker";
 import ProgressHeader from "@/components/ProgressHeader";
+import CreditsSection from "@/components/CreditsSection";
 
 export default function Videos() {
   const { isAdmin } = useAuth();
@@ -205,6 +206,7 @@ export default function Videos() {
           </motion.div>
         )}
       </AnimatePresence>
+      <CreditsSection context="concept videos and learning content" />
     </div>
   );
 }

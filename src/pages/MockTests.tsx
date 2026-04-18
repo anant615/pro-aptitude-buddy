@@ -8,6 +8,7 @@ import { Switch } from "@/components/ui/switch";
 import { ExternalLink, GraduationCap, Loader2, Settings, Plus, Trash2, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
+import CreditsSection from "@/components/CreditsSection";
 
 interface MockRow { id: string; name: string; exams: string[]; link: string; description: string; free: boolean; }
 
@@ -100,6 +101,7 @@ export default function MockTests() {
         ))}
       </div>
       {mocks.length === 0 && <p className="text-center text-muted-foreground py-12">No mock tests added yet</p>}
+      <CreditsSection context="mock tests" />
     </div>
   );
 }
