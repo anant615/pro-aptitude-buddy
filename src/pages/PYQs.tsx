@@ -3,7 +3,9 @@ import { sampleQuestions, pyqQuestions, pyqLRDISets } from "@/data/questions";
 import QuestionCard from "@/components/QuestionCard";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Trophy } from "lucide-react";
+import { useActivityTracker } from "@/hooks/useActivityTracker";
+import ProgressHeader from "@/components/ProgressHeader";
 
 const allPyqQuestions = [...sampleQuestions.filter(q => q.year), ...pyqQuestions];
 
@@ -12,6 +14,7 @@ const years = [...new Set(allPyqQuestions.map(q => q.year).filter(Boolean))].sor
 const papers = [...new Set(allPyqQuestions.map(q => q.paper).filter(Boolean))];
 
 export default function PYQs() {
+  const { completed: attempted, track } = useActivityTracker("pyq_attempted");
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [category, setCategory] = useState("all");
   const [selectedPaper, setSelectedPaper] = useState<string | null>(null);
@@ -58,7 +61,15 @@ export default function PYQs() {
   return (
     <div className="container py-10">
       <h1 className="font-heading text-3xl font-bold mb-2">Previous Year Questions</h1>
-      <p className="text-muted-foreground mb-8">Practice with actual CAT questions from {years[years.length - 1]} to {years[0]}</p>
+      <p className="text-muted-foreground mb-6">Practice with actual CAT questions from {years[years.length - 1]} to {years[0]}</p>
+
+      <ProgressHeader
+        title="PYQ Progress"
+        completed={allPyqQuestions.filter(q => attempted.has(q.id)).length}
+        total={allPyqQuestions.length}
+        pointsPerItem={4}
+        icon={<Trophy className="h-5 w-5" />}
+      />
 
       {/* Year filters */}
       <div className="flex flex-wrap gap-2 mb-4">
@@ -125,7 +136,12 @@ export default function PYQs() {
           )}
           <div className="space-y-6">
             {filteredQuestions.length > 0 ? (
-              filteredQuestions.map((q, i) => <QuestionCard key={q.id} question={q} index={i} />)
+              filteredQuestions.map((q, i) => (
+                <div key={q.id} onClick={() => track(q.id)}>
+                  <QuestionCard question={q} index={i} />
+                  {attempted.has(q.id) && <p className="text-xs text-accent mt-1 ml-2">✓ Attempted (+4 pts earned)</p>}
+                </div>
+              ))
             ) : (
               <div className="text-center py-20 text-muted-foreground">
                 <p>No PYQs found for the selected filters.</p>

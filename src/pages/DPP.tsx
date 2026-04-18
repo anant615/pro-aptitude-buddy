@@ -14,6 +14,8 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
+import { useActivityTracker } from "@/hooks/useActivityTracker";
+import ProgressHeader from "@/components/ProgressHeader";
 
 type QType = "mcq" | "rc" | "lrdi";
 
@@ -40,6 +42,7 @@ interface DPPGroup {
 
 export default function DPP() {
   const { isAdmin } = useAuth();
+  const { completed: doneSet, track } = useActivityTracker("dpp_completed");
   const [rows, setRows] = useState<DPPRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedKey, setSelectedKey] = useState<string | null>(null);
@@ -405,9 +408,12 @@ export default function DPP() {
                               </div>
                             )}
 
-                            <div className="mt-4 flex items-center gap-2">
+                            <div className="mt-4 flex items-center gap-2 flex-wrap">
                               <Button size="sm" variant="outline" onClick={() => setRevealed(r => ({ ...r, [q.id]: !r[q.id] }))} className="gap-1.5">
                                 <CheckCircle2 className="h-4 w-4" /> {isRevealed ? "Hide answer" : "Show answer"}
+                              </Button>
+                              <Button size="sm" variant={doneSet.has(q.id) ? "secondary" : "default"} onClick={() => track(q.id)} disabled={doneSet.has(q.id)} className="gap-1.5">
+                                <CheckCircle2 className="h-4 w-4" /> {doneSet.has(q.id) ? "Completed ✓" : "Mark complete (+5)"}
                               </Button>
                             </div>
 

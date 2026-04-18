@@ -304,6 +304,33 @@ export type Database = {
         }
         Relationships: []
       }
+      user_activity: {
+        Row: {
+          activity_type: string
+          created_at: string
+          id: string
+          item_id: string
+          seconds: number
+          user_id: string
+        }
+        Insert: {
+          activity_type: string
+          created_at?: string
+          id?: string
+          item_id: string
+          seconds?: number
+          user_id: string
+        }
+        Update: {
+          activity_type?: string
+          created_at?: string
+          id?: string
+          item_id?: string
+          seconds?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_points: {
         Row: {
           current_streak: number
