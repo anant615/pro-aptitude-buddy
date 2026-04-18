@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, BookOpen, Brain, MessageSquareText, Clock, Trophy, Youtube, CalendarDays, FileText, Newspaper } from "lucide-react";
+import { ArrowRight, BookOpen, Brain, MessageSquareText, Clock, Trophy, CalendarDays, FileText, Newspaper, Pencil, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { dppData } from "@/data/dpp_data";
 import { resourcesData } from "@/data/resources_data";
 import { newsData } from "@/data/news_data";
+import { useAuth } from "@/hooks/useAuth";
+import { useEffect, useState } from "react";
+import amanPhoto from "@/assets/aman-pandey.png";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -17,7 +21,55 @@ const sections = [
   { icon: MessageSquareText, title: "Verbal Ability", desc: "RC, Para Jumbles, Sentence Completion & more", to: "/practice?cat=verbal", color: "from-amber-500/10 to-amber-600/5" },
 ];
 
+// localStorage-backed editable link hook (admin only). Keys are stable.
+function useEditableLink(key: string, defaultValue: string) {
+  const [value, setValue] = useState<string>(() => localStorage.getItem(`home_link_${key}`) || defaultValue);
+  useEffect(() => { localStorage.setItem(`home_link_${key}`, value); }, [key, value]);
+  return [value, setValue] as const;
+}
+
+function EditableLink({
+  storageKey, defaultValue, isAdmin, children, className,
+}: { storageKey: string; defaultValue: string; isAdmin: boolean; children: React.ReactNode; className?: string }) {
+  const [url, setUrl] = useEditableLink(storageKey, defaultValue);
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(url);
+
+  if (editing) {
+    return (
+      <div className="flex items-center gap-1.5 w-full">
+        <Input value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="https://… or /page" className="h-8 text-xs" />
+        <Button size="icon" variant="ghost" className="h-7 w-7" onClick={() => { setUrl(draft); setEditing(false); }}>
+          <Check className="h-3.5 w-3.5" />
+        </Button>
+        <Button size="icon" variant="ghost" className="h-7 w-7" onClick={() => { setDraft(url); setEditing(false); }}>
+          <X className="h-3.5 w-3.5" />
+        </Button>
+      </div>
+    );
+  }
+
+  const isInternal = url.startsWith("/");
+  const linkEl = isInternal ? (
+    <Link to={url} className={className}>{children}</Link>
+  ) : (
+    <a href={url} target="_blank" rel="noopener noreferrer" className={className}>{children}</a>
+  );
+
+  return (
+    <span className="inline-flex items-center gap-1">
+      {linkEl}
+      {isAdmin && (
+        <button onClick={() => { setDraft(url); setEditing(true); }} className="text-muted-foreground hover:text-accent" title="Edit link">
+          <Pencil className="h-3 w-3" />
+        </button>
+      )}
+    </span>
+  );
+}
+
 export default function Home() {
+  const { isAdmin } = useAuth();
   const today = new Date().toISOString().split("T")[0];
   const todayDPP = dppData.find((d) => d.date === today) || dppData[0];
 
@@ -30,18 +82,35 @@ export default function Home() {
           <div className="absolute bottom-10 right-20 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
         </div>
         <div className="container relative z-10 text-center">
-          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0} className="space-y-3 mb-4">
-            <p className="text-sm md:text-base opacity-90">
-              Managed by{" "}
-              <a
-                href="https://www.linkedin.com/in/aman-pandey-iimk/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-accent font-semibold hover:underline"
-              >
-                Aman Pandey
-              </a>
-            </p>
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0} className="flex flex-col items-center gap-3 mb-5">
+            <div className="flex items-center gap-3">
+              <img
+                src={amanPhoto}
+                alt="Aman Pandey"
+                className="h-14 w-14 md:h-16 md:w-16 rounded-full object-cover border-2 border-accent/60 shadow-lg"
+              />
+              <div className="text-left">
+                <p className="text-xs opacity-80 leading-none mb-1">Managed by</p>
+                <EditableLink
+                  storageKey="aman"
+                  defaultValue="https://www.linkedin.com/in/aman-pandey-iimk/"
+                  isAdmin={isAdmin}
+                  className="font-heading text-lg md:text-xl font-bold text-accent hover:underline"
+                >
+                  Aman Pandey
+                </EditableLink>
+                <div className="text-[11px] md:text-xs opacity-75 mt-0.5">
+                  <EditableLink
+                    storageKey="aman_tagline"
+                    defaultValue="https://www.youtube.com/@amanpandey1_"
+                    isAdmin={isAdmin}
+                    className="hover:underline text-primary-foreground/90"
+                  >
+                    Click here to know more about Aman →
+                  </EditableLink>
+                </div>
+              </div>
+            </div>
             <span className="inline-block bg-accent/20 text-accent px-4 py-1.5 rounded-full text-sm font-medium">
               CAT 2026 & OMET Preparation Platform
             </span>
@@ -103,14 +172,19 @@ export default function Home() {
             <Link to="/dpp" className="text-accent text-sm font-medium hover:underline">View all →</Link>
           </div>
           <div className="rounded-xl border bg-card p-6">
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
               <div>
                 <h3 className="font-heading font-semibold text-lg">{todayDPP.title}</h3>
                 <p className="text-sm text-muted-foreground">{todayDPP.date} · {todayDPP.questions.length} questions</p>
               </div>
-              <Button asChild className="bg-gradient-gold text-accent-foreground font-semibold hover:opacity-90">
-                <Link to="/dpp">Start Today's DPP <ArrowRight className="ml-2 h-4 w-4" /></Link>
-              </Button>
+              <EditableLink
+                storageKey="dpp_cta"
+                defaultValue="/dpp"
+                isAdmin={isAdmin}
+                className="inline-flex items-center rounded-md bg-gradient-gold text-accent-foreground font-semibold px-4 py-2 text-sm hover:opacity-90"
+              >
+                Start Today's DPP <ArrowRight className="ml-2 h-4 w-4" />
+              </EditableLink>
             </div>
             <div className="flex flex-wrap gap-2">
               {todayDPP.questions.map((q) => (
@@ -156,9 +230,14 @@ export default function Home() {
               >
                 <h3 className="font-heading font-semibold mb-1">{r.title}</h3>
                 <p className="text-sm text-muted-foreground mb-3">{r.description}</p>
-                <a href={r.link} target="_blank" rel="noopener noreferrer" className="text-accent text-sm font-medium hover:underline">
+                <EditableLink
+                  storageKey={`resource_${r.id}`}
+                  defaultValue={r.link}
+                  isAdmin={isAdmin}
+                  className="text-accent text-sm font-medium hover:underline"
+                >
                   Open →
-                </a>
+                </EditableLink>
               </motion.div>
             ))}
           </div>
@@ -184,9 +263,14 @@ export default function Home() {
               </div>
               <h3 className="font-heading font-semibold mb-1">{n.title}</h3>
               <p className="text-sm text-muted-foreground mb-3">{n.description}</p>
-              <a href={n.link} target="_blank" rel="noopener noreferrer" className="text-accent text-sm font-medium hover:underline">
+              <EditableLink
+                storageKey={`news_${n.id}`}
+                defaultValue={n.link}
+                isAdmin={isAdmin}
+                className="text-accent text-sm font-medium hover:underline"
+              >
                 Read Now →
-              </a>
+              </EditableLink>
             </motion.div>
           ))}
         </div>
