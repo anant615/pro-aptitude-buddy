@@ -9,6 +9,7 @@ import { newsData } from "@/data/news_data";
 import { useAuth } from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
 import amanPhoto from "@/assets/aman-pandey.png";
+import { EditableText } from "@/components/EditableText";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
