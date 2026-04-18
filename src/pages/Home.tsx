@@ -166,9 +166,12 @@ export default function Home() {
           <div className="flex items-center justify-between mb-6">
             <div>
               <h2 className="font-heading text-2xl font-bold flex items-center gap-2">
-                <CalendarDays className="h-6 w-6 text-accent" /> Daily Practice Problems
+                <CalendarDays className="h-6 w-6 text-accent" />
+                <EditableText storageKey="dpp_heading" defaultValue="Daily Practice Problems" isAdmin={isAdmin} />
               </h2>
-              <p className="text-muted-foreground text-sm mt-1">Fresh questions daily for CAT 2026 & OMET preparation</p>
+              <p className="text-muted-foreground text-sm mt-1">
+                <EditableText storageKey="dpp_subheading" defaultValue="Fresh questions daily for CAT 2026 & OMET preparation" isAdmin={isAdmin} />
+              </p>
             </div>
             <Link to="/dpp" className="text-accent text-sm font-medium hover:underline">View all →</Link>
           </div>
@@ -184,7 +187,7 @@ export default function Home() {
                 isAdmin={isAdmin}
                 className="inline-flex items-center rounded-md bg-gradient-gold text-accent-foreground font-semibold px-4 py-2 text-sm hover:opacity-90"
               >
-                Start Today's DPP <ArrowRight className="ml-2 h-4 w-4" />
+                <EditableText storageKey="dpp_cta_text" defaultValue="Start Today's DPP" isAdmin={isAdmin} /> <ArrowRight className="ml-2 h-4 w-4" />
               </EditableLink>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -192,6 +195,7 @@ export default function Home() {
                 <span key={q.id} className="rounded-full border bg-secondary/60 px-3 py-1 text-xs font-medium">{q.topic}</span>
               ))}
             </div>
+          </div>
           </div>
         </div>
       </section>
