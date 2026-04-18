@@ -196,7 +196,6 @@ export default function Home() {
               ))}
             </div>
           </div>
-          </div>
         </div>
       </section>
 
@@ -224,7 +223,8 @@ export default function Home() {
         <div className="container">
           <div className="flex items-center justify-between mb-6">
             <h2 className="font-heading text-2xl font-bold flex items-center gap-2">
-              <FileText className="h-6 w-6 text-accent" /> Resources
+              <FileText className="h-6 w-6 text-accent" />
+              <EditableText storageKey="resources_heading" defaultValue="Resources" isAdmin={isAdmin} />
             </h2>
             <Link to="/resources" className="text-accent text-sm font-medium hover:underline">View all →</Link>
           </div>
@@ -233,15 +233,19 @@ export default function Home() {
               <motion.div key={r.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
                 className="rounded-xl border bg-card p-5 card-hover"
               >
-                <h3 className="font-heading font-semibold mb-1">{r.title}</h3>
-                <p className="text-sm text-muted-foreground mb-3">{r.description}</p>
+                <h3 className="font-heading font-semibold mb-1">
+                  <EditableText storageKey={`resource_title_${r.id}`} defaultValue={r.title} isAdmin={isAdmin} />
+                </h3>
+                <p className="text-sm text-muted-foreground mb-3">
+                  <EditableText storageKey={`resource_desc_${r.id}`} defaultValue={r.description} isAdmin={isAdmin} multiline />
+                </p>
                 <EditableLink
                   storageKey={`resource_${r.id}`}
                   defaultValue={r.link}
                   isAdmin={isAdmin}
                   className="text-accent text-sm font-medium hover:underline"
                 >
-                  Open →
+                  <EditableText storageKey={`resource_cta_${r.id}`} defaultValue="Open →" isAdmin={isAdmin} />
                 </EditableLink>
               </motion.div>
             ))}
@@ -253,7 +257,8 @@ export default function Home() {
       <section className="py-14 container">
         <div className="flex items-center justify-between mb-6">
           <h2 className="font-heading text-2xl font-bold flex items-center gap-2">
-            <Newspaper className="h-6 w-6 text-accent" /> Newspaper & Editorials
+            <Newspaper className="h-6 w-6 text-accent" />
+            <EditableText storageKey="news_heading" defaultValue="Newspaper & Editorials" isAdmin={isAdmin} />
           </h2>
           <Link to="/newspaper" className="text-accent text-sm font-medium hover:underline">View all →</Link>
         </div>
@@ -263,18 +268,24 @@ export default function Home() {
               className="rounded-xl border bg-card p-5 card-hover"
             >
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-xs text-muted-foreground">{n.source}</span>
+                <span className="text-xs text-muted-foreground">
+                  <EditableText storageKey={`news_source_${n.id}`} defaultValue={n.source} isAdmin={isAdmin} />
+                </span>
                 <span className="text-xs text-muted-foreground">· {n.date}</span>
               </div>
-              <h3 className="font-heading font-semibold mb-1">{n.title}</h3>
-              <p className="text-sm text-muted-foreground mb-3">{n.description}</p>
+              <h3 className="font-heading font-semibold mb-1">
+                <EditableText storageKey={`news_title_${n.id}`} defaultValue={n.title} isAdmin={isAdmin} />
+              </h3>
+              <p className="text-sm text-muted-foreground mb-3">
+                <EditableText storageKey={`news_desc_${n.id}`} defaultValue={n.description} isAdmin={isAdmin} multiline />
+              </p>
               <EditableLink
                 storageKey={`news_${n.id}`}
                 defaultValue={n.link}
                 isAdmin={isAdmin}
                 className="text-accent text-sm font-medium hover:underline"
               >
-                Read Now →
+                <EditableText storageKey={`news_cta_${n.id}`} defaultValue="Read Now →" isAdmin={isAdmin} />
               </EditableLink>
             </motion.div>
           ))}
