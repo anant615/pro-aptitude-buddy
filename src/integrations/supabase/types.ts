@@ -16,24 +16,48 @@ export type Database = {
     Tables: {
       dpps: {
         Row: {
+          correct_answer: number | null
           created_at: string
           date: string
           id: string
+          options: Json
+          passage: string
+          q_number: number | null
+          q_type: string
           question: string
+          set_id: string | null
+          solution: string
+          timer_seconds: number | null
           title: string
         }
         Insert: {
+          correct_answer?: number | null
           created_at?: string
           date: string
           id?: string
+          options?: Json
+          passage?: string
+          q_number?: number | null
+          q_type?: string
           question?: string
+          set_id?: string | null
+          solution?: string
+          timer_seconds?: number | null
           title: string
         }
         Update: {
+          correct_answer?: number | null
           created_at?: string
           date?: string
           id?: string
+          options?: Json
+          passage?: string
+          q_number?: number | null
+          q_type?: string
           question?: string
+          set_id?: string | null
+          solution?: string
+          timer_seconds?: number | null
           title?: string
         }
         Relationships: []
