@@ -10,6 +10,13 @@ import { toast } from "sonner";
 
 interface NewsItem { id: string; title: string; description: string; link: string; date: string; source: string; }
 
+const normalizeUrl = (url: string) => {
+  if (!url) return "#";
+  const trimmed = url.trim();
+  if (/^(https?:\/\/|mailto:|tel:|\/)/i.test(trimmed)) return trimmed;
+  return `https://${trimmed}`;
+};
+
 import { useAuth } from "@/hooks/useAuth";
 import { FileUpload } from "@/components/FileUpload";
 
@@ -64,7 +71,7 @@ export default function NewspaperPage() {
       <p className="text-sm text-muted-foreground mb-4 flex-1">{n.description}</p>
       <div className="flex items-center justify-between">
         <span className="flex items-center gap-1 text-xs text-muted-foreground"><Calendar className="h-3 w-3" /> {n.date}</span>
-        <Button size="sm" asChild className="gap-1.5"><a href={n.link} target="_blank" rel="noopener noreferrer">Read Now <ExternalLink className="h-3.5 w-3.5" /></a></Button>
+        <Button size="sm" asChild className="gap-1.5"><a href={normalizeUrl(n.link)} target="_blank" rel="noopener noreferrer">Read Now <ExternalLink className="h-3.5 w-3.5" /></a></Button>
       </div>
     </motion.div>
   );
