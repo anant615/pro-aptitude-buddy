@@ -275,34 +275,27 @@ export default function Home() {
           </h2>
           <Link to="/newspaper" className="text-accent text-sm font-medium hover:underline">View all →</Link>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {newsData.slice(0, 3).map((n, i) => (
-            <motion.div key={n.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
-              className="rounded-xl border bg-card p-5 card-hover"
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-xs text-muted-foreground">
-                  <EditableText storageKey={`news_source_${n.id}`} defaultValue={n.source} isAdmin={isAdmin} />
-                </span>
-                <span className="text-xs text-muted-foreground">· {n.date}</span>
-              </div>
-              <h3 className="font-heading font-semibold mb-1">
-                <EditableText storageKey={`news_title_${n.id}`} defaultValue={n.title} isAdmin={isAdmin} />
-              </h3>
-              <p className="text-sm text-muted-foreground mb-3">
-                <EditableText storageKey={`news_desc_${n.id}`} defaultValue={n.description} isAdmin={isAdmin} multiline />
-              </p>
-              <EditableLink
-                storageKey={`news_${n.id}`}
-                defaultValue={n.link}
-                isAdmin={isAdmin}
-                className="text-accent text-sm font-medium hover:underline"
+        {news.length === 0 ? (
+          <p className="text-sm text-muted-foreground">No news yet.</p>
+        ) : (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {news.map((n, i) => (
+              <motion.div key={n.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
+                className="rounded-xl border bg-card p-5 card-hover"
               >
-                <EditableText storageKey={`news_cta_${n.id}`} defaultValue="Read Now →" isAdmin={isAdmin} />
-              </EditableLink>
-            </motion.div>
-          ))}
-        </div>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-xs text-muted-foreground">{n.source}</span>
+                  <span className="text-xs text-muted-foreground">· {n.date}</span>
+                </div>
+                <h3 className="font-heading font-semibold mb-1">{n.title}</h3>
+                <p className="text-sm text-muted-foreground mb-3">{n.description}</p>
+                <a href={normalizeUrl(n.link)} target="_blank" rel="noopener noreferrer" className="text-accent text-sm font-medium hover:underline">
+                  Read Now →
+                </a>
+              </motion.div>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Feedback CTA */}
