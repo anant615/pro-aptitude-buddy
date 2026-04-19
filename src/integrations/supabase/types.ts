@@ -564,6 +564,23 @@ export type Database = {
         }
         Returns: undefined
       }
+      dpp_stats: {
+        Args: { _date: string; _title: string }
+        Returns: {
+          attempts: number
+          avg_pct: number
+          avg_score: number
+        }[]
+      }
+      dpp_user_rank: {
+        Args: { _date: string; _title: string; _user_id: string }
+        Returns: {
+          rank: number
+          total_attempts: number
+          user_pct: number
+          user_score: number
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
