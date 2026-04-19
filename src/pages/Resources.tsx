@@ -105,7 +105,7 @@ export default function Resources() {
               <p className="text-sm text-muted-foreground mb-4 flex-1">{r.description}</p>
               <div className="flex items-center justify-between">
                 <Badge variant="outline" className="text-xs capitalize">{r.type}</Badge>
-                <Button size="sm" variant="outline" asChild className="gap-1.5"><a href={normalizeUrl(r.link)} target="_blank" rel="noopener noreferrer">Open <ExternalLink className="h-3.5 w-3.5" /></a></Button>
+                <Button size="sm" variant="outline" className="gap-1.5" onClick={() => { const u = normalizeUrl(r.link); const w = window.open(u, "_blank", "noopener,noreferrer"); if (!w) window.location.href = u; }}>Open <ExternalLink className="h-3.5 w-3.5" /></Button>
               </div>
             </motion.div>
           ))}
