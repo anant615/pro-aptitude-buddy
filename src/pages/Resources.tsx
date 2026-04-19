@@ -15,6 +15,13 @@ const typeIcons: Record<string, React.ReactNode> = { pdf: <FileText className="h
 const typeColors: Record<string, string> = { pdf: "bg-destructive/10 text-destructive", article: "bg-accent/10 text-accent", tool: "bg-green-500/10 text-green-600 dark:text-green-400", sheet: "bg-amber-500/10 text-amber-600 dark:text-amber-400" };
 const TYPES: ResourceType[] = ["pdf", "article", "tool", "sheet"];
 
+const normalizeUrl = (url: string) => {
+  if (!url) return "#";
+  const trimmed = url.trim();
+  if (/^(https?:\/\/|mailto:|tel:|\/)/i.test(trimmed)) return trimmed;
+  return `https://${trimmed}`;
+};
+
 import { useAuth } from "@/hooks/useAuth";
 import { FileUpload } from "@/components/FileUpload";
 
@@ -98,7 +105,7 @@ export default function Resources() {
               <p className="text-sm text-muted-foreground mb-4 flex-1">{r.description}</p>
               <div className="flex items-center justify-between">
                 <Badge variant="outline" className="text-xs capitalize">{r.type}</Badge>
-                <Button size="sm" variant="outline" asChild className="gap-1.5"><a href={r.link} target="_blank" rel="noopener noreferrer">Open <ExternalLink className="h-3.5 w-3.5" /></a></Button>
+                <Button size="sm" variant="outline" asChild className="gap-1.5"><a href={normalizeUrl(r.link)} target="_blank" rel="noopener noreferrer">Open <ExternalLink className="h-3.5 w-3.5" /></a></Button>
               </div>
             </motion.div>
           ))}
