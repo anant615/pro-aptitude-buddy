@@ -4,12 +4,21 @@ import { ArrowRight, BookOpen, Brain, MessageSquareText, Clock, Trophy, Calendar
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { dppData } from "@/data/dpp_data";
-import { resourcesData } from "@/data/resources_data";
-import { newsData } from "@/data/news_data";
 import { useAuth } from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
 import amanPhoto from "@/assets/aman-pandey.png";
 import { EditableText } from "@/components/EditableText";
+import { supabase } from "@/integrations/supabase/client";
+
+interface Resource { id: string; title: string; description: string; link: string; type: string; }
+interface NewsItem { id: string; title: string; description: string; link: string; date: string; source: string; }
+
+const normalizeUrl = (url: string) => {
+  if (!url) return "#";
+  const t = url.trim();
+  if (/^(https?:\/\/|mailto:|tel:|\/)/i.test(t)) return t;
+  return `https://${t}`;
+};
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
