@@ -4,12 +4,21 @@ import { ArrowRight, BookOpen, Brain, MessageSquareText, Clock, Trophy, Calendar
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { dppData } from "@/data/dpp_data";
-import { resourcesData } from "@/data/resources_data";
-import { newsData } from "@/data/news_data";
 import { useAuth } from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
 import amanPhoto from "@/assets/aman-pandey.png";
 import { EditableText } from "@/components/EditableText";
+import { supabase } from "@/integrations/supabase/client";
+
+interface Resource { id: string; title: string; description: string; link: string; type: string; }
+interface NewsItem { id: string; title: string; description: string; link: string; date: string; source: string; }
+
+const normalizeUrl = (url: string) => {
+  if (!url) return "#";
+  const t = url.trim();
+  if (/^(https?:\/\/|mailto:|tel:|\/)/i.test(t)) return t;
+  return `https://${t}`;
+};
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -73,6 +82,15 @@ export default function Home() {
   const { isAdmin } = useAuth();
   const today = new Date().toISOString().split("T")[0];
   const todayDPP = dppData.find((d) => d.date === today) || dppData[0];
+  const [resources, setResources] = useState<Resource[]>([]);
+  const [news, setNews] = useState<NewsItem[]>([]);
+
+  useEffect(() => {
+    supabase.from("resources").select("*").order("created_at", { ascending: false }).limit(3)
+      .then(({ data }) => setResources((data || []) as Resource[]));
+    supabase.from("news").select("*").order("date", { ascending: false }).limit(3)
+      .then(({ data }) => setNews((data || []) as NewsItem[]));
+  }, []);
 
   return (
     <div>
@@ -218,38 +236,33 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Resources */}
+      {/* Strategy Videos */}
       <section className="py-14 bg-muted/50">
         <div className="container">
           <div className="flex items-center justify-between mb-6">
             <h2 className="font-heading text-2xl font-bold flex items-center gap-2">
               <FileText className="h-6 w-6 text-accent" />
-              <EditableText storageKey="resources_heading" defaultValue="Resources" isAdmin={isAdmin} />
+              <EditableText storageKey="resources_heading" defaultValue="Strategy Videos" isAdmin={isAdmin} />
             </h2>
             <Link to="/resources" className="text-accent text-sm font-medium hover:underline">View all →</Link>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {resourcesData.slice(0, 3).map((r, i) => (
-              <motion.div key={r.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
-                className="rounded-xl border bg-card p-5 card-hover"
-              >
-                <h3 className="font-heading font-semibold mb-1">
-                  <EditableText storageKey={`resource_title_${r.id}`} defaultValue={r.title} isAdmin={isAdmin} />
-                </h3>
-                <p className="text-sm text-muted-foreground mb-3">
-                  <EditableText storageKey={`resource_desc_${r.id}`} defaultValue={r.description} isAdmin={isAdmin} multiline />
-                </p>
-                <EditableLink
-                  storageKey={`resource_${r.id}`}
-                  defaultValue={r.link}
-                  isAdmin={isAdmin}
-                  className="text-accent text-sm font-medium hover:underline"
+          {resources.length === 0 ? (
+            <p className="text-sm text-muted-foreground">No strategy videos yet.</p>
+          ) : (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {resources.map((r, i) => (
+                <motion.div key={r.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
+                  className="rounded-xl border bg-card p-5 card-hover"
                 >
-                  <EditableText storageKey={`resource_cta_${r.id}`} defaultValue="Open →" isAdmin={isAdmin} />
-                </EditableLink>
-              </motion.div>
-            ))}
-          </div>
+                  <h3 className="font-heading font-semibold mb-1">{r.title}</h3>
+                  <p className="text-sm text-muted-foreground mb-3">{r.description}</p>
+                  <a href={normalizeUrl(r.link)} target="_blank" rel="noopener noreferrer" className="text-accent text-sm font-medium hover:underline">
+                    Open →
+                  </a>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -262,34 +275,27 @@ export default function Home() {
           </h2>
           <Link to="/newspaper" className="text-accent text-sm font-medium hover:underline">View all →</Link>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {newsData.slice(0, 3).map((n, i) => (
-            <motion.div key={n.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
-              className="rounded-xl border bg-card p-5 card-hover"
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-xs text-muted-foreground">
-                  <EditableText storageKey={`news_source_${n.id}`} defaultValue={n.source} isAdmin={isAdmin} />
-                </span>
-                <span className="text-xs text-muted-foreground">· {n.date}</span>
-              </div>
-              <h3 className="font-heading font-semibold mb-1">
-                <EditableText storageKey={`news_title_${n.id}`} defaultValue={n.title} isAdmin={isAdmin} />
-              </h3>
-              <p className="text-sm text-muted-foreground mb-3">
-                <EditableText storageKey={`news_desc_${n.id}`} defaultValue={n.description} isAdmin={isAdmin} multiline />
-              </p>
-              <EditableLink
-                storageKey={`news_${n.id}`}
-                defaultValue={n.link}
-                isAdmin={isAdmin}
-                className="text-accent text-sm font-medium hover:underline"
+        {news.length === 0 ? (
+          <p className="text-sm text-muted-foreground">No news yet.</p>
+        ) : (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {news.map((n, i) => (
+              <motion.div key={n.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
+                className="rounded-xl border bg-card p-5 card-hover"
               >
-                <EditableText storageKey={`news_cta_${n.id}`} defaultValue="Read Now →" isAdmin={isAdmin} />
-              </EditableLink>
-            </motion.div>
-          ))}
-        </div>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-xs text-muted-foreground">{n.source}</span>
+                  <span className="text-xs text-muted-foreground">· {n.date}</span>
+                </div>
+                <h3 className="font-heading font-semibold mb-1">{n.title}</h3>
+                <p className="text-sm text-muted-foreground mb-3">{n.description}</p>
+                <a href={normalizeUrl(n.link)} target="_blank" rel="noopener noreferrer" className="text-accent text-sm font-medium hover:underline">
+                  Read Now →
+                </a>
+              </motion.div>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Feedback CTA */}
