@@ -61,8 +61,8 @@ export default function Resources() {
   return (
     <div className="container py-10 max-w-5xl">
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="font-heading text-3xl font-bold mb-1">Resources</h1>
-        <p className="text-muted-foreground mb-4">Curated study material, formula sheets, and tools</p>
+        <h1 className="font-heading text-3xl font-bold mb-1">Strategy Videos</h1>
+        <p className="text-muted-foreground mb-4">Curated strategy videos, formula sheets, and tools</p>
         {isAdmin && (<Button variant="ghost" size="sm" className="mb-6 gap-1.5 text-xs text-muted-foreground" onClick={() => setManage(m => !m)}>
           <Settings className="h-3.5 w-3.5" /> {manage ? "Hide Manage" : "Manage"}
         </Button>)}
