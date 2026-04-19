@@ -121,11 +121,48 @@ export type Database = {
         }
         Relationships: []
       }
+      dpp_attempts: {
+        Row: {
+          answers: Json
+          created_at: string
+          dpp_date: string
+          dpp_title: string
+          id: string
+          score: number
+          seconds_taken: number
+          total: number
+          user_id: string
+        }
+        Insert: {
+          answers?: Json
+          created_at?: string
+          dpp_date: string
+          dpp_title: string
+          id?: string
+          score?: number
+          seconds_taken?: number
+          total?: number
+          user_id: string
+        }
+        Update: {
+          answers?: Json
+          created_at?: string
+          dpp_date?: string
+          dpp_title?: string
+          id?: string
+          score?: number
+          seconds_taken?: number
+          total?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
       dpps: {
         Row: {
           correct_answer: number | null
           created_at: string
           date: string
+          duration_minutes: number
           id: string
           options: Json
           passage: string
@@ -141,6 +178,7 @@ export type Database = {
           correct_answer?: number | null
           created_at?: string
           date: string
+          duration_minutes?: number
           id?: string
           options?: Json
           passage?: string
@@ -156,6 +194,7 @@ export type Database = {
           correct_answer?: number | null
           created_at?: string
           date?: string
+          duration_minutes?: number
           id?: string
           options?: Json
           passage?: string
@@ -524,6 +563,23 @@ export type Database = {
           _user_id: string
         }
         Returns: undefined
+      }
+      dpp_stats: {
+        Args: { _date: string; _title: string }
+        Returns: {
+          attempts: number
+          avg_pct: number
+          avg_score: number
+        }[]
+      }
+      dpp_user_rank: {
+        Args: { _date: string; _title: string; _user_id: string }
+        Returns: {
+          rank: number
+          total_attempts: number
+          user_pct: number
+          user_score: number
+        }[]
       }
       has_role: {
         Args: {
