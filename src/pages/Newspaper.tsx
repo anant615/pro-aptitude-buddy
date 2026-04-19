@@ -71,7 +71,7 @@ export default function NewspaperPage() {
       <p className="text-sm text-muted-foreground mb-4 flex-1">{n.description}</p>
       <div className="flex items-center justify-between">
         <span className="flex items-center gap-1 text-xs text-muted-foreground"><Calendar className="h-3 w-3" /> {n.date}</span>
-        <Button size="sm" asChild className="gap-1.5"><a href={normalizeUrl(n.link)} target="_blank" rel="noopener noreferrer">Read Now <ExternalLink className="h-3.5 w-3.5" /></a></Button>
+        <Button size="sm" className="gap-1.5" onClick={() => { const u = normalizeUrl(n.link); const w = window.open(u, "_blank", "noopener,noreferrer"); if (!w) window.location.href = u; }}>Read Now <ExternalLink className="h-3.5 w-3.5" /></Button>
       </div>
     </motion.div>
   );
