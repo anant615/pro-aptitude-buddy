@@ -256,9 +256,9 @@ export default function Home() {
                 >
                   <h3 className="font-heading font-semibold mb-1">{r.title}</h3>
                   <p className="text-sm text-muted-foreground mb-3">{r.description}</p>
-                  <a href={normalizeUrl(r.link)} target="_blank" rel="noopener noreferrer" className="text-accent text-sm font-medium hover:underline">
+                  <button onClick={() => { const u = normalizeUrl(r.link); const w = window.open(u, "_blank", "noopener,noreferrer"); if (!w) window.location.href = u; }} className="text-accent text-sm font-medium hover:underline">
                     Open →
-                  </a>
+                  </button>
                 </motion.div>
               ))}
             </div>
