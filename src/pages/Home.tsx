@@ -82,6 +82,15 @@ export default function Home() {
   const { isAdmin } = useAuth();
   const today = new Date().toISOString().split("T")[0];
   const todayDPP = dppData.find((d) => d.date === today) || dppData[0];
+  const [resources, setResources] = useState<Resource[]>([]);
+  const [news, setNews] = useState<NewsItem[]>([]);
+
+  useEffect(() => {
+    supabase.from("resources").select("*").order("created_at", { ascending: false }).limit(3)
+      .then(({ data }) => setResources((data || []) as Resource[]));
+    supabase.from("news").select("*").order("date", { ascending: false }).limit(3)
+      .then(({ data }) => setNews((data || []) as NewsItem[]));
+  }, []);
 
   return (
     <div>
