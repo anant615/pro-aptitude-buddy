@@ -189,6 +189,7 @@ export default function DPP() {
   }, [current]);
 
   const allQuestions = useMemo(() => current?.rows.filter(r => r.options && r.options.length > 0) || [], [current]);
+  const displayNumbers = useMemo(() => new Map(allQuestions.map((q, index) => [q.id, index + 1])), [allQuestions]);
 
   const startSession = () => {
     if (!user) { toast.error("Please log in to attempt DPP"); return; }
@@ -224,18 +225,15 @@ export default function DPP() {
     }
     setSessionSubmitted(true);
     setSessionStarted(false);
-    // log activity (one per DPP day)
     track(`${current.date}__${current.title}`);
     toast.success(auto ? `Time up! You scored ${score}/${total}` : `Submitted! ${score}/${total}`);
 
-    // refresh rank + stats
     const { data: r } = await supabase.rpc("dpp_user_rank", { _date: current.date, _title: current.title, _user_id: user.id });
     if (r && r[0]) setRank({ rank: Number(r[0].rank), total_attempts: Number(r[0].total_attempts), user_pct: Number(r[0].user_pct) });
     const { data: s } = await supabase.rpc("dpp_stats", { _date: current.date, _title: current.title });
     if (s && s[0]) setStats({ attempts: Number(s[0].attempts), avg_pct: Number(s[0].avg_pct) });
   };
 
-  // Weak-area analysis: group wrong answers by passage type / q_type
   const weakAreas = useMemo(() => {
     if (!sessionSubmitted) return [];
     const buckets: Record<string, { wrong: number; total: number }> = {};
@@ -257,16 +255,23 @@ export default function DPP() {
     setFPassage(""); setFSetId(""); setFTimer("");
   };
 
-  // Auto-fill next q_number when date+title selected and field is empty
+  const renumberDppQuestions = async (date: string, title: string) => {
+    const { error } = await (supabase as any).rpc("renumber_dpp_questions", {
+      _date: date,
+      _title: title,
+    });
+    if (error) throw error;
+  };
+
   useEffect(() => {
-    if (!fDate || !fTitle.trim() || fNumber !== "") return;
+    if (!fDate || !fTitle.trim()) return;
     const existing = rows.filter(r => r.date === fDate && r.title === fTitle.trim());
-    const maxN = existing.reduce((m, r) => Math.max(m, r.q_number ?? 0), 0);
-    setFNumber(String(maxN + 1));
-  }, [fDate, fTitle, rows, fNumber]);
+    setFNumber(String(existing.length + 1));
+  }, [fDate, fTitle, rows]);
 
   const handleAdd = async () => {
-    if (!fDate || !fTitle.trim()) { toast.error("Date and title are required"); return; }
+    const cleanTitle = fTitle.trim();
+    if (!fDate || !cleanTitle) { toast.error("Date and title are required"); return; }
     if (!fQuestion.trim()) { toast.error("Question text is required"); return; }
     const cleanOpts = fOptions.map(o => o.trim()).filter(Boolean);
     if (fType !== "rc" || cleanOpts.length) {
@@ -277,18 +282,14 @@ export default function DPP() {
       toast.error("Pick a valid correct option"); return;
     }
     const dur = Math.max(1, parseInt(fDuration, 10) || 20);
-    // Auto-number: if blank, use max+1 for this date+title
-    let qNum: number | null = fNumber ? parseInt(fNumber, 10) : null;
-    if (qNum == null) {
-      const existing = rows.filter(r => r.date === fDate && r.title === fTitle.trim());
-      qNum = existing.reduce((m, r) => Math.max(m, r.q_number ?? 0), 0) + 1;
-    }
+    const existing = rows.filter(r => r.date === fDate && r.title === cleanTitle);
+    const nextQuestionNumber = existing.length + 1;
     const payload: any = {
       date: fDate,
-      title: fTitle.trim(),
+      title: cleanTitle,
       question: fQuestion.trim(),
       q_type: fType,
-      q_number: qNum,
+      q_number: nextQuestionNumber,
       options: cleanOpts,
       correct_answer: cleanOpts.length ? correctIdx : null,
       solution: fSolution.trim(),
@@ -299,14 +300,16 @@ export default function DPP() {
     };
     const { error } = await supabase.from("dpps").insert(payload);
     if (error) { toast.error("Failed to add: " + error.message); return; }
-    toast.success(`Question ${qNum} added! Next: Q${qNum + 1}`);
-    // Auto-increment for next question
-    setFNumber(String(qNum + 1));
+    try {
+      await renumberDppQuestions(fDate, cleanTitle);
+    } catch (error: any) {
+      toast.error(error.message || "Question added, but numbering could not be repaired");
+    }
+    toast.success(`Question added as Q${nextQuestionNumber}`);
     setFQuestion(""); setFOptions(["", "", "", ""]); setFCorrect("0"); setFSolution("");
-    load();
+    await load();
   };
 
-  // Admin: update duration for entire DPP day
   const updateDuration = async (newMin: number) => {
     if (!current) return;
     const { error } = await supabase.from("dpps")
@@ -329,7 +332,7 @@ export default function DPP() {
   const cancelEdit = () => { setEditingId(null); };
 
   const saveEdit = async () => {
-    if (!editingId) return;
+    if (!editingId || !current) return;
     const cleanOpts = eOptions.map(o => o.trim()).filter(Boolean);
     if (cleanOpts.length && cleanOpts.length < 2) { toast.error("At least 2 options"); return; }
     const correctIdx = parseInt(eCorrect, 10);
@@ -338,18 +341,31 @@ export default function DPP() {
       options: cleanOpts,
       correct_answer: cleanOpts.length ? correctIdx : null,
       solution: eSolution.trim(),
-      q_number: eNumber ? parseInt(eNumber, 10) : null,
     } as any).eq("id", editingId);
     if (error) { toast.error("Failed to update: " + error.message); return; }
+    try {
+      await renumberDppQuestions(current.date, current.title);
+    } catch (error: any) {
+      toast.error(error.message || "Question updated, but numbering could not be repaired");
+    }
     toast.success("Question updated!");
     setEditingId(null);
-    load();
+    await load();
   };
 
   const handleDelete = async (id: string) => {
+    const target = rows.find(r => r.id === id);
     const { error } = await supabase.from("dpps").delete().eq("id", id);
     if (error) { toast.error("Failed to delete"); return; }
-    toast.success("Deleted"); load();
+    if (target) {
+      try {
+        await renumberDppQuestions(target.date, target.title);
+      } catch (error: any) {
+        toast.error(error.message || "Question deleted, but numbering could not be repaired");
+      }
+    }
+    toast.success("Deleted");
+    await load();
   };
 
   const score = sessionSubmitted ? allQuestions.filter(q => answers[q.id] === q.correct_answer).length : 0;
@@ -409,8 +425,8 @@ export default function DPP() {
                   </Select>
                 </div>
                 <div className="space-y-1">
-                  <Label className="text-xs">Q Number</Label>
-                  <Input type="number" value={fNumber} onChange={e => setFNumber(e.target.value)} placeholder="1" className="h-9" />
+                  <Label className="text-xs">Next Q #</Label>
+                  <Input type="number" value={fNumber} readOnly className="h-9 bg-muted/40" />
                 </div>
                 {(fType === "rc" || fType === "lrdi") && (
                   <div className="space-y-1">
@@ -513,7 +529,7 @@ export default function DPP() {
                   <div>
                     <h2 className="font-heading font-semibold text-lg">{current.title}</h2>
                     <p className="text-sm text-muted-foreground">
-                      {current.date} · {allQuestions.length} questions · {current.durationMinutes} min
+                      {current.date} · {allQuestions.length} CAT-level questions · {current.durationMinutes} min
                       {stats && ` · avg ${stats.avg_pct}%`}
                     </p>
                     {/* Social proof: inflated attempt count for urgency */}
@@ -664,9 +680,8 @@ export default function DPP() {
 
                               {editingId === q.id ? (
                                 <div className="space-y-3">
-                                  <div className="flex items-center gap-2">
-                                    <Label className="text-xs shrink-0">Q#</Label>
-                                    <Input value={eNumber} onChange={e => setENumber(e.target.value)} className="h-8 w-20" />
+                                  <div className="rounded-lg border bg-muted/40 px-3 py-2 text-xs text-muted-foreground">
+                                    Question order is managed automatically to keep the DPP clean for learners.
                                   </div>
                                   <div>
                                     <Label className="text-xs">Question</Label>
@@ -695,7 +710,7 @@ export default function DPP() {
                               ) : (
                                 <>
                                   <div className="flex items-start justify-between mb-3 pr-20">
-                                    <span className="text-sm font-medium text-muted-foreground">Q{q.q_number ?? qi + 1}</span>
+                                    <span className="text-sm font-medium text-muted-foreground">Q{displayNumbers.get(q.id) ?? qi + 1}</span>
                                   </div>
                                   <p className="font-medium mb-4 whitespace-pre-line">{q.question}</p>
 
@@ -742,7 +757,7 @@ export default function DPP() {
                   <Timer className="h-10 w-10 mx-auto mb-3 text-muted-foreground" />
                   <p className="font-medium mb-1">Ready when you are</p>
                   <p className="text-sm text-muted-foreground mb-4">
-                    {allQuestions.length} questions · {current.durationMinutes} minutes · Answers and your rank reveal after submission.
+                    {allQuestions.length} CAT-level questions · {current.durationMinutes} minutes · Answers and your rank reveal after submission.
                   </p>
                   <Button onClick={startSession} className="gap-1.5"><Play className="h-4 w-4" /> Start DPP</Button>
                 </div>
