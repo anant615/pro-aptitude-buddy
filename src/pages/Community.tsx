@@ -212,12 +212,20 @@ export default function Community() {
           ) : filtered.map(q => (
             <div key={q.id} className="rounded-xl border border-primary-foreground/10 bg-card/5 backdrop-blur p-5 hover:bg-card/10 transition-colors">
               <div className="flex gap-4">
-                <button onClick={() => handleVote(q.id)} className={`flex flex-col items-center gap-0.5 px-2 py-1 rounded-lg transition-colors ${myVotes.has(q.id) ? "bg-accent/20 text-accent" : "hover:bg-primary-foreground/10"}`}>
+                <button
+                  onClick={() => !q._seed && handleVote(q.id)}
+                  disabled={q._seed}
+                  className={`flex flex-col items-center gap-0.5 px-2 py-1 rounded-lg transition-colors ${myVotes.has(q.id) ? "bg-accent/20 text-accent" : "hover:bg-primary-foreground/10"} ${q._seed ? "cursor-default opacity-90" : ""}`}
+                >
                   <ChevronUp className="h-5 w-5" />
                   <span className="text-xs font-semibold">{q.vote_count}</span>
                 </button>
                 <div className="flex-1 min-w-0">
-                  <Link to={`/community/${q.id}`} className="font-heading font-semibold text-lg hover:text-accent block">{q.title}</Link>
+                  {q._seed ? (
+                    <span className="font-heading font-semibold text-lg block">{q.title}</span>
+                  ) : (
+                    <Link to={`/community/${q.id}`} className="font-heading font-semibold text-lg hover:text-accent block">{q.title}</Link>
+                  )}
                   {q.body && <p className="text-sm opacity-75 mt-1 line-clamp-2">{q.body}</p>}
                   <div className="flex items-center gap-3 mt-3 text-xs opacity-70 flex-wrap">
                     <span className="bg-primary-foreground/10 px-2 py-0.5 rounded">{CATEGORIES.find(c => c.id === q.category)?.label}</span>
