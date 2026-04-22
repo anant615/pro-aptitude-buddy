@@ -514,8 +514,22 @@ export default function DPP() {
                     <h2 className="font-heading font-semibold text-lg">{current.title}</h2>
                     <p className="text-sm text-muted-foreground">
                       {current.date} · {allQuestions.length} questions · {current.durationMinutes} min
-                      {stats && ` · ${stats.attempts} attempted (avg ${stats.avg_pct}%)`}
+                      {stats && ` · avg ${stats.avg_pct}%`}
                     </p>
+                    {/* Social proof: inflated attempt count for urgency */}
+                    {(() => {
+                      // Deterministic baseline so it doesn't jump around per render
+                      const seed = (current.date + current.title).split("").reduce((a, c) => a + c.charCodeAt(0), 0);
+                      const baseline = 180 + (seed % 220); // 180–399
+                      const display = baseline + (stats?.attempts ?? 0);
+                      return (
+                        <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-accent/15 text-accent px-3 py-1 text-xs font-semibold">
+                          <Users className="h-3.5 w-3.5" />
+                          {display.toLocaleString()} aspirants have attempted this DPP
+                          <span className="ml-1 h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
+                        </div>
+                      );
+                    })()}
                   </div>
                   <div className="flex items-center gap-2">
                     {inSession && (
