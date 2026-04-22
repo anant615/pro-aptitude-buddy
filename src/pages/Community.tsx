@@ -38,7 +38,21 @@ interface Question {
   vote_count: number;
   answer_count: number;
   created_at: string;
+  _seed?: boolean;
 }
+
+// Seeded "social proof" questions so the community feels active.
+// These are display-only, not stored in DB, and can't be voted/opened.
+const SEED_QUESTIONS: Question[] = [
+  { id: "seed-1", user_id: "seed", title: "How to cross 99%ile in QA in 60 days?", body: "Currently scoring 88%ile in mocks. Need a structured 60-day plan to push to 99%+. Any toppers here who did this?", category: "cat_prep", is_anonymous: false, vote_count: 142, answer_count: 23, created_at: new Date(Date.now() - 1000 * 60 * 35).toISOString(), _seed: true },
+  { id: "seed-2", user_id: "seed", title: "IIM Lucknow vs IIM Kozhikode for finance — confused", body: "Got calls from both. Long-term goal is IB. Which one has stronger finance placements right now?", category: "mba_colleges", is_anonymous: false, vote_count: 98, answer_count: 31, created_at: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(), _seed: true },
+  { id: "seed-3", user_id: "seed", title: "VARC accuracy stuck at 60% — please help", body: "I read 2 newspapers daily but still can't push beyond 60% accuracy. What worked for you guys?", category: "cat_prep", is_anonymous: true, vote_count: 87, answer_count: 19, created_at: new Date(Date.now() - 1000 * 60 * 60 * 5).toISOString(), _seed: true },
+  { id: "seed-4", user_id: "seed", title: "Profile review: 9.1 CGPA, fresher, NO work-ex", body: "B.Tech CSE, 9.1 CGPA, NIT, no work-ex. Targeting 99+ percentile. Realistic chance at IIM ABC?", category: "profile_review", is_anonymous: false, vote_count: 76, answer_count: 28, created_at: new Date(Date.now() - 1000 * 60 * 60 * 8).toISOString(), _seed: true },
+  { id: "seed-5", user_id: "seed", title: "Best LRDI sets to practice in last 30 days?", body: "I have ~30 days left. Should I do CAT PYQs only or also TIME/IMS sectionals?", category: "cat_prep", is_anonymous: false, vote_count: 64, answer_count: 17, created_at: new Date(Date.now() - 1000 * 60 * 60 * 12).toISOString(), _seed: true },
+  { id: "seed-6", user_id: "seed", title: "GDPI prep — how to start with 3 months left?", body: "Clearing CAT cutoff is one thing, GDPI is another beast. Where do I even begin?", category: "gdpi_interviews", is_anonymous: false, vote_count: 55, answer_count: 22, created_at: new Date(Date.now() - 1000 * 60 * 60 * 18).toISOString(), _seed: true },
+  { id: "seed-7", user_id: "seed", title: "Education loan from SBI vs Avanse — which is better?", body: "Got admit from a top private B-school. SBI is cheaper but slower. Anyone with experience?", category: "scholarships_loans", is_anonymous: false, vote_count: 41, answer_count: 14, created_at: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(), _seed: true },
+  { id: "seed-8", user_id: "seed", title: "Daily DPP routine that actually works", body: "Sharing what worked for me last year — 30 min DPP morning + 15 min review night. AMA.", category: "general", is_anonymous: false, vote_count: 119, answer_count: 36, created_at: new Date(Date.now() - 1000 * 60 * 60 * 30).toISOString(), _seed: true },
+];
 
 export default function Community() {
   const { user } = useAuth();
