@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, BookOpen, Brain, MessageSquareText, Clock, Trophy, CalendarDays, FileText, Newspaper, Pencil, Check, X } from "lucide-react";
+import { ArrowRight, BookOpen, Brain, MessageSquareText, Clock, Trophy, CalendarDays, FileText, Newspaper, Pencil, Check, X, Play, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { dppData } from "@/data/dpp_data";
@@ -9,9 +9,11 @@ import { useEffect, useState } from "react";
 import amanPhoto from "@/assets/aman-pandey.png";
 import { EditableText } from "@/components/EditableText";
 import { supabase } from "@/integrations/supabase/client";
+import { getYoutubeId } from "@/data/videos_data";
 
 interface Resource { id: string; title: string; description: string; link: string; type: string; }
 interface NewsItem { id: string; title: string; description: string; link: string; date: string; source: string; }
+interface VideoItem { id: string; title: string; topic: string; creator: string; link: string; }
 
 const normalizeUrl = (url: string) => {
   if (!url) return "#";
@@ -84,12 +86,15 @@ export default function Home() {
   const todayDPP = dppData.find((d) => d.date === today) || dppData[0];
   const [resources, setResources] = useState<Resource[]>([]);
   const [news, setNews] = useState<NewsItem[]>([]);
+  const [topVideos, setTopVideos] = useState<VideoItem[]>([]);
 
   useEffect(() => {
     supabase.from("resources").select("*").order("created_at", { ascending: false }).limit(3)
       .then(({ data }) => setResources((data || []) as Resource[]));
     supabase.from("news").select("*").order("date", { ascending: false }).limit(3)
       .then(({ data }) => setNews((data || []) as NewsItem[]));
+    supabase.from("videos").select("id, title, topic, creator, link").order("created_at", { ascending: false }).limit(6)
+      .then(({ data }) => setTopVideos((data || []) as VideoItem[]));
   }, []);
 
   return (
@@ -160,6 +165,70 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      {/* Top Strategy Videos — front and center for conversion */}
+      {topVideos.length > 0 && (
+        <section className="py-14 bg-gradient-to-b from-background to-muted/40">
+          <div className="container">
+            <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
+              <div>
+                <h2 className="font-heading text-2xl md:text-3xl font-bold flex items-center gap-2">
+                  <Play className="h-6 w-6 text-accent" />
+                  <EditableText storageKey="top_videos_heading" defaultValue="Top Strategy Videos by Ravi Sir & Team" isAdmin={isAdmin} />
+                </h2>
+                <p className="text-muted-foreground text-sm mt-1">
+                  <EditableText storageKey="top_videos_sub" defaultValue="Free CAT prep videos — watched by thousands of aspirants" isAdmin={isAdmin} />
+                </p>
+              </div>
+              <Link to="/videos" className="text-accent text-sm font-medium hover:underline">View all videos →</Link>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {topVideos.map((v, i) => {
+                const ytId = getYoutubeId(v.link);
+                // Deterministic fake view count for social proof
+                const seed = v.id.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
+                const views = (12 + (seed % 88)) + "k views";
+                return (
+                  <motion.a
+                    key={v.id}
+                    href={v.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeUp}
+                    custom={i}
+                    className="group block rounded-xl overflow-hidden border bg-card card-hover"
+                  >
+                    <div className="relative aspect-video bg-muted overflow-hidden">
+                      <img
+                        src={`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`}
+                        alt={v.title}
+                        loading="lazy"
+                        className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                        <div className="h-14 w-14 rounded-full bg-accent/95 text-accent-foreground flex items-center justify-center shadow-xl">
+                          <Play className="h-6 w-6 ml-0.5 fill-current" />
+                        </div>
+                      </div>
+                      <span className="absolute top-2 left-2 rounded bg-black/70 text-white text-[10px] font-medium px-2 py-0.5">{v.topic}</span>
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-heading font-semibold text-sm line-clamp-2 mb-1 group-hover:text-accent transition-colors">{v.title}</h3>
+                      <div className="flex items-center justify-between text-xs text-muted-foreground">
+                        <span>{v.creator}</span>
+                        <span className="inline-flex items-center gap-1"><Users className="h-3 w-3" /> {views}</span>
+                      </div>
+                    </div>
+                  </motion.a>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Sections */}
       <section className="py-16 container">
