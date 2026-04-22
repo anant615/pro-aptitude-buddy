@@ -56,6 +56,14 @@ export default function DPP() {
   const [fDuration, setFDuration] = useState<string>("20");
   const [fType, setFType] = useState<QType>("mcq");
   const [fNumber, setFNumber] = useState<string>("");
+
+  // Edit state (for editing an existing question)
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [eQuestion, setEQuestion] = useState("");
+  const [eOptions, setEOptions] = useState<string[]>(["", "", "", ""]);
+  const [eCorrect, setECorrect] = useState<string>("0");
+  const [eSolution, setESolution] = useState("");
+  const [eNumber, setENumber] = useState<string>("");
   const [fQuestion, setFQuestion] = useState("");
   const [fOptions, setFOptions] = useState<string[]>(["", "", "", ""]);
   const [fCorrect, setFCorrect] = useState<string>("0");
