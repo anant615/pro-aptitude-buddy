@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, BookOpen, Brain, MessageSquareText, Clock, Trophy, CalendarDays, FileText, Newspaper, Pencil, Check, X } from "lucide-react";
+import { ArrowRight, BookOpen, Brain, MessageSquareText, Clock, Trophy, CalendarDays, FileText, Newspaper, Pencil, Check, X, Play, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { dppData } from "@/data/dpp_data";
@@ -9,9 +9,11 @@ import { useEffect, useState } from "react";
 import amanPhoto from "@/assets/aman-pandey.png";
 import { EditableText } from "@/components/EditableText";
 import { supabase } from "@/integrations/supabase/client";
+import { getYoutubeId } from "@/data/videos_data";
 
 interface Resource { id: string; title: string; description: string; link: string; type: string; }
 interface NewsItem { id: string; title: string; description: string; link: string; date: string; source: string; }
+interface VideoItem { id: string; title: string; topic: string; creator: string; link: string; }
 
 const normalizeUrl = (url: string) => {
   if (!url) return "#";
