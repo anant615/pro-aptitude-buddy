@@ -588,6 +588,10 @@ export type Database = {
         }
         Returns: boolean
       }
+      renumber_dpp_questions: {
+        Args: { _date: string; _title: string }
+        Returns: undefined
+      }
     }
     Enums: {
       app_role: "admin" | "user"
