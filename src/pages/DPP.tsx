@@ -635,12 +635,12 @@ export default function DPP() {
                               transition={{ delay: qi * 0.04 }}
                               className="relative rounded-xl border bg-card p-6"
                             >
-                              {manage && !inSession && editingId !== q.id && (
+                              {manage && editingId !== q.id && (
                                 <div className="absolute top-2 right-2 z-10 flex gap-1">
-                                  <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => startEdit(q)} title="Edit">
+                                  <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => startEdit(q)} title="Edit question">
                                     <Pencil className="h-3.5 w-3.5" />
                                   </Button>
-                                  <Button variant="destructive" size="icon" className="h-7 w-7" onClick={() => handleDelete(q.id)}>
+                                  <Button variant="destructive" size="icon" className="h-7 w-7" onClick={() => handleDelete(q.id)} title="Delete question">
                                     <Trash2 className="h-3.5 w-3.5" />
                                   </Button>
                                 </div>
