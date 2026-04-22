@@ -86,12 +86,15 @@ export default function Home() {
   const todayDPP = dppData.find((d) => d.date === today) || dppData[0];
   const [resources, setResources] = useState<Resource[]>([]);
   const [news, setNews] = useState<NewsItem[]>([]);
+  const [topVideos, setTopVideos] = useState<VideoItem[]>([]);
 
   useEffect(() => {
     supabase.from("resources").select("*").order("created_at", { ascending: false }).limit(3)
       .then(({ data }) => setResources((data || []) as Resource[]));
     supabase.from("news").select("*").order("date", { ascending: false }).limit(3)
       .then(({ data }) => setNews((data || []) as NewsItem[]));
+    supabase.from("videos").select("id, title, topic, creator, link").order("created_at", { ascending: false }).limit(6)
+      .then(({ data }) => setTopVideos((data || []) as VideoItem[]));
   }, []);
 
   return (
