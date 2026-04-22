@@ -552,7 +552,7 @@ export default function DPP() {
                 </div>
 
                 {isAdmin && !inSession && (
-                  <div className="mt-3 flex items-center gap-2 text-xs">
+                  <div className="mt-3 flex items-center gap-2 text-xs flex-wrap">
                     <span className="text-muted-foreground">Admin: set duration</span>
                     <Input
                       type="number" min={1} defaultValue={current.durationMinutes}
@@ -560,6 +560,22 @@ export default function DPP() {
                       className="h-8 w-20"
                     />
                     <span className="text-muted-foreground">min</span>
+                    {manage && (
+                      <Button
+                        size="sm"
+                        className="gap-1.5 ml-auto"
+                        onClick={() => {
+                          setFDate(current.date);
+                          setFTitle(current.title);
+                          setFDuration(String(current.durationMinutes));
+                          setFNumber(""); // triggers auto-fill effect → max+1
+                          setShowForm(true);
+                          setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 50);
+                        }}
+                      >
+                        <Plus className="h-3.5 w-3.5" /> Add Question to this DPP
+                      </Button>
+                    )}
                   </div>
                 )}
               </div>
