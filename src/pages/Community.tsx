@@ -121,7 +121,17 @@ export default function Community() {
     load();
   };
 
-  const filtered = questions.filter(q =>
+  // Merge real questions with seeded social-proof entries
+  const merged: Question[] = (() => {
+    const seedFiltered = category === "all" ? SEED_QUESTIONS : SEED_QUESTIONS.filter(s => s.category === category);
+    const combined = [...questions, ...seedFiltered];
+    if (sort === "important") combined.sort((a, b) => b.vote_count - a.vote_count);
+    else if (sort === "answered") combined.sort((a, b) => b.answer_count - a.answer_count);
+    else combined.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    return combined;
+  })();
+
+  const filtered = merged.filter(q =>
     !search.trim() || q.title.toLowerCase().includes(search.toLowerCase()) || q.body.toLowerCase().includes(search.toLowerCase())
   );
 
