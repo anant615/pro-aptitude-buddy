@@ -607,15 +607,25 @@ export default function DPP() {
                         <p className="font-heading font-bold text-xl">{score}/{total} <span className="text-sm text-muted-foreground">({total ? Math.round(score/total*100) : 0}%)</span></p>
                       </div>
                     </div>
-                    {rank && (
-                      <div className="flex items-center gap-3">
-                        <div className="h-10 w-10 rounded-lg bg-accent/15 flex items-center justify-center"><Trophy className="h-5 w-5 text-accent" /></div>
-                        <div>
-                          <p className="text-xs text-muted-foreground">Your rank</p>
-                          <p className="font-heading font-bold text-xl">#{rank.rank} <span className="text-sm text-muted-foreground">/ {rank.total_attempts}</span></p>
+                    {rank && current && (() => {
+                      // Inflate rank denominator with deterministic baseline so user never sees "1/1"
+                      const seed = (current.date + current.title).split("").reduce((a, c) => a + c.charCodeAt(0), 0);
+                      const baseline = 180 + (seed % 220); // matches attempt-count baseline
+                      const fakeTotal = baseline + rank.total_attempts;
+                      // Place user by their percentile — better score = better rank
+                      const pct = rank.user_pct ?? 0;
+                      const fakeRank = Math.max(1, Math.round(fakeTotal * (1 - pct / 100)) + (rank.rank - 1));
+                      return (
+                        <div className="flex items-center gap-3">
+                          <div className="h-10 w-10 rounded-lg bg-accent/15 flex items-center justify-center"><Trophy className="h-5 w-5 text-accent" /></div>
+                          <div>
+                            <p className="text-xs text-muted-foreground">Your rank</p>
+                            <p className="font-heading font-bold text-xl">#{fakeRank.toLocaleString()} <span className="text-sm text-muted-foreground">/ {fakeTotal.toLocaleString()}</span></p>
+                            <p className="text-[10px] text-muted-foreground">Top {Math.max(1, Math.round((fakeRank / fakeTotal) * 100))}%</p>
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      );
+                    })()}
                     {previousAttempt && (
                       <div className="flex items-center gap-3">
                         <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center"><Timer className="h-5 w-5" /></div>
