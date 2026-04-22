@@ -257,6 +257,14 @@ export default function DPP() {
     setFPassage(""); setFSetId(""); setFTimer("");
   };
 
+  // Auto-fill next q_number when date+title selected and field is empty
+  useEffect(() => {
+    if (!fDate || !fTitle.trim() || fNumber !== "") return;
+    const existing = rows.filter(r => r.date === fDate && r.title === fTitle.trim());
+    const maxN = existing.reduce((m, r) => Math.max(m, r.q_number ?? 0), 0);
+    setFNumber(String(maxN + 1));
+  }, [fDate, fTitle, rows, fNumber]);
+
   const handleAdd = async () => {
     if (!fDate || !fTitle.trim()) { toast.error("Date and title are required"); return; }
     if (!fQuestion.trim()) { toast.error("Question text is required"); return; }
@@ -269,12 +277,18 @@ export default function DPP() {
       toast.error("Pick a valid correct option"); return;
     }
     const dur = Math.max(1, parseInt(fDuration, 10) || 20);
+    // Auto-number: if blank, use max+1 for this date+title
+    let qNum: number | null = fNumber ? parseInt(fNumber, 10) : null;
+    if (qNum == null) {
+      const existing = rows.filter(r => r.date === fDate && r.title === fTitle.trim());
+      qNum = existing.reduce((m, r) => Math.max(m, r.q_number ?? 0), 0) + 1;
+    }
     const payload: any = {
       date: fDate,
       title: fTitle.trim(),
       question: fQuestion.trim(),
       q_type: fType,
-      q_number: fNumber ? parseInt(fNumber, 10) : null,
+      q_number: qNum,
       options: cleanOpts,
       correct_answer: cleanOpts.length ? correctIdx : null,
       solution: fSolution.trim(),
@@ -285,8 +299,9 @@ export default function DPP() {
     };
     const { error } = await supabase.from("dpps").insert(payload);
     if (error) { toast.error("Failed to add: " + error.message); return; }
-    toast.success("Question added!");
-    setFNumber(fNumber ? String(parseInt(fNumber, 10) + 1) : "");
+    toast.success(`Question ${qNum} added! Next: Q${qNum + 1}`);
+    // Auto-increment for next question
+    setFNumber(String(qNum + 1));
     setFQuestion(""); setFOptions(["", "", "", ""]); setFCorrect("0"); setFSolution("");
     load();
   };
@@ -299,6 +314,35 @@ export default function DPP() {
       .eq("date", current.date).eq("title", current.title);
     if (error) { toast.error(error.message); return; }
     toast.success(`Duration set to ${newMin} min`);
+    load();
+  };
+
+  const startEdit = (q: DPPRow) => {
+    setEditingId(q.id);
+    setEQuestion(q.question);
+    setEOptions(q.options && q.options.length ? [...q.options] : ["", "", "", ""]);
+    setECorrect(String(q.correct_answer ?? 0));
+    setESolution(q.solution || "");
+    setENumber(q.q_number != null ? String(q.q_number) : "");
+  };
+
+  const cancelEdit = () => { setEditingId(null); };
+
+  const saveEdit = async () => {
+    if (!editingId) return;
+    const cleanOpts = eOptions.map(o => o.trim()).filter(Boolean);
+    if (cleanOpts.length && cleanOpts.length < 2) { toast.error("At least 2 options"); return; }
+    const correctIdx = parseInt(eCorrect, 10);
+    const { error } = await supabase.from("dpps").update({
+      question: eQuestion.trim(),
+      options: cleanOpts,
+      correct_answer: cleanOpts.length ? correctIdx : null,
+      solution: eSolution.trim(),
+      q_number: eNumber ? parseInt(eNumber, 10) : null,
+    } as any).eq("id", editingId);
+    if (error) { toast.error("Failed to update: " + error.message); return; }
+    toast.success("Question updated!");
+    setEditingId(null);
     load();
   };
 
