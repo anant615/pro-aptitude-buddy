@@ -635,44 +635,84 @@ export default function DPP() {
                               transition={{ delay: qi * 0.04 }}
                               className="relative rounded-xl border bg-card p-6"
                             >
-                              {manage && !inSession && (
-                                <Button variant="destructive" size="icon" className="absolute top-2 right-2 h-7 w-7 z-10" onClick={() => handleDelete(q.id)}>
-                                  <Trash2 className="h-3.5 w-3.5" />
-                                </Button>
-                              )}
-                              <div className="flex items-start justify-between mb-3 pr-8">
-                                <span className="text-sm font-medium text-muted-foreground">Q{q.q_number ?? qi + 1}</span>
-                              </div>
-                              <p className="font-medium mb-4 whitespace-pre-line">{q.question}</p>
-
-                              {q.options && q.options.length > 0 && (
-                                <div className="space-y-2">
-                                  {q.options.map((opt, oi) => {
-                                    const isCorrect = q.correct_answer === oi;
-                                    const isPicked = picked === oi;
-                                    return (
-                                      <button
-                                        key={oi}
-                                        disabled={showResults}
-                                        onClick={() => setAnswers(a => ({ ...a, [q.id]: oi }))}
-                                        className={`w-full text-left rounded-lg border px-4 py-2.5 text-sm transition
-                                          ${showResults && isCorrect ? "border-green-500 bg-green-500/10" : ""}
-                                          ${showResults && isPicked && !isCorrect ? "border-destructive bg-destructive/10" : ""}
-                                          ${!showResults && isPicked ? "border-primary bg-primary/5" : ""}
-                                          ${!showResults && !isPicked ? "hover:bg-muted/50" : ""}`}
-                                      >
-                                        <span className="font-mono text-xs mr-2 text-muted-foreground">{String.fromCharCode(65 + oi)}.</span>
-                                        {opt}
-                                      </button>
-                                    );
-                                  })}
+                              {manage && !inSession && editingId !== q.id && (
+                                <div className="absolute top-2 right-2 z-10 flex gap-1">
+                                  <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => startEdit(q)} title="Edit">
+                                    <Pencil className="h-3.5 w-3.5" />
+                                  </Button>
+                                  <Button variant="destructive" size="icon" className="h-7 w-7" onClick={() => handleDelete(q.id)}>
+                                    <Trash2 className="h-3.5 w-3.5" />
+                                  </Button>
                                 </div>
                               )}
 
-                              {showResults && q.solution && (
-                                <div className="mt-3 rounded-lg bg-muted/50 p-3 text-sm whitespace-pre-line">
-                                  <span className="font-semibold">Solution: </span>{q.solution}
+                              {editingId === q.id ? (
+                                <div className="space-y-3">
+                                  <div className="flex items-center gap-2">
+                                    <Label className="text-xs shrink-0">Q#</Label>
+                                    <Input value={eNumber} onChange={e => setENumber(e.target.value)} className="h-8 w-20" />
+                                  </div>
+                                  <div>
+                                    <Label className="text-xs">Question</Label>
+                                    <Textarea value={eQuestion} onChange={e => setEQuestion(e.target.value)} className="min-h-[80px]" />
+                                  </div>
+                                  <div className="space-y-2">
+                                    <Label className="text-xs">Options (click letter to mark correct)</Label>
+                                    {eOptions.map((opt, i) => (
+                                      <div key={i} className="flex items-center gap-2">
+                                        <Button type="button" variant={parseInt(eCorrect, 10) === i ? "default" : "outline"} size="sm" className="h-9 w-9 p-0 shrink-0" onClick={() => setECorrect(String(i))}>
+                                          {String.fromCharCode(65 + i)}
+                                        </Button>
+                                        <Input value={opt} onChange={e => { const c = [...eOptions]; c[i] = e.target.value; setEOptions(c); }} className="h-9" />
+                                      </div>
+                                    ))}
+                                  </div>
+                                  <div>
+                                    <Label className="text-xs">Solution</Label>
+                                    <Textarea value={eSolution} onChange={e => setESolution(e.target.value)} className="min-h-[60px]" />
+                                  </div>
+                                  <div className="flex gap-2">
+                                    <Button size="sm" onClick={saveEdit} className="gap-1.5"><Save className="h-3.5 w-3.5" /> Save</Button>
+                                    <Button size="sm" variant="ghost" onClick={cancelEdit}>Cancel</Button>
+                                  </div>
                                 </div>
+                              ) : (
+                                <>
+                                  <div className="flex items-start justify-between mb-3 pr-20">
+                                    <span className="text-sm font-medium text-muted-foreground">Q{q.q_number ?? qi + 1}</span>
+                                  </div>
+                                  <p className="font-medium mb-4 whitespace-pre-line">{q.question}</p>
+
+                                  {q.options && q.options.length > 0 && (
+                                    <div className="space-y-2">
+                                      {q.options.map((opt, oi) => {
+                                        const isCorrect = q.correct_answer === oi;
+                                        const isPicked = picked === oi;
+                                        return (
+                                          <button
+                                            key={oi}
+                                            disabled={showResults}
+                                            onClick={() => setAnswers(a => ({ ...a, [q.id]: oi }))}
+                                            className={`w-full text-left rounded-lg border px-4 py-2.5 text-sm transition
+                                              ${showResults && isCorrect ? "border-green-500 bg-green-500/10" : ""}
+                                              ${showResults && isPicked && !isCorrect ? "border-destructive bg-destructive/10" : ""}
+                                              ${!showResults && isPicked ? "border-primary bg-primary/5" : ""}
+                                              ${!showResults && !isPicked ? "hover:bg-muted/50" : ""}`}
+                                          >
+                                            <span className="font-mono text-xs mr-2 text-muted-foreground">{String.fromCharCode(65 + oi)}.</span>
+                                            {opt}
+                                          </button>
+                                        );
+                                      })}
+                                    </div>
+                                  )}
+
+                                  {showResults && q.solution && (
+                                    <div className="mt-3 rounded-lg bg-muted/50 p-3 text-sm whitespace-pre-line">
+                                      <span className="font-semibold">Solution: </span>{q.solution}
+                                    </div>
+                                  )}
+                                </>
                               )}
                             </motion.div>
                           );
