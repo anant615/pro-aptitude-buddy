@@ -43,15 +43,15 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/about" element={<About />} />
-            <Route path="/practice" element={<ProtectedRoute><Practice /></ProtectedRoute>} />
-            <Route path="/lrdi-sets" element={<ProtectedRoute><LRDISets /></ProtectedRoute>} />
-            <Route path="/pyqs" element={<ProtectedRoute><PYQs /></ProtectedRoute>} />
-            <Route path="/mocks" element={<ProtectedRoute><MockTests /></ProtectedRoute>} />
-            <Route path="/videos" element={<ProtectedRoute><Videos /></ProtectedRoute>} />
+            <Route path="/practice" element={<Practice />} />
+            <Route path="/lrdi-sets" element={<LRDISets />} />
+            <Route path="/pyqs" element={<PYQs />} />
+            <Route path="/mocks" element={<MockTests />} />
+            <Route path="/videos" element={<Videos />} />
             <Route path="/review" element={<ProtectedRoute><ReviewMode /></ProtectedRoute>} />
-            <Route path="/dpp" element={<ProtectedRoute><DPP /></ProtectedRoute>} />
-            <Route path="/resources" element={<ProtectedRoute><Resources /></ProtectedRoute>} />
-            <Route path="/newspaper" element={<ProtectedRoute><NewspaperPage /></ProtectedRoute>} />
+            <Route path="/dpp" element={<DPP />} />
+            <Route path="/resources" element={<Resources />} />
+            <Route path="/newspaper" element={<NewspaperPage />} />
             <Route path="/community" element={<Community />} />
             <Route path="/community/:id" element={<CommunityQuestion />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
