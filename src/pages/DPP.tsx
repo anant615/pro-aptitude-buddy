@@ -15,6 +15,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
 import { useActivityTracker } from "@/hooks/useActivityTracker";
+import ReminderSignupCard from "@/components/ReminderSignupCard";
 
 type QType = "mcq" | "rc" | "lrdi";
 
@@ -192,7 +193,6 @@ export default function DPP() {
   const displayNumbers = useMemo(() => new Map(allQuestions.map((q, index) => [q.id, index + 1])), [allQuestions]);
 
   const startSession = () => {
-    if (!user) { toast.error("Please log in to attempt DPP"); return; }
     if (!current) return;
     setSessionStarted(true);
     setSecondsLeft(current.durationMinutes * 60);
@@ -202,7 +202,7 @@ export default function DPP() {
   };
 
   const submitSession = async (auto = false) => {
-    if (!current || !user) return;
+    if (!current) return;
     if (sessionSubmitted) return;
     let score = 0;
     for (const q of allQuestions) {
@@ -211,25 +211,32 @@ export default function DPP() {
     const total = allQuestions.length;
     const taken = Math.max(secondsTaken, Math.round((Date.now() - startedAt.current) / 1000));
 
-    const { error } = await supabase.from("dpp_attempts").insert({
-      user_id: user.id,
-      dpp_date: current.date,
-      dpp_title: current.title,
-      score, total,
-      seconds_taken: taken,
-      answers,
-    });
-    if (error && !error.message.includes("duplicate")) {
-      toast.error("Failed to save: " + error.message);
-      return;
+    // Logged-in users: persist attempt + fetch their real rank.
+    // Guests: just show local results — they can sign up afterwards for reminders.
+    if (user) {
+      const { error } = await supabase.from("dpp_attempts").insert({
+        user_id: user.id,
+        dpp_date: current.date,
+        dpp_title: current.title,
+        score, total,
+        seconds_taken: taken,
+        answers,
+      });
+      if (error && !error.message.includes("duplicate")) {
+        toast.error("Failed to save: " + error.message);
+        return;
+      }
+      track(`${current.date}__${current.title}`);
     }
+
     setSessionSubmitted(true);
     setSessionStarted(false);
-    track(`${current.date}__${current.title}`);
     toast.success(auto ? `Time up! You scored ${score}/${total}` : `Submitted! ${score}/${total}`);
 
-    const { data: r } = await supabase.rpc("dpp_user_rank", { _date: current.date, _title: current.title, _user_id: user.id });
-    if (r && r[0]) setRank({ rank: Number(r[0].rank), total_attempts: Number(r[0].total_attempts), user_pct: Number(r[0].user_pct) });
+    if (user) {
+      const { data: r } = await supabase.rpc("dpp_user_rank", { _date: current.date, _title: current.title, _user_id: user.id });
+      if (r && r[0]) setRank({ rank: Number(r[0].rank), total_attempts: Number(r[0].total_attempts), user_pct: Number(r[0].user_pct) });
+    }
     const { data: s } = await supabase.rpc("dpp_stats", { _date: current.date, _title: current.title });
     if (s && s[0]) setStats({ attempts: Number(s[0].attempts), avg_pct: Number(s[0].avg_pct) });
   };
@@ -668,6 +675,9 @@ export default function DPP() {
                   )}
                 </motion.div>
               )}
+
+              {showResults && !user && <ReminderSignupCard context="DPP" />}
+
 
               {/* Questions */}
               {(inSession || showResults) ? (
