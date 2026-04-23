@@ -676,6 +676,9 @@ export default function DPP() {
                 </motion.div>
               )}
 
+              {showResults && !user && <ReminderSignupCard context="DPP" />}
+
+
               {/* Questions */}
               {(inSession || showResults) ? (
                 <div className="space-y-8">
