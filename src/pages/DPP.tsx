@@ -532,11 +532,20 @@ export default function DPP() {
                       {current.date} · {allQuestions.length} CAT-level questions · {current.durationMinutes} min
                       {stats && ` · avg ${stats.avg_pct}%`}
                     </p>
-                    {/* Social proof: inflated attempt count for urgency */}
+                    {/* Social proof: inflated attempt count, varies per day, grows with recency */}
                     {(() => {
-                      // Deterministic baseline so it doesn't jump around per render
                       const seed = (current.date + current.title).split("").reduce((a, c) => a + c.charCodeAt(0), 0);
-                      const baseline = 180 + (seed % 220); // 180–399
+                      // Days since DPP date — newer/upcoming DPPs get bigger numbers (hype)
+                      const dppTime = new Date(current.date + "T00:00:00").getTime();
+                      const daysFromToday = Math.round((Date.now() - dppTime) / 86400000);
+                      // Tomorrow (-1) → 2000+, today (0) → ~1500, yesterday (1) → ~1100, older drops gradually
+                      let baseline: number;
+                      if (daysFromToday <= -1) baseline = 2050 + (seed % 480);      // upcoming: 2050–2529
+                      else if (daysFromToday === 0) baseline = 1500 + (seed % 350); // today: 1500–1849
+                      else if (daysFromToday === 1) baseline = 1100 + (seed % 280); // yesterday: 1100–1379
+                      else if (daysFromToday <= 4) baseline = 750 + (seed % 250);   // recent: 750–999
+                      else if (daysFromToday <= 10) baseline = 480 + (seed % 200);  // last 10d: 480–679
+                      else baseline = 260 + (seed % 180);                            // older: 260–439
                       const display = baseline + (stats?.attempts ?? 0);
                       return (
                         <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-accent/15 text-accent px-3 py-1 text-xs font-semibold">
@@ -610,7 +619,15 @@ export default function DPP() {
                     {rank && current && (() => {
                       // Inflate rank denominator with deterministic baseline so user never sees "1/1"
                       const seed = (current.date + current.title).split("").reduce((a, c) => a + c.charCodeAt(0), 0);
-                      const baseline = 180 + (seed % 220); // matches attempt-count baseline
+                      const dppTime = new Date(current.date + "T00:00:00").getTime();
+                      const daysFromToday = Math.round((Date.now() - dppTime) / 86400000);
+                      let baseline: number;
+                      if (daysFromToday <= -1) baseline = 2050 + (seed % 480);
+                      else if (daysFromToday === 0) baseline = 1500 + (seed % 350);
+                      else if (daysFromToday === 1) baseline = 1100 + (seed % 280);
+                      else if (daysFromToday <= 4) baseline = 750 + (seed % 250);
+                      else if (daysFromToday <= 10) baseline = 480 + (seed % 200);
+                      else baseline = 260 + (seed % 180);
                       const fakeTotal = baseline + rank.total_attempts;
                       // Place user by their percentile — better score = better rank
                       const pct = rank.user_pct ?? 0;
