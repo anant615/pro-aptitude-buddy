@@ -619,7 +619,15 @@ export default function DPP() {
                     {rank && current && (() => {
                       // Inflate rank denominator with deterministic baseline so user never sees "1/1"
                       const seed = (current.date + current.title).split("").reduce((a, c) => a + c.charCodeAt(0), 0);
-                      const baseline = 180 + (seed % 220); // matches attempt-count baseline
+                      const dppTime = new Date(current.date + "T00:00:00").getTime();
+                      const daysFromToday = Math.round((Date.now() - dppTime) / 86400000);
+                      let baseline: number;
+                      if (daysFromToday <= -1) baseline = 2050 + (seed % 480);
+                      else if (daysFromToday === 0) baseline = 1500 + (seed % 350);
+                      else if (daysFromToday === 1) baseline = 1100 + (seed % 280);
+                      else if (daysFromToday <= 4) baseline = 750 + (seed % 250);
+                      else if (daysFromToday <= 10) baseline = 480 + (seed % 200);
+                      else baseline = 260 + (seed % 180);
                       const fakeTotal = baseline + rank.total_attempts;
                       // Place user by their percentile — better score = better rank
                       const pct = rank.user_pct ?? 0;
