@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { ExternalLink, GraduationCap, Loader2, Settings, Plus, Trash2, X } from "lucide-react";
+import { ExternalLink, GraduationCap, Loader2, Settings, Plus, Trash2, X, Sparkles, Timer, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 import CreditsSection from "@/components/CreditsSection";
+import { proMocks } from "@/data/practice_questions";
 
 interface MockRow { id: string; name: string; exams: string[]; link: string; description: string; free: boolean; }
 
@@ -79,6 +81,33 @@ export default function MockTests() {
         </div>
       )}
 
+      {/* ProAptitude in-app mocks */}
+      <div className="mb-10">
+        <div className="flex items-center gap-2 mb-4">
+          <Sparkles className="h-4 w-4 text-primary" />
+          <h2 className="font-heading text-xl font-bold">ProAptitude Mocks</h2>
+          <Badge className="bg-primary/15 text-primary border-primary/30 text-xs">Built-in</Badge>
+        </div>
+        <p className="text-sm text-muted-foreground mb-4">Take CAT-level mocks right inside the app — instant feedback & timed sessions.</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {proMocks.map((m, i) => (
+            <motion.div key={m.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} className="rounded-xl border bg-card p-5 flex flex-col card-hover">
+              <Badge variant="outline" className="text-xs mb-3 self-start capitalize">{m.section === "full" ? "Full Mock" : `${m.section} Sectional`}</Badge>
+              <h3 className="font-heading font-bold text-base mb-1 leading-tight">{m.title}</h3>
+              <p className="text-xs text-muted-foreground mb-3 flex-1">{m.description}</p>
+              <div className="flex items-center gap-3 text-xs text-muted-foreground mb-4">
+                <span className="flex items-center gap-1"><Timer className="h-3 w-3" />{m.durationMinutes}m</span>
+                <span>{m.questionIds.length} Qs</span>
+              </div>
+              <Button size="sm" asChild className="gap-1.5 w-full">
+                <Link to={`/practice?mock=${m.id}`}>Start Mock <ArrowRight className="h-3.5 w-3.5" /></Link>
+              </Button>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      <h2 className="font-heading text-xl font-bold mb-4">External Platforms</h2>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {mocks.map((m, i) => (
           <motion.div key={m.id} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} className="relative rounded-xl border bg-card p-6 flex flex-col card-hover">
