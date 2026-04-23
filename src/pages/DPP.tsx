@@ -15,6 +15,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
 import { useActivityTracker } from "@/hooks/useActivityTracker";
+import ReminderSignupCard from "@/components/ReminderSignupCard";
 
 type QType = "mcq" | "rc" | "lrdi";
 
