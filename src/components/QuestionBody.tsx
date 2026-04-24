@@ -1,9 +1,11 @@
 import { formatQuestion } from "@/lib/formatQuestion";
+import { renderMath } from "@/lib/mathRender";
 
 /**
  * Renders a question stem with the lead instruction and any embedded
  * numbered fragments (parajumble sentences, etc.) as visually separate blocks.
- * Use this anywhere a question.question is displayed.
+ * Math expressions written in $...$, $$...$$, \(...\), \[...\] are rendered
+ * via KaTeX so CAT-style notation like $$(625)^{65}$$ displays correctly.
  */
 export default function QuestionBody({
   text,
@@ -17,8 +19,8 @@ export default function QuestionBody({
   return (
     <div className={className}>
       {lead && (
-        <p className="font-medium leading-relaxed whitespace-pre-line">
-          {lead}
+        <p className="font-medium leading-relaxed">
+          {renderMath(lead)}
         </p>
       )}
       {fragments.length > 0 && (
@@ -31,7 +33,7 @@ export default function QuestionBody({
               <span className="flex-shrink-0 font-semibold text-primary tabular-nums w-6">
                 {f.label}.
               </span>
-              <span className="flex-1 whitespace-pre-line">{f.text}</span>
+              <span className="flex-1">{renderMath(f.text)}</span>
             </li>
           ))}
         </ol>
