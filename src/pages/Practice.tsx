@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { practiceQuestions, getTopicsByCategory, proMocks } from "@/data/practice_questions";
 import PracticeQuestionCard from "@/components/PracticeQuestionCard";
 import MockRunner from "@/components/MockRunner";
+import ReminderSignupCard from "@/components/ReminderSignupCard";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Switch } from "@/components/ui/switch";
@@ -163,6 +164,7 @@ export default function Practice() {
     const avgTime = questionTimes.length > 0 ? Math.round(questionTimes.reduce((a, b) => a + b, 0) / questionTimes.length) : 0;
     return (
       <div className="container py-10 max-w-2xl mx-auto">
+        <ReminderSignupCard context={mockMode ? "mock" : "practice session"} source={mockMode ? "mock" : "practice"} />
         <div className="border rounded-2xl bg-card shadow-lg p-8 sm:p-12 text-center">
           <div className="w-20 h-20 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-6">
             <Trophy className="h-10 w-10 text-success" />
