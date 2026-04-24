@@ -25,7 +25,7 @@ export interface MockRunnerProps {
   title: string;
   onExit: () => void;
   onComplete: (result: {
-    answers: Record<number, number | null>;
+    answers: Record<number, number | string | null>;
     statuses: QStatus[];
     secondsTaken: number;
     score: number;
@@ -82,7 +82,7 @@ export default function MockRunner({
 
   const [activeSection, setActiveSection] = useState<string>(sections[0] ?? "quant");
   const [current, setCurrent] = useState<number>(sectionRanges[sections[0] ?? "quant"]?.start ?? 0);
-  const [answers, setAnswers] = useState<Record<number, number | null>>({});
+  const [answers, setAnswers] = useState<Record<number, number | string | null>>({});
   const [statuses, setStatuses] = useState<QStatus[]>(() =>
     ordered.map((_, i) => (i === 0 ? "not_answered" : "not_visited"))
   );
@@ -129,6 +129,10 @@ export default function MockRunner({
 
   const setSelected = (oi: number) => {
     setAnswers((a) => ({ ...a, [current]: oi }));
+  };
+
+  const setTita = (val: string) => {
+    setAnswers((a) => ({ ...a, [current]: val }));
   };
 
   const advance = () => {
@@ -179,8 +183,16 @@ export default function MockRunner({
     let score = 0;
     ordered.forEach((qq, i) => {
       const a = answers[i];
-      if (a != null && a === qq.correctAnswer) score += 3;
-      else if (a != null) score -= 1;
+      if (a == null || a === "") return;
+      const isTita = qq.is_tita || (qq.options?.length ?? 0) === 0;
+      if (isTita) {
+        const canonical = extractTitaAnswer(qq.solution || "");
+        if (canonical && typeof a === "string" && checkTitaAnswer(a, canonical)) score += 3;
+        // CAT TITA: no negative marking
+      } else {
+        if (typeof a === "number" && a === qq.correctAnswer) score += 3;
+        else score -= 1;
+      }
     });
     onComplete({
       answers,
@@ -282,10 +294,21 @@ export default function MockRunner({
 
             <QuestionBody text={q.question} className="mb-5" />
 
-            {q.is_tita && q.options.length === 0 ? (
-              <p className="text-xs italic text-muted-foreground mb-5">
-                TITA — Type In The Answer (not supported in mock view, skip allowed)
-              </p>
+            {q.is_tita || (q.options?.length ?? 0) === 0 ? (
+              <div className="mb-6">
+                <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                  Type In The Answer (TITA)
+                </label>
+                <Input
+                  value={(answers[current] as string) ?? ""}
+                  onChange={(e) => setTita(e.target.value)}
+                  placeholder="Enter your answer (e.g. 1423 or 42)"
+                  className="h-12 text-base font-mono max-w-md"
+                />
+                <p className="mt-2 text-[11px] text-muted-foreground">
+                  No negative marking on TITA. Numbers, sequences, or short text accepted.
+                </p>
+              </div>
             ) : (
               <div className="space-y-2.5 mb-6">
                 {q.options.map((opt, i) => {
@@ -311,7 +334,7 @@ export default function MockRunner({
                         <span className="font-mono text-xs text-muted-foreground mr-2">
                           {String.fromCharCode(65 + i)}.
                         </span>
-                        {opt}
+                        {renderMath(opt)}
                       </div>
                     </label>
                   );
