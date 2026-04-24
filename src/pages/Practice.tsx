@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { practiceQuestions, getTopicsByCategory, proMocks } from "@/data/practice_questions";
 import PracticeQuestionCard from "@/components/PracticeQuestionCard";
+import MockRunner from "@/components/MockRunner";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Switch } from "@/components/ui/switch";
