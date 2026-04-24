@@ -99,6 +99,9 @@ export default function Practice() {
     const ids = new Set(mock.questionIds);
     const qs = practiceQuestions.filter((q) => ids.has(q.id));
     setTimerMinutes(mock.durationMinutes);
+    setMockTitle(mock.title);
+    setMockMode(true);
+    setMockResult(null);
     startSession(qs, true);
   };
 
@@ -124,7 +127,7 @@ export default function Practice() {
   const handleReset = () => {
     setStarted(false); setCompleted(false); setCurrentIndex(0);
     setSeconds(0); setTimerRunning(false); setQuestionTimes([]);
-    setSessionQuestions([]);
+    setSessionQuestions([]); setMockMode(false); setMockResult(null);
   };
 
   const toggleTopic = (t: string) => {
