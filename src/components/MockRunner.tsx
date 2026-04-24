@@ -150,10 +150,15 @@ export default function MockRunner({
     }
   };
 
+  const hasAnswer = (i: number) => {
+    const v = answers[i];
+    return v != null && v !== "";
+  };
+
   const onSaveNext = () => {
     setStatuses((prev) => {
       const next = [...prev];
-      next[current] = answers[current] != null ? "answered" : "not_answered";
+      next[current] = hasAnswer(current) ? "answered" : "not_answered";
       return next;
     });
     advance();
@@ -162,7 +167,7 @@ export default function MockRunner({
   const onMarkNext = () => {
     setStatuses((prev) => {
       const next = [...prev];
-      next[current] = answers[current] != null ? "answered_marked" : "marked";
+      next[current] = hasAnswer(current) ? "answered_marked" : "marked";
       return next;
     });
     advance();
