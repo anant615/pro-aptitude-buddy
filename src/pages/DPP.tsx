@@ -16,6 +16,7 @@ import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
 import { useActivityTracker } from "@/hooks/useActivityTracker";
 import ReminderSignupCard from "@/components/ReminderSignupCard";
+import QuestionBody from "@/components/QuestionBody";
 
 type QType = "mcq" | "rc" | "lrdi";
 
@@ -749,7 +750,7 @@ export default function DPP() {
                                   <div className="flex items-start justify-between mb-3 pr-20">
                                     <span className="text-sm font-medium text-muted-foreground">Q{displayNumbers.get(q.id) ?? qi + 1}</span>
                                   </div>
-                                  <p className="font-medium mb-4 whitespace-pre-line">{q.question}</p>
+                                  <QuestionBody text={q.question} className="mb-4" />
 
                                   {q.options && q.options.length > 0 && (
                                     <div className="space-y-2">
