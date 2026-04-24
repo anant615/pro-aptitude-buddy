@@ -3,6 +3,7 @@ import { Question } from "@/data/questions";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, XCircle, ChevronDown, ChevronUp } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import QuestionBody from "@/components/QuestionBody";
 
 const diffColors = {
   easy: "bg-success/10 text-success border-success/20",
@@ -31,7 +32,7 @@ export default function QuestionCard({ question, index }: { question: Question; 
         </div>
       )}
 
-      <p className="font-medium mb-4 leading-relaxed">{question.question}</p>
+      <QuestionBody text={question.question} className="mb-4" />
 
       {question.is_tita && question.options.length === 0 ? (
         <p className="text-sm text-muted-foreground italic mb-4">TITA (Type In The Answer) — No options provided</p>

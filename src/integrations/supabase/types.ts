@@ -409,6 +409,36 @@ export type Database = {
         }
         Relationships: []
       }
+      reminder_subscribers: {
+        Row: {
+          active: boolean
+          created_at: string
+          email: string
+          id: string
+          source: string
+          topics: string[]
+          user_id: string | null
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          email: string
+          id?: string
+          source?: string
+          topics?: string[]
+          user_id?: string | null
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          email?: string
+          id?: string
+          source?: string
+          topics?: string[]
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       resources: {
         Row: {
           created_at: string

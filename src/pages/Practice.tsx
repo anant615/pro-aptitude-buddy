@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { practiceQuestions, getTopicsByCategory, proMocks } from "@/data/practice_questions";
 import PracticeQuestionCard from "@/components/PracticeQuestionCard";
+import MockRunner from "@/components/MockRunner";
+import ReminderSignupCard from "@/components/ReminderSignupCard";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Switch } from "@/components/ui/switch";
@@ -42,6 +44,9 @@ export default function Practice() {
   const [completed, setCompleted] = useState(false);
   const [questionTimes, setQuestionTimes] = useState<number[]>([]);
   const [sessionQuestions, setSessionQuestions] = useState<typeof practiceQuestions>([]);
+  const [mockMode, setMockMode] = useState(false);
+  const [mockTitle, setMockTitle] = useState<string>("ProAptitude Mock");
+  const [mockResult, setMockResult] = useState<{ score: number; total: number; secondsTaken: number } | null>(null);
 
   const [timerRunning, setTimerRunning] = useState(false);
   const [seconds, setSeconds] = useState(0);
@@ -95,6 +100,9 @@ export default function Practice() {
     const ids = new Set(mock.questionIds);
     const qs = practiceQuestions.filter((q) => ids.has(q.id));
     setTimerMinutes(mock.durationMinutes);
+    setMockTitle(mock.title);
+    setMockMode(true);
+    setMockResult(null);
     startSession(qs, true);
   };
 
@@ -120,7 +128,7 @@ export default function Practice() {
   const handleReset = () => {
     setStarted(false); setCompleted(false); setCurrentIndex(0);
     setSeconds(0); setTimerRunning(false); setQuestionTimes([]);
-    setSessionQuestions([]);
+    setSessionQuestions([]); setMockMode(false); setMockResult(null);
   };
 
   const toggleTopic = (t: string) => {
@@ -134,23 +142,49 @@ export default function Practice() {
     }
   }, [started, useTimer, timerRunning, seconds, timerMinutes]);
 
+  // --- Mock mode (CAT-style shell) ---
+  if (started && mockMode && sessionQuestions.length > 0 && !completed) {
+    return (
+      <MockRunner
+        questions={sessionQuestions}
+        durationMinutes={timerMinutes}
+        title={mockTitle}
+        onExit={handleReset}
+        onComplete={(r) => {
+          setMockResult({ score: r.score, total: r.total, secondsTaken: r.secondsTaken });
+          setSeconds(r.secondsTaken);
+          setCompleted(true);
+        }}
+      />
+    );
+  }
+
   // --- Completion ---
   if (completed) {
     const avgTime = questionTimes.length > 0 ? Math.round(questionTimes.reduce((a, b) => a + b, 0) / questionTimes.length) : 0;
     return (
       <div className="container py-10 max-w-2xl mx-auto">
+        <ReminderSignupCard context={mockMode ? "mock" : "practice session"} source={mockMode ? "mock" : "practice"} />
         <div className="border rounded-2xl bg-card shadow-lg p-8 sm:p-12 text-center">
           <div className="w-20 h-20 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-6">
             <Trophy className="h-10 w-10 text-success" />
           </div>
-          <h1 className="font-heading text-3xl font-bold mb-2">Session Complete!</h1>
-          <p className="text-muted-foreground mb-8">Great effort! Here's your summary.</p>
-          <div className="grid grid-cols-3 gap-4 mb-8">
-            <div className="bg-muted rounded-xl p-4"><p className="text-2xl font-bold">{sessionQuestions.length}</p><p className="text-xs text-muted-foreground">Questions</p></div>
-            <div className="bg-muted rounded-xl p-4"><p className="text-2xl font-bold">{formatTime(seconds)}</p><p className="text-xs text-muted-foreground">Total Time</p></div>
-            <div className="bg-muted rounded-xl p-4"><p className="text-2xl font-bold">{formatTime(avgTime)}</p><p className="text-xs text-muted-foreground">Avg / Q</p></div>
-          </div>
-          <Button onClick={handleReset} variant="outline" className="rounded-xl"><RotateCcw className="mr-2 h-4 w-4" /> Practice Again</Button>
+          <h1 className="font-heading text-3xl font-bold mb-2">{mockMode ? "Mock Submitted!" : "Session Complete!"}</h1>
+          <p className="text-muted-foreground mb-8">{mockMode ? mockTitle : "Great effort! Here's your summary."}</p>
+          {mockMode && mockResult ? (
+            <div className="grid grid-cols-3 gap-4 mb-8">
+              <div className="bg-muted rounded-xl p-4"><p className="text-2xl font-bold">{mockResult.score}<span className="text-sm text-muted-foreground"> / {mockResult.total}</span></p><p className="text-xs text-muted-foreground">Score (+3/-1)</p></div>
+              <div className="bg-muted rounded-xl p-4"><p className="text-2xl font-bold">{sessionQuestions.length}</p><p className="text-xs text-muted-foreground">Questions</p></div>
+              <div className="bg-muted rounded-xl p-4"><p className="text-2xl font-bold">{formatTime(mockResult.secondsTaken)}</p><p className="text-xs text-muted-foreground">Time Taken</p></div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-3 gap-4 mb-8">
+              <div className="bg-muted rounded-xl p-4"><p className="text-2xl font-bold">{sessionQuestions.length}</p><p className="text-xs text-muted-foreground">Questions</p></div>
+              <div className="bg-muted rounded-xl p-4"><p className="text-2xl font-bold">{formatTime(seconds)}</p><p className="text-xs text-muted-foreground">Total Time</p></div>
+              <div className="bg-muted rounded-xl p-4"><p className="text-2xl font-bold">{formatTime(avgTime)}</p><p className="text-xs text-muted-foreground">Avg / Q</p></div>
+            </div>
+          )}
+          <Button onClick={handleReset} variant="outline" className="rounded-xl"><RotateCcw className="mr-2 h-4 w-4" /> {mockMode ? "Take another mock" : "Practice Again"}</Button>
         </div>
       </div>
     );
