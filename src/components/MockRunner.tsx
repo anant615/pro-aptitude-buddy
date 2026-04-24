@@ -3,8 +3,11 @@ import { Question } from "@/data/questions";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import QuestionBody from "@/components/QuestionBody";
+import { Input } from "@/components/ui/input";
 import { Clock, ChevronLeft, ChevronRight, Flag, Eraser, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { renderMath } from "@/lib/mathRender";
+import { extractTitaAnswer, checkTitaAnswer } from "@/lib/titaAnswer";
 
 /** CAT-style mock interface. Mirrors the official IIM CAT exam shell:
  *  - top bar with countdown timer
