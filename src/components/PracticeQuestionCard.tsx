@@ -3,6 +3,7 @@ import { Question } from "@/data/questions";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, XCircle, ChevronDown, ChevronUp, Eye } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import QuestionBody from "@/components/QuestionBody";
 
 const diffColors: Record<string, string> = {
   easy: "bg-success/10 text-success border-success/20",
@@ -52,7 +53,7 @@ export default function PracticeQuestionCard({ question, index, total, onNext, o
       </div>
 
       {/* Question */}
-      <p className="font-medium text-base sm:text-lg mb-6 leading-relaxed">{question.question}</p>
+      <QuestionBody text={question.question} className="text-base sm:text-lg mb-6" />
 
       {/* Options */}
       <div className="grid gap-3 mb-6">
