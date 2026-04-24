@@ -43,6 +43,9 @@ export default function Practice() {
   const [completed, setCompleted] = useState(false);
   const [questionTimes, setQuestionTimes] = useState<number[]>([]);
   const [sessionQuestions, setSessionQuestions] = useState<typeof practiceQuestions>([]);
+  const [mockMode, setMockMode] = useState(false);
+  const [mockTitle, setMockTitle] = useState<string>("ProAptitude Mock");
+  const [mockResult, setMockResult] = useState<{ score: number; total: number; secondsTaken: number } | null>(null);
 
   const [timerRunning, setTimerRunning] = useState(false);
   const [seconds, setSeconds] = useState(0);
