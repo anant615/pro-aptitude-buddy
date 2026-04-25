@@ -85,7 +85,15 @@ export default function DPP() {
   const [rank, setRank] = useState<{ rank: number; total_attempts: number; user_pct: number } | null>(null);
   const startedAt = useRef<number>(0);
 
-  const today = new Date().toISOString().split("T")[0];
+  // "Today" in IST — DPPs go live at 9 AM IST. Before 9 AM IST, today's date is yesterday's IST date.
+  const today = (() => {
+    const istNow = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+    if (istNow.getHours() < 9) {
+      // Before 9 AM IST → still showing previous day's DPP as "today"
+      istNow.setDate(istNow.getDate() - 1);
+    }
+    return istNow.toISOString().split("T")[0];
+  })();
 
   const load = async () => {
     setLoading(true);
