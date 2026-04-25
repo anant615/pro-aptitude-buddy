@@ -524,6 +524,7 @@ export default function DPP() {
           <div className="flex flex-wrap gap-2 mb-8">
             {groups.map(g => {
               const k = `${g.date}__${g.title}`;
+              const isFuture = g.date > today;
               return (
                 <Button
                   key={k}
@@ -535,6 +536,11 @@ export default function DPP() {
                 >
                   <CalendarDays className="h-3.5 w-3.5" />
                   <span>{g.date === today ? "Today" : g.date}</span>
+                  {isFuture && (
+                    <span className="ml-1 rounded bg-amber-500/20 text-amber-600 dark:text-amber-400 text-[9px] font-bold px-1.5 py-0.5 uppercase tracking-wide">
+                      Scheduled
+                    </span>
+                  )}
                 </Button>
               );
             })}
