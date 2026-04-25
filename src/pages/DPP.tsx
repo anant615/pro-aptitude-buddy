@@ -131,6 +131,8 @@ export default function DPP() {
   const groups: DPPGroup[] = useMemo(() => {
     const map = new Map<string, DPPGroup>();
     for (const r of rows) {
+      // Hide scheduled (future-dated) DPPs from non-admins until they go live
+      if (!isAdmin && r.date > today) continue;
       const key = `${r.date}__${r.title}`;
       if (!map.has(key)) map.set(key, { date: r.date, title: r.title, rows: [], durationMinutes: r.duration_minutes ?? 20 });
       map.get(key)!.rows.push(r);
@@ -139,7 +141,7 @@ export default function DPP() {
       g.rows.sort((a, b) => (a.q_number ?? 9999) - (b.q_number ?? 9999));
     }
     return Array.from(map.values()).sort((a, b) => b.date.localeCompare(a.date));
-  }, [rows]);
+  }, [rows, isAdmin, today]);
 
   const currentKey = selectedKey ?? (groups.find(g => g.date === today) ? `${today}__${groups.find(g => g.date === today)!.title}` : groups[0] ? `${groups[0].date}__${groups[0].title}` : null);
   const current = groups.find(g => `${g.date}__${g.title}` === currentKey) ?? null;
