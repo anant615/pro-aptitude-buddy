@@ -33,7 +33,7 @@ function format(ms: number) {
   };
 }
 
-export default function DPPCountdown() {
+export default function DPPCountdown({ variant = "default" }: { variant?: "default" | "hero" }) {
   const { isAdmin } = useAuth();
   const [ms, setMs] = useState<number>(() => msUntilNext9amIST());
 
@@ -44,6 +44,32 @@ export default function DPPCountdown() {
 
   const { h, m, s } = format(ms);
   const isHot = Number(h) < 6;
+
+  if (variant === "hero") {
+    return (
+      <div className="mb-6 flex justify-center">
+        <div className="inline-flex flex-wrap items-center justify-center gap-3 rounded-full border border-accent/40 bg-primary-foreground/10 backdrop-blur px-4 py-2 shadow-lg">
+          <span className={`inline-flex items-center gap-1.5 text-xs md:text-sm font-semibold ${isHot ? "text-red-300" : "text-accent"}`}>
+            {isHot ? <Flame className="h-4 w-4 animate-pulse" /> : <Clock className="h-4 w-4" />}
+            <EditableText
+              storageKey="dpp_countdown_title"
+              defaultValue="Next Hot DPP drops in"
+              isAdmin={isAdmin}
+            />
+          </span>
+          <div className="flex items-center gap-1.5 font-heading font-bold text-base md:text-lg tabular-nums text-primary-foreground">
+            <span className="bg-accent/20 rounded px-2 py-0.5">{h}<span className="opacity-70 text-xs ml-0.5">h</span></span>
+            <span className="bg-accent/20 rounded px-2 py-0.5">{m}<span className="opacity-70 text-xs ml-0.5">m</span></span>
+            <span className="bg-accent/20 rounded px-2 py-0.5">{s}<span className="opacity-70 text-xs ml-0.5">s</span></span>
+          </div>
+          <span className="text-[10px] md:text-xs text-primary-foreground/70 hidden sm:inline">
+            <EditableText storageKey="dpp_countdown_sub_short" defaultValue="• Drops daily at 9:00 AM IST" isAdmin={isAdmin} />
+          </span>
+        </div>
+      </div>
+    );
+  }
+
 
   return (
     <section className="py-6 bg-gradient-to-r from-accent/10 via-background to-accent/10 border-y">
