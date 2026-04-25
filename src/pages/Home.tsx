@@ -167,6 +167,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* DPP Countdown — drops daily at 9 AM IST */}
+      <DPPCountdown />
+
       {/* Top Strategy Videos — front and center for conversion */}
       {topVideos.length > 0 && (
         <section className="py-14 bg-gradient-to-b from-background to-muted/40">
