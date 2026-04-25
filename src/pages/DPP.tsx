@@ -85,7 +85,15 @@ export default function DPP() {
   const [rank, setRank] = useState<{ rank: number; total_attempts: number; user_pct: number } | null>(null);
   const startedAt = useRef<number>(0);
 
-  const today = new Date().toISOString().split("T")[0];
+  // "Today" in IST — DPPs go live at 9 AM IST. Before 9 AM IST, today's date is yesterday's IST date.
+  const today = (() => {
+    const istNow = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+    if (istNow.getHours() < 9) {
+      // Before 9 AM IST → still showing previous day's DPP as "today"
+      istNow.setDate(istNow.getDate() - 1);
+    }
+    return istNow.toISOString().split("T")[0];
+  })();
 
   const load = async () => {
     setLoading(true);
@@ -123,6 +131,8 @@ export default function DPP() {
   const groups: DPPGroup[] = useMemo(() => {
     const map = new Map<string, DPPGroup>();
     for (const r of rows) {
+      // Hide scheduled (future-dated) DPPs from non-admins until they go live
+      if (!isAdmin && r.date > today) continue;
       const key = `${r.date}__${r.title}`;
       if (!map.has(key)) map.set(key, { date: r.date, title: r.title, rows: [], durationMinutes: r.duration_minutes ?? 20 });
       map.get(key)!.rows.push(r);
@@ -131,7 +141,7 @@ export default function DPP() {
       g.rows.sort((a, b) => (a.q_number ?? 9999) - (b.q_number ?? 9999));
     }
     return Array.from(map.values()).sort((a, b) => b.date.localeCompare(a.date));
-  }, [rows]);
+  }, [rows, isAdmin, today]);
 
   const currentKey = selectedKey ?? (groups.find(g => g.date === today) ? `${today}__${groups.find(g => g.date === today)!.title}` : groups[0] ? `${groups[0].date}__${groups[0].title}` : null);
   const current = groups.find(g => `${g.date}__${g.title}` === currentKey) ?? null;
@@ -407,8 +417,9 @@ export default function DPP() {
 
               <div className="grid sm:grid-cols-3 gap-3">
                 <div className="space-y-1">
-                  <Label className="text-xs">Date</Label>
+                  <Label className="text-xs">Launch date (goes live 9 AM IST)</Label>
                   <Input type="date" value={fDate} onChange={e => setFDate(e.target.value)} className="h-9" />
+                  <p className="text-[10px] text-muted-foreground">Tip: pick tomorrow's date the night before — students will see it auto-launch at 9 AM IST.</p>
                 </div>
                 <div className="space-y-1">
                   <Label className="text-xs">DPP Title</Label>
@@ -513,6 +524,7 @@ export default function DPP() {
           <div className="flex flex-wrap gap-2 mb-8">
             {groups.map(g => {
               const k = `${g.date}__${g.title}`;
+              const isFuture = g.date > today;
               return (
                 <Button
                   key={k}
@@ -524,6 +536,11 @@ export default function DPP() {
                 >
                   <CalendarDays className="h-3.5 w-3.5" />
                   <span>{g.date === today ? "Today" : g.date}</span>
+                  {isFuture && (
+                    <span className="ml-1 rounded bg-amber-500/20 text-amber-600 dark:text-amber-400 text-[9px] font-bold px-1.5 py-0.5 uppercase tracking-wide">
+                      Scheduled
+                    </span>
+                  )}
                 </Button>
               );
             })}
@@ -538,7 +555,6 @@ export default function DPP() {
                     <h2 className="font-heading font-semibold text-lg">{current.title}</h2>
                     <p className="text-sm text-muted-foreground">
                       {current.date} · {allQuestions.length} CAT-level questions · {current.durationMinutes} min
-                      {stats && ` · avg ${stats.avg_pct}%`}
                     </p>
                     {/* Social proof: inflated attempt count, varies per day, grows with recency */}
                     {(() => {
