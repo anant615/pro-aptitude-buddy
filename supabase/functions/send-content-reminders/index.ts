@@ -143,11 +143,47 @@ Deno.serve(async (req) => {
       );
     }
 
+    // 1) Explicit subscribers
     const { data: subs, error } = await supabase
       .from("reminder_subscribers")
       .select("email")
       .eq("active", true);
     if (error) throw error;
+
+    // 2) Auto-include DPP attempters from the last 7 days (retention loop)
+    //    They get the same "new content is live" nudge so they come back.
+    const since7d = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+    const { data: attempters } = await supabase
+      .from("dpp_attempts")
+      .select("user_id, created_at")
+      .gte("created_at", since7d);
+
+    const userIds = Array.from(
+      new Set((attempters ?? []).map((a: any) => a.user_id).filter(Boolean))
+    );
+
+    let attempterEmails: string[] = [];
+    if (userIds.length > 0) {
+      const { data: profs } = await supabase
+        .from("profiles")
+        .select("email")
+        .in("user_id", userIds);
+      attempterEmails = (profs ?? [])
+        .map((p: any) => p.email)
+        .filter((e: string | null) => !!e);
+    }
+
+    // Merge + dedupe (case-insensitive)
+    const recipientSet = new Map<string, string>();
+    for (const s of subs ?? []) {
+      const e = ((s as any).email ?? "").trim();
+      if (e) recipientSet.set(e.toLowerCase(), e);
+    }
+    for (const e of attempterEmails) {
+      const t = e.trim();
+      if (t) recipientSet.set(t.toLowerCase(), t);
+    }
+    const recipients = Array.from(recipientSet.values()).map((email) => ({ email }));
 
     let sent = 0;
     let failed = 0;
