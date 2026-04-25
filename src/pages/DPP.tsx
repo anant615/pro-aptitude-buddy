@@ -538,7 +538,6 @@ export default function DPP() {
                     <h2 className="font-heading font-semibold text-lg">{current.title}</h2>
                     <p className="text-sm text-muted-foreground">
                       {current.date} · {allQuestions.length} CAT-level questions · {current.durationMinutes} min
-                      {stats && ` · avg ${stats.avg_pct}%`}
                     </p>
                     {/* Social proof: inflated attempt count, varies per day, grows with recency */}
                     {(() => {
