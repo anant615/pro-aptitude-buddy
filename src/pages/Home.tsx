@@ -10,6 +10,7 @@ import amanPhoto from "@/assets/aman-pandey.png";
 import { EditableText } from "@/components/EditableText";
 import { supabase } from "@/integrations/supabase/client";
 import { getYoutubeId } from "@/data/videos_data";
+import DPPCountdown from "@/components/DPPCountdown";
 
 interface Resource { id: string; title: string; description: string; link: string; type: string; }
 interface NewsItem { id: string; title: string; description: string; link: string; date: string; source: string; }
