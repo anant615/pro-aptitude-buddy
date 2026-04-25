@@ -168,8 +168,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* DPP Countdown — drops daily at 9 AM IST */}
-      <DPPCountdown />
 
       {/* Top Strategy Videos — front and center for conversion */}
       {topVideos.length > 0 && (
