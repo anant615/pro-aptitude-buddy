@@ -189,8 +189,8 @@ Deno.serve(async (req) => {
     let failed = 0;
     const errors: string[] = [];
 
-    for (const s of subs ?? []) {
-      const email = (s as any).email as string;
+    for (const s of recipients) {
+      const email = s.email;
       const built = buildEmail(content, email);
       if (!built) continue;
       const r = await sendOne(email, built.subject, built.html);
@@ -207,7 +207,9 @@ Deno.serve(async (req) => {
       JSON.stringify({
         sent,
         failed,
-        total_subscribers: subs?.length ?? 0,
+        total_recipients: recipients.length,
+        explicit_subscribers: subs?.length ?? 0,
+        dpp_attempters_added: attempterEmails.length,
         new_dpps: content.dpps.length,
         new_news: content.news.length,
         errors: errors.slice(0, 5),
