@@ -107,6 +107,7 @@ export default function Home() {
           <div className="absolute bottom-10 right-20 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
         </div>
         <div className="container relative z-10 text-center">
+          <DPPCountdown variant="hero" />
           <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0} className="flex flex-col items-center gap-3 mb-5">
             <div className="flex items-center gap-3">
               <img
