@@ -417,8 +417,9 @@ export default function DPP() {
 
               <div className="grid sm:grid-cols-3 gap-3">
                 <div className="space-y-1">
-                  <Label className="text-xs">Date</Label>
+                  <Label className="text-xs">Launch date (goes live 9 AM IST)</Label>
                   <Input type="date" value={fDate} onChange={e => setFDate(e.target.value)} className="h-9" />
+                  <p className="text-[10px] text-muted-foreground">Tip: pick tomorrow's date the night before — students will see it auto-launch at 9 AM IST.</p>
                 </div>
                 <div className="space-y-1">
                   <Label className="text-xs">DPP Title</Label>
