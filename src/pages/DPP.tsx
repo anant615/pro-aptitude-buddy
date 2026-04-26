@@ -433,6 +433,7 @@ export default function DPP() {
     await load();
   };
 
+  const score = sessionSubmitted ? allQuestions.filter(q => answers[q.id] === q.correct_answer).length : 0;
   const total = allQuestions.length;
   const showResults = sessionSubmitted;
   const inSession = sessionStarted && !sessionSubmitted;
