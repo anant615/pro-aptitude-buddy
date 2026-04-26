@@ -17,6 +17,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useActivityTracker } from "@/hooks/useActivityTracker";
 import ReminderSignupCard from "@/components/ReminderSignupCard";
 import QuestionBody from "@/components/QuestionBody";
+import { EditableText } from "@/components/EditableText";
 
 type QType = "mcq" | "rc" | "lrdi";
 
