@@ -51,7 +51,7 @@ export default function DPPCountdown({ variant = "default" }: { variant?: "defau
   // Pull today's attempt count (real + inflated baseline for social proof)
   useEffect(() => {
     const today = todayISTDateString();
-    (async () => {
+    const tick = async () => {
       const { data: dpp } = await supabase
         .from("dpps")
         .select("title")
@@ -65,10 +65,13 @@ export default function DPPCountdown({ variant = "default" }: { variant?: "defau
         const { data: s } = await supabase.rpc("dpp_stats", { _date: today, _title: title });
         if (s && s[0]) real = Number(s[0].attempts) || 0;
       }
-      const seed = today.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
-      const baseline = 1500 + (seed % 350);
+      const baseline = title ? aspirantBaseline(today, title) : 0;
       setAttemptCount(baseline + real);
-    })();
+    };
+    tick();
+    // Re-tick every 5 min so the hourly growth shows up without a refresh
+    const id = setInterval(tick, 5 * 60 * 1000);
+    return () => clearInterval(id);
   }, []);
 
   const { h, m, s } = format(ms);
