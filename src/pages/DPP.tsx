@@ -777,12 +777,51 @@ export default function DPP() {
                 <div className="space-y-8">
                   {sets.map((s, si) => (
                     <div key={si} className="space-y-4">
-                      {s.kind === "set" && s.passage && (
+                      {s.kind === "set" && (s.passage || (manage && s.setId)) && (
                         <div className="rounded-xl border bg-muted/40 p-5">
-                          <Badge variant="outline" className="mb-2 gap-1.5">
-                            <BookOpen className="h-3.5 w-3.5" /> {s.type === "rc" ? "Reading Comprehension" : "LRDI Set"}
-                          </Badge>
-                          <p className="text-sm leading-relaxed whitespace-pre-line">{s.passage}</p>
+                          <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
+                            <Badge variant="outline" className="gap-1.5">
+                              <BookOpen className="h-3.5 w-3.5" /> {s.type === "rc" ? "Reading Comprehension" : "LRDI Set"}
+                            </Badge>
+                            {manage && s.setId && editingSetId !== s.setId && (
+                              <div className="flex gap-1">
+                                <Button
+                                  variant="outline" size="sm" className="h-7 gap-1.5 text-xs"
+                                  onClick={() => { setPassageDraft(s.passage || ""); setEditingSetId(s.setId!); }}
+                                >
+                                  <Pencil className="h-3 w-3" /> Edit passage
+                                </Button>
+                                {s.passage && (
+                                  <Button
+                                    variant="ghost" size="sm" className="h-7 gap-1.5 text-xs text-destructive hover:text-destructive"
+                                    onClick={() => clearPassage(s.setId!)}
+                                  >
+                                    <Trash2 className="h-3 w-3" /> Clear
+                                  </Button>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                          {manage && editingSetId === s.setId ? (
+                            <div className="space-y-2">
+                              <Textarea
+                                value={passageDraft}
+                                onChange={(e) => setPassageDraft(e.target.value)}
+                                className="min-h-[140px] text-sm"
+                                placeholder="Passage / instructions for this set..."
+                              />
+                              <div className="flex gap-2">
+                                <Button size="sm" className="gap-1.5" onClick={() => savePassage(s.setId!, passageDraft)}>
+                                  <Save className="h-3.5 w-3.5" /> Save
+                                </Button>
+                                <Button size="sm" variant="ghost" onClick={() => setEditingSetId(null)}>Cancel</Button>
+                              </div>
+                            </div>
+                          ) : (
+                            s.passage
+                              ? <p className="text-sm leading-relaxed whitespace-pre-line">{s.passage}</p>
+                              : <p className="text-xs text-muted-foreground italic">No passage / instructions yet. Click "Edit passage" to add one.</p>
+                          )}
                         </div>
                       )}
 
