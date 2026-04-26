@@ -394,7 +394,45 @@ export default function DPP() {
     await load();
   };
 
-  const score = sessionSubmitted ? allQuestions.filter(q => answers[q.id] === q.correct_answer).length : 0;
+  const renameDppTitle = async (newTitle: string) => {
+    if (!current) return;
+    const clean = newTitle.trim();
+    if (!clean) { toast.error("Title can't be empty"); return; }
+    if (clean === current.title) { setEditingTitle(false); return; }
+    const { error } = await supabase.from("dpps")
+      .update({ title: clean } as any)
+      .eq("date", current.date).eq("title", current.title);
+    if (error) { toast.error(error.message); return; }
+    toast.success("DPP title updated");
+    setSelectedKey(`${current.date}__${clean}`);
+    setEditingTitle(false);
+    await load();
+  };
+
+  const savePassage = async (setId: string, newPassage: string) => {
+    if (!current) return;
+    const { error } = await supabase.from("dpps")
+      .update({ passage: newPassage } as any)
+      .eq("date", current.date).eq("title", current.title)
+      .eq("set_id", setId);
+    if (error) { toast.error(error.message); return; }
+    toast.success("Passage updated");
+    setEditingSetId(null);
+    await load();
+  };
+
+  const clearPassage = async (setId: string) => {
+    if (!current) return;
+    if (!confirm("Clear the passage / instructions for this set? Questions will be kept.")) return;
+    const { error } = await supabase.from("dpps")
+      .update({ passage: "" } as any)
+      .eq("date", current.date).eq("title", current.title)
+      .eq("set_id", setId);
+    if (error) { toast.error(error.message); return; }
+    toast.success("Passage cleared");
+    await load();
+  };
+
   const total = allQuestions.length;
   const showResults = sessionSubmitted;
   const inSession = sessionStarted && !sessionSubmitted;
