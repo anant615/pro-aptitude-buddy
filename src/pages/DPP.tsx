@@ -66,6 +66,14 @@ export default function DPP() {
   const [eCorrect, setECorrect] = useState<string>("0");
   const [eSolution, setESolution] = useState("");
   const [eNumber, setENumber] = useState<string>("");
+
+  // Edit DPP title
+  const [editingTitle, setEditingTitle] = useState(false);
+  const [titleDraft, setTitleDraft] = useState("");
+
+  // Edit passage per set_id
+  const [editingSetId, setEditingSetId] = useState<string | null>(null);
+  const [passageDraft, setPassageDraft] = useState("");
   const [fQuestion, setFQuestion] = useState("");
   const [fOptions, setFOptions] = useState<string[]>(["", "", "", ""]);
   const [fCorrect, setFCorrect] = useState<string>("0");
@@ -386,6 +394,45 @@ export default function DPP() {
     await load();
   };
 
+  const renameDppTitle = async (newTitle: string) => {
+    if (!current) return;
+    const clean = newTitle.trim();
+    if (!clean) { toast.error("Title can't be empty"); return; }
+    if (clean === current.title) { setEditingTitle(false); return; }
+    const { error } = await supabase.from("dpps")
+      .update({ title: clean } as any)
+      .eq("date", current.date).eq("title", current.title);
+    if (error) { toast.error(error.message); return; }
+    toast.success("DPP title updated");
+    setSelectedKey(`${current.date}__${clean}`);
+    setEditingTitle(false);
+    await load();
+  };
+
+  const savePassage = async (setId: string, newPassage: string) => {
+    if (!current) return;
+    const { error } = await supabase.from("dpps")
+      .update({ passage: newPassage } as any)
+      .eq("date", current.date).eq("title", current.title)
+      .eq("set_id", setId);
+    if (error) { toast.error(error.message); return; }
+    toast.success("Passage updated");
+    setEditingSetId(null);
+    await load();
+  };
+
+  const clearPassage = async (setId: string) => {
+    if (!current) return;
+    if (!confirm("Clear the passage / instructions for this set? Questions will be kept.")) return;
+    const { error } = await supabase.from("dpps")
+      .update({ passage: "" } as any)
+      .eq("date", current.date).eq("title", current.title)
+      .eq("set_id", setId);
+    if (error) { toast.error(error.message); return; }
+    toast.success("Passage cleared");
+    await load();
+  };
+
   const score = sessionSubmitted ? allQuestions.filter(q => answers[q.id] === q.correct_answer).length : 0;
   const total = allQuestions.length;
   const showResults = sessionSubmitted;
@@ -551,8 +598,37 @@ export default function DPP() {
               {/* Session header */}
               <div className="rounded-xl border bg-card p-5 mb-6">
                 <div className="flex items-center justify-between flex-wrap gap-3">
-                  <div>
-                    <h2 className="font-heading font-semibold text-lg">{current.title}</h2>
+                  <div className="flex-1 min-w-0">
+                    {manage && editingTitle ? (
+                      <div className="flex items-center gap-2 mb-1">
+                        <Input
+                          value={titleDraft}
+                          onChange={(e) => setTitleDraft(e.target.value)}
+                          className="h-9 max-w-sm"
+                          placeholder="DPP title"
+                          autoFocus
+                        />
+                        <Button size="sm" className="gap-1.5" onClick={() => renameDppTitle(titleDraft)}>
+                          <Save className="h-3.5 w-3.5" /> Save
+                        </Button>
+                        <Button size="sm" variant="ghost" onClick={() => setEditingTitle(false)}>Cancel</Button>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2">
+                        <h2 className="font-heading font-semibold text-lg">{current.title}</h2>
+                        {manage && (
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-7 w-7 text-muted-foreground hover:text-accent"
+                            onClick={() => { setTitleDraft(current.title); setEditingTitle(true); }}
+                            title="Edit DPP title"
+                          >
+                            <Pencil className="h-3.5 w-3.5" />
+                          </Button>
+                        )}
+                      </div>
+                    )}
                     <p className="text-sm text-muted-foreground">
                       {current.date} · {allQuestions.length} CAT-level questions · {current.durationMinutes} min
                     </p>
@@ -701,12 +777,51 @@ export default function DPP() {
                 <div className="space-y-8">
                   {sets.map((s, si) => (
                     <div key={si} className="space-y-4">
-                      {s.kind === "set" && s.passage && (
+                      {s.kind === "set" && (s.passage || (manage && s.setId)) && (
                         <div className="rounded-xl border bg-muted/40 p-5">
-                          <Badge variant="outline" className="mb-2 gap-1.5">
-                            <BookOpen className="h-3.5 w-3.5" /> {s.type === "rc" ? "Reading Comprehension" : "LRDI Set"}
-                          </Badge>
-                          <p className="text-sm leading-relaxed whitespace-pre-line">{s.passage}</p>
+                          <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
+                            <Badge variant="outline" className="gap-1.5">
+                              <BookOpen className="h-3.5 w-3.5" /> {s.type === "rc" ? "Reading Comprehension" : "LRDI Set"}
+                            </Badge>
+                            {manage && s.setId && editingSetId !== s.setId && (
+                              <div className="flex gap-1">
+                                <Button
+                                  variant="outline" size="sm" className="h-7 gap-1.5 text-xs"
+                                  onClick={() => { setPassageDraft(s.passage || ""); setEditingSetId(s.setId!); }}
+                                >
+                                  <Pencil className="h-3 w-3" /> Edit passage
+                                </Button>
+                                {s.passage && (
+                                  <Button
+                                    variant="ghost" size="sm" className="h-7 gap-1.5 text-xs text-destructive hover:text-destructive"
+                                    onClick={() => clearPassage(s.setId!)}
+                                  >
+                                    <Trash2 className="h-3 w-3" /> Clear
+                                  </Button>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                          {manage && editingSetId === s.setId ? (
+                            <div className="space-y-2">
+                              <Textarea
+                                value={passageDraft}
+                                onChange={(e) => setPassageDraft(e.target.value)}
+                                className="min-h-[140px] text-sm"
+                                placeholder="Passage / instructions for this set..."
+                              />
+                              <div className="flex gap-2">
+                                <Button size="sm" className="gap-1.5" onClick={() => savePassage(s.setId!, passageDraft)}>
+                                  <Save className="h-3.5 w-3.5" /> Save
+                                </Button>
+                                <Button size="sm" variant="ghost" onClick={() => setEditingSetId(null)}>Cancel</Button>
+                              </div>
+                            </div>
+                          ) : (
+                            s.passage
+                              ? <p className="text-sm leading-relaxed whitespace-pre-line">{s.passage}</p>
+                              : <p className="text-xs text-muted-foreground italic">No passage / instructions yet. Click "Edit passage" to add one.</p>
+                          )}
                         </div>
                       )}
 
