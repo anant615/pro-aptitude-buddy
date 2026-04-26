@@ -598,8 +598,37 @@ export default function DPP() {
               {/* Session header */}
               <div className="rounded-xl border bg-card p-5 mb-6">
                 <div className="flex items-center justify-between flex-wrap gap-3">
-                  <div>
-                    <h2 className="font-heading font-semibold text-lg">{current.title}</h2>
+                  <div className="flex-1 min-w-0">
+                    {manage && editingTitle ? (
+                      <div className="flex items-center gap-2 mb-1">
+                        <Input
+                          value={titleDraft}
+                          onChange={(e) => setTitleDraft(e.target.value)}
+                          className="h-9 max-w-sm"
+                          placeholder="DPP title"
+                          autoFocus
+                        />
+                        <Button size="sm" className="gap-1.5" onClick={() => renameDppTitle(titleDraft)}>
+                          <Save className="h-3.5 w-3.5" /> Save
+                        </Button>
+                        <Button size="sm" variant="ghost" onClick={() => setEditingTitle(false)}>Cancel</Button>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2">
+                        <h2 className="font-heading font-semibold text-lg">{current.title}</h2>
+                        {manage && (
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-7 w-7 text-muted-foreground hover:text-accent"
+                            onClick={() => { setTitleDraft(current.title); setEditingTitle(true); }}
+                            title="Edit DPP title"
+                          >
+                            <Pencil className="h-3.5 w-3.5" />
+                          </Button>
+                        )}
+                      </div>
+                    )}
                     <p className="text-sm text-muted-foreground">
                       {current.date} · {allQuestions.length} CAT-level questions · {current.durationMinutes} min
                     </p>
