@@ -66,6 +66,14 @@ export default function DPP() {
   const [eCorrect, setECorrect] = useState<string>("0");
   const [eSolution, setESolution] = useState("");
   const [eNumber, setENumber] = useState<string>("");
+
+  // Edit DPP title
+  const [editingTitle, setEditingTitle] = useState(false);
+  const [titleDraft, setTitleDraft] = useState("");
+
+  // Edit passage per set_id
+  const [editingSetId, setEditingSetId] = useState<string | null>(null);
+  const [passageDraft, setPassageDraft] = useState("");
   const [fQuestion, setFQuestion] = useState("");
   const [fOptions, setFOptions] = useState<string[]>(["", "", "", ""]);
   const [fCorrect, setFCorrect] = useState<string>("0");
