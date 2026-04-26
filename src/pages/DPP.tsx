@@ -780,9 +780,13 @@ export default function DPP() {
                       {s.kind === "set" && (s.passage || (manage && s.setId)) && (
                         <div className="rounded-xl border bg-muted/40 p-5">
                           <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
-                            <Badge variant="outline" className="gap-1.5">
-                              <BookOpen className="h-3.5 w-3.5" /> {s.type === "rc" ? "Reading Comprehension" : "LRDI Set"}
-                            </Badge>
+                            <EditableText
+                              storageKey={`dpp_set_label_${current?.date}_${s.setId}`}
+                              defaultValue={s.type === "rc" ? "Reading Comprehension" : "LRDI Set"}
+                              isAdmin={manage}
+                              as="span"
+                              className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold"
+                            />
                             {manage && s.setId && editingSetId !== s.setId && (
                               <div className="flex gap-1">
                                 <Button
@@ -804,6 +808,21 @@ export default function DPP() {
                           </div>
                           {manage && editingSetId === s.setId ? (
                             <div className="space-y-2">
+                              <div className="flex flex-wrap gap-1.5">
+                                <span className="text-xs text-muted-foreground self-center mr-1">Quick presets:</span>
+                                {[
+                                  { label: "Para Jumble", text: "The four sentences (labelled 1, 2, 3, and 4) given below, when properly sequenced, form a coherent paragraph. Decide on the proper sequencing of the order of the sentences and key in the sequence of the four numbers as your answer." },
+                                  { label: "Odd Man Out", text: "Five jumbled sentences (labelled 1, 2, 3, 4, and 5), related to a topic, are given below. Four of them can be put together to form a coherent paragraph. Identify the odd sentence out and key in the number of that sentence as your answer." },
+                                  { label: "Sentence Filler", text: "The passage given below has a missing sentence. Choose the option that best fits the blank in the passage." },
+                                  { label: "Para Summary", text: "The passage given below is followed by four alternate summaries. Choose the option that best captures the essence of the passage." },
+                                  { label: "RC", text: "Read the passage carefully and answer the questions that follow." },
+                                ].map(p => (
+                                  <Button key={p.label} type="button" size="sm" variant="outline" className="h-7 text-xs"
+                                    onClick={() => setPassageDraft(p.text)}>
+                                    {p.label}
+                                  </Button>
+                                ))}
+                              </div>
                               <Textarea
                                 value={passageDraft}
                                 onChange={(e) => setPassageDraft(e.target.value)}
