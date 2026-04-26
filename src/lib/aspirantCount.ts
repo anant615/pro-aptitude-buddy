@@ -36,20 +36,25 @@ export function aspirantBaseline(date: string, title: string): number {
   const todayTime = new Date(today + "T00:00:00").getTime();
   const daysFromToday = Math.round((todayTime - dppTime) / 86400000);
 
-  // Upcoming DPP (tomorrow or later) — show hype number
-  if (daysFromToday <= -1) return 2050 + (seed % 480);
+  // Upcoming DPP (not yet launched) — keep at 0 so it's not misleading.
+  // Once that date becomes "today", the hourly growth below kicks in.
+  if (daysFromToday <= -1) return 0;
 
-  // TODAY — grow hourly from 9 AM to 9 PM IST
+  // TODAY — grow from 9 AM to 9 PM IST
   if (daysFromToday === 0) {
     const ist = nowIST();
-    const hourIST = ist.getUTCHours(); // 0-23 in IST since we shifted
-    if (hourIST < 9) return 0; // DPP not launched yet today
+    const hourIST = ist.getUTCHours();    // 0-23 (already shifted to IST)
+    const minIST = ist.getUTCMinutes();
+    const minutesSince9 = (hourIST - 9) * 60 + minIST;
+
+    if (minutesSince9 < 10) return 0;     // first 10 min after launch: still 0
+    if (minutesSince9 < 60) return 100;   // 9:10 AM → ~100 aspirants
+
     const cappedHour = Math.min(hourIST, 21); // freeze at 9 PM
-    const hoursSinceLaunch = cappedHour - 9; // 0..12
-    // Start at ~100 at 9 AM, each hour adds a deterministic 120–150
+    const hoursSinceLaunch = cappedHour - 9;  // 1..12 here
     let total = 100;
     for (let h = 1; h <= hoursSinceLaunch; h++) {
-      const inc = 120 + ((seed + h * 37) % 31); // 120..150
+      const inc = 120 + ((seed + h * 37) % 31); // deterministic 120..150
       total += inc;
     }
     return total;
