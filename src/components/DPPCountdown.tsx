@@ -5,6 +5,7 @@ import { EditableText } from "@/components/EditableText";
 import { useAuth } from "@/hooks/useAuth";
 import { dppData } from "@/data/dpp_data";
 import { supabase } from "@/integrations/supabase/client";
+import { aspirantBaseline } from "@/lib/aspirantCount";
 
 // Calculates time left until next 9:00 AM IST (Asia/Kolkata, UTC+5:30)
 function msUntilNext9amIST(): number {
