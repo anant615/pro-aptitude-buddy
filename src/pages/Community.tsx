@@ -222,7 +222,13 @@ export default function Community() {
                 </button>
                 <div className="flex-1 min-w-0">
                   {q._seed ? (
-                    <span className="font-heading font-semibold text-lg block">{q.title}</span>
+                    <Link
+                      to={`/community/${q.id}`}
+                      state={{ seed: q }}
+                      className="font-heading font-semibold text-lg hover:text-accent block"
+                    >
+                      {q.title}
+                    </Link>
                   ) : (
                     <Link to={`/community/${q.id}`} className="font-heading font-semibold text-lg hover:text-accent block">{q.title}</Link>
                   )}
