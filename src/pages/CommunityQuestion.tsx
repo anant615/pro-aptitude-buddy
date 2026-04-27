@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
@@ -48,6 +48,8 @@ function seededAnswersFor(questionId: string, count = 3) {
 
 export default function CommunityQuestion() {
   const { id } = useParams();
+  const location = useLocation();
+  const seedFromState = (location.state as any)?.seed;
   const { user } = useAuth();
   const [q, setQ] = useState<any>(null);
   const [answers, setAnswers] = useState<any[]>([]);
@@ -62,16 +64,19 @@ export default function CommunityQuestion() {
 
   const load = async () => {
     if (isSeedQuestion) {
-      // Build a synthetic question from the seed catalog (so /community/seed-N works)
-      setQ({
-        id,
-        title: "Community Discussion",
-        body: "This is a popular question from the community. Join the conversation below.",
-        category: "general",
-        is_anonymous: false,
-        vote_count: 50,
-        created_at: new Date(Date.now() - 3600 * 1000 * 6).toISOString(),
-      });
+      // Use the actual seed passed via Link state when available so the user
+      // sees the SAME title + body they clicked on (not a generic placeholder).
+      setQ(
+        seedFromState ?? {
+          id,
+          title: "Community Discussion",
+          body: "This is a popular question from the community. Join the conversation below.",
+          category: "general",
+          is_anonymous: false,
+          vote_count: 50,
+          created_at: new Date(Date.now() - 3600 * 1000 * 6).toISOString(),
+        },
+      );
       setAnswers([]);
       return;
     }
