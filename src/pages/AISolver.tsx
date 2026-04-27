@@ -7,6 +7,17 @@ import { toast } from "sonner";
 import ReactMarkdown from "react-markdown";
 import { renderMath } from "@/lib/mathRender";
 import { supabase } from "@/integrations/supabase/client";
+import React from "react";
+
+// Walk markdown children and apply KaTeX rendering to any string segments.
+function renderChildrenWithMath(children: React.ReactNode): React.ReactNode {
+  return React.Children.map(children, (child, i) => {
+    if (typeof child === "string") {
+      return <React.Fragment key={i}>{renderMath(child)}</React.Fragment>;
+    }
+    return child;
+  });
+}
 
 export default function AISolver() {
   const [question, setQuestion] = useState("");
