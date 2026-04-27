@@ -5,7 +5,19 @@ import { Textarea } from "@/components/ui/textarea";
 import { Sparkles, Image as ImageIcon, X, Loader2, Brain } from "lucide-react";
 import { toast } from "sonner";
 import ReactMarkdown from "react-markdown";
+import { renderMath } from "@/lib/mathRender";
 import { supabase } from "@/integrations/supabase/client";
+import React from "react";
+
+// Walk markdown children and apply KaTeX rendering to any string segments.
+function renderChildrenWithMath(children: React.ReactNode): React.ReactNode {
+  return React.Children.map(children, (child, i) => {
+    if (typeof child === "string") {
+      return <React.Fragment key={i}>{renderMath(child)}</React.Fragment>;
+    }
+    return child;
+  });
+}
 
 export default function AISolver() {
   const [question, setQuestion] = useState("");
@@ -117,8 +129,17 @@ export default function AISolver() {
             <Sparkles className="h-5 w-5 text-accent" />
             <h2 className="font-heading font-bold text-lg">Solution</h2>
           </div>
-          <div className="prose prose-sm dark:prose-invert max-w-none">
-            <ReactMarkdown>{solution}</ReactMarkdown>
+          <div className="prose prose-sm dark:prose-invert max-w-none prose-p:leading-relaxed prose-li:my-1.5">
+            <ReactMarkdown
+              components={{
+                p: ({ children }) => <p>{renderChildrenWithMath(children)}</p>,
+                li: ({ children }) => <li>{renderChildrenWithMath(children)}</li>,
+                strong: ({ children }) => <strong>{renderChildrenWithMath(children)}</strong>,
+                em: ({ children }) => <em>{renderChildrenWithMath(children)}</em>,
+              }}
+            >
+              {solution}
+            </ReactMarkdown>
           </div>
         </Card>
       )}
