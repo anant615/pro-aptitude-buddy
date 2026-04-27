@@ -19,6 +19,7 @@ import ReminderSignupCard from "@/components/ReminderSignupCard";
 import QuestionBody from "@/components/QuestionBody";
 import { EditableText } from "@/components/EditableText";
 import { aspirantBaseline } from "@/lib/aspirantCount";
+import { FileUpload } from "@/components/FileUpload";
 
 type QType = "mcq" | "rc" | "lrdi";
 
@@ -506,14 +507,21 @@ export default function DPP() {
 
               {(fType === "rc" || fType === "lrdi") && (
                 <div className="space-y-1">
-                  <Label className="text-xs">Passage / Caselet (paste once for the set)</Label>
-                  <Textarea value={fPassage} onChange={e => setFPassage(e.target.value)} placeholder="Passage text..." className="min-h-[120px]" />
+                  <div className="flex items-center justify-between gap-2">
+                    <Label className="text-xs">Passage / Caselet (paste once for the set)</Label>
+                    <FileUpload onUploaded={(url) => setFPassage(p => (p ? p + "\n\n" : "") + `![](${url})`)} />
+                  </div>
+                  <Textarea value={fPassage} onChange={e => setFPassage(e.target.value)} placeholder="Passage text or upload an image..." className="min-h-[120px]" />
+                  <p className="text-[10px] text-muted-foreground">Tip: Click <strong>Upload</strong> to attach an image — it'll be inserted as a markdown image and shown to students.</p>
                 </div>
               )}
 
               <div className="space-y-1">
-                <Label className="text-xs">Question</Label>
-                <Textarea value={fQuestion} onChange={e => setFQuestion(e.target.value)} placeholder="Enter the question text" className="min-h-[80px]" />
+                <div className="flex items-center justify-between gap-2">
+                  <Label className="text-xs">Question</Label>
+                  <FileUpload onUploaded={(url) => setFQuestion(p => (p ? p + "\n\n" : "") + `![](${url})`)} />
+                </div>
+                <Textarea value={fQuestion} onChange={e => setFQuestion(e.target.value)} placeholder="Enter the question text or upload an image" className="min-h-[80px]" />
               </div>
 
               <div className="space-y-2">
@@ -551,8 +559,11 @@ export default function DPP() {
               </div>
 
               <div className="space-y-1">
-                <Label className="text-xs">Solution / Explanation (optional)</Label>
-                <Textarea value={fSolution} onChange={e => setFSolution(e.target.value)} placeholder="Step-by-step solution..." className="min-h-[80px]" />
+                <div className="flex items-center justify-between gap-2">
+                  <Label className="text-xs">Solution / Explanation (optional)</Label>
+                  <FileUpload onUploaded={(url) => setFSolution(p => (p ? p + "\n\n" : "") + `![](${url})`)} />
+                </div>
+                <Textarea value={fSolution} onChange={e => setFSolution(e.target.value)} placeholder="Step-by-step solution or upload a worked-out image..." className="min-h-[80px]" />
               </div>
 
               <div className="flex gap-2">
