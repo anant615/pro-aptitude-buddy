@@ -293,7 +293,10 @@ export default function MockRunner({
 
             {q.passage && (
               <div className="mb-5 rounded-lg border bg-muted/40 p-4 text-sm leading-relaxed max-h-72 overflow-y-auto whitespace-pre-line">
-                {q.passage}
+                <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                  {q.category === "lrdi" ? "Set / Caselet" : "Passage"}
+                </p>
+                <div>{renderMath(q.passage)}</div>
               </div>
             )}
 

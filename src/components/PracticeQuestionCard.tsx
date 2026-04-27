@@ -66,6 +66,16 @@ export default function PracticeQuestionCard({ question, index, total, onNext, o
         </div>
       </div>
 
+      {/* Passage (RC / LRDI source text) */}
+      {question.passage && (
+        <div className="mb-5 rounded-xl border bg-muted/40 p-4 text-sm leading-relaxed max-h-80 overflow-y-auto whitespace-pre-line">
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+            {question.category === "lrdi" ? "Set / Caselet" : "Passage"}
+          </p>
+          <div>{renderMath(question.passage)}</div>
+        </div>
+      )}
+
       {/* Question */}
       <QuestionBody text={question.question} className="text-base sm:text-lg mb-6" />
 

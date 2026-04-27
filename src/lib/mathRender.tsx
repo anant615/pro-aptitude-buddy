@@ -75,19 +75,31 @@ export function renderMath(text: string): React.ReactNode[] {
         continue;
       }
     }
-    // $ ... $
+    // $ ... $  (only treat as math when content looks math-like; avoid swallowing
+    // currency like "$5" or stray dollar signs in plain prose)
     if (text[i] === "$") {
       const end = text.indexOf("$", i + 1);
-      if (end !== -1 && end - i < 200) {
-        const expr = text.slice(i + 1, end).trim();
-        try {
-          nodes.push(<InlineMath key={key++} math={expr} />);
-        } catch {
-          pushText(text.slice(i, end + 1));
+      if (end !== -1 && end - i < 200 && end > i + 1) {
+        const expr = text.slice(i + 1, end);
+        const trimmed = expr.trim();
+        const looksLikeMath =
+          trimmed.length > 0 &&
+          !/^\s/.test(expr) && // no leading space (currency-style "$ 5")
+          /[\\^_={}\/]|\\[a-zA-Z]+|\d\s*[+\-*\/^]\s*\d|[a-zA-Z]\s*[\^_]/.test(trimmed);
+        if (looksLikeMath) {
+          try {
+            nodes.push(<InlineMath key={key++} math={trimmed} />);
+          } catch {
+            pushText(text.slice(i, end + 1));
+          }
+          i = end + 1;
+          continue;
         }
-        i = end + 1;
-        continue;
       }
+      // not math — emit the $ as text and move on
+      pushText("$");
+      i += 1;
+      continue;
     }
 
     // Plain text: accumulate until next potential delimiter
