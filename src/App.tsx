@@ -15,6 +15,7 @@ import ReviewMode from "@/pages/ReviewMode";
 import DPP from "@/pages/DPP";
 import Resources from "@/pages/Resources";
 import NewspaperPage from "@/pages/Newspaper";
+import AISolver from "@/pages/AISolver";
 import Auth from "@/pages/Auth";
 import ResetPassword from "@/pages/ResetPassword";
 import Community from "@/pages/Community";
@@ -52,6 +53,7 @@ const App = () => (
             <Route path="/dpp" element={<DPP />} />
             <Route path="/resources" element={<Resources />} />
             <Route path="/newspaper" element={<NewspaperPage />} />
+            <Route path="/ai-solver" element={<AISolver />} />
             <Route path="/community" element={<Community />} />
             <Route path="/community/:id" element={<CommunityQuestion />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
