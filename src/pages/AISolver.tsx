@@ -118,8 +118,17 @@ export default function AISolver() {
             <Sparkles className="h-5 w-5 text-accent" />
             <h2 className="font-heading font-bold text-lg">Solution</h2>
           </div>
-          <div className="prose prose-sm dark:prose-invert max-w-none">
-            <ReactMarkdown>{solution}</ReactMarkdown>
+          <div className="prose prose-sm dark:prose-invert max-w-none prose-p:leading-relaxed prose-li:my-1.5">
+            <ReactMarkdown
+              components={{
+                p: ({ children }) => <p>{renderChildrenWithMath(children)}</p>,
+                li: ({ children }) => <li>{renderChildrenWithMath(children)}</li>,
+                strong: ({ children }) => <strong>{renderChildrenWithMath(children)}</strong>,
+                em: ({ children }) => <em>{renderChildrenWithMath(children)}</em>,
+              }}
+            >
+              {solution}
+            </ReactMarkdown>
           </div>
         </Card>
       )}
