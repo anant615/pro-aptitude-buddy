@@ -25,6 +25,7 @@ import AdminDashboard from "@/pages/AdminDashboard";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import FeedbackButton from "@/components/FeedbackButton";
 import PageTracker from "@/components/PageTracker";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 import NotFound from "@/pages/NotFound";
 
@@ -39,6 +40,7 @@ const App = () => (
         <PageTracker />
         <FeedbackButton />
         <Layout>
+          <ErrorBoundary>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/auth" element={<Auth />} />
@@ -60,6 +62,7 @@ const App = () => (
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          </ErrorBoundary>
         </Layout>
       </BrowserRouter>
     </TooltipProvider>
