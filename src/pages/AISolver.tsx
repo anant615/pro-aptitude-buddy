@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Sparkles, Image as ImageIcon, X, Loader2, Brain } from "lucide-react";
 import { toast } from "sonner";
 import ReactMarkdown from "react-markdown";
+import { renderMath } from "@/lib/mathRender";
 import { supabase } from "@/integrations/supabase/client";
 
 export default function AISolver() {
