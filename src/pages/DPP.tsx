@@ -9,8 +9,9 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
 import {
-  CalendarDays, Settings, Plus, Trash2, X, Timer, Play, BookOpen, Trophy, Target, AlertTriangle, CheckCircle2, Pencil, Save, Users,
+  CalendarDays, Settings, Plus, Trash2, X, Timer, Play, BookOpen, Trophy, Target, AlertTriangle, CheckCircle2, Pencil, Save, Users, Sparkles, ArrowRight,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
@@ -84,6 +85,7 @@ export default function DPP() {
   const [fPassage, setFPassage] = useState("");
   const [fSetId, setFSetId] = useState("");
   const [fTimer, setFTimer] = useState<string>("");
+  const [fVarcSubtype, setFVarcSubtype] = useState<string>("none");
 
   // Session state
   const [sessionStarted, setSessionStarted] = useState(false);
@@ -505,6 +507,57 @@ export default function DPP() {
                 )}
               </div>
 
+              {/* VARC subtype quick-template — works for any question type */}
+              <div className="space-y-1">
+                <Label className="text-xs">VARC subtype (optional template)</Label>
+                <Select
+                  value={fVarcSubtype}
+                  onValueChange={(v) => {
+                    setFVarcSubtype(v);
+                    const templates: Record<string, { q: string; p?: string; opts?: string[] }> = {
+                      parajumble: {
+                        q: "Arrange the following sentences in the most logical order:\n\n1. \n2. \n3. \n4. \n\nKey in the correct sequence (e.g., 3142).",
+                        p: "The four sentences (labelled 1, 2, 3, and 4) given below, when properly sequenced, form a coherent paragraph. Decide on the proper sequencing and key in the sequence as your answer.",
+                        opts: ["1234", "2143", "3142", "4321"],
+                      },
+                      odd_one: {
+                        q: "Identify the odd sentence out:\n\n1. \n2. \n3. \n4. \n5. ",
+                        p: "Five jumbled sentences (labelled 1-5), related to a topic, are given below. Four of them can be put together to form a coherent paragraph. Identify the odd sentence out.",
+                        opts: ["1", "2", "3", "4"],
+                      },
+                      sentence_filler: {
+                        q: "Choose the option that best fits the blank in the passage above.",
+                        p: "The passage given below has a missing sentence (marked _____). Choose the option that best fits the blank.",
+                      },
+                      para_summary: {
+                        q: "Choose the option that best captures the essence of the passage above.",
+                        p: "The passage given below is followed by four alternate summaries. Choose the option that best captures the essence of the passage.",
+                      },
+                    };
+                    const t = templates[v];
+                    if (t) {
+                      if (!fQuestion.trim()) setFQuestion(t.q);
+                      if (t.p && !fPassage.trim()) {
+                        setFPassage(t.p);
+                        if (!fSetId.trim()) setFSetId(`varc-${Date.now().toString(36)}`);
+                        if (fType === "mcq") setFType("rc");
+                      }
+                      if (t.opts && fOptions.every(o => !o.trim())) setFOptions([...t.opts, ...Array(Math.max(0, 4 - t.opts.length)).fill("")].slice(0, 4));
+                    }
+                  }}
+                >
+                  <SelectTrigger className="h-9"><SelectValue placeholder="None — plain question" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="none">None — plain question</SelectItem>
+                    <SelectItem value="parajumble">Para Jumble (TITA)</SelectItem>
+                    <SelectItem value="odd_one">Odd One Out</SelectItem>
+                    <SelectItem value="sentence_filler">Sentence Filler</SelectItem>
+                    <SelectItem value="para_summary">Para Summary</SelectItem>
+                  </SelectContent>
+                </Select>
+                <p className="text-[10px] text-muted-foreground">Picks a template — fills passage instructions + question stem. Edit before saving.</p>
+              </div>
+
               {(fType === "rc" || fType === "lrdi") && (
                 <div className="space-y-1">
                   <div className="flex items-center justify-between gap-2">
@@ -709,7 +762,23 @@ export default function DPP() {
                 )}
               </div>
 
-              {/* Results banner */}
+              {/* AI Solver promo — gentle, non-intrusive nudge */}
+              {!inSession && (
+                <Link
+                  to="/ai-solver"
+                  className="group mb-6 flex items-center gap-3 rounded-xl border border-accent/40 bg-gradient-to-r from-accent/10 via-primary/5 to-accent/10 p-4 hover:border-accent transition-all hover:shadow-md"
+                >
+                  <div className="h-10 w-10 rounded-lg bg-accent/20 flex items-center justify-center flex-shrink-0">
+                    <Sparkles className="h-5 w-5 text-accent" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-heading font-semibold text-sm">Stuck on a question? Try the AI Solver ⚡</p>
+                    <p className="text-xs text-muted-foreground">Upload an image or paste any CAT question → get the shortcut method + full solution.</p>
+                  </div>
+                  <ArrowRight className="h-4 w-4 text-accent group-hover:translate-x-1 transition-transform flex-shrink-0" />
+                </Link>
+              )}
+
               {showResults && (
                 <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border bg-gradient-to-br from-accent/10 to-primary/5 p-5 mb-6">
                   <div className="grid sm:grid-cols-3 gap-4 mb-4">
