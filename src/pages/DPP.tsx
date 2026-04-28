@@ -9,8 +9,9 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
 import {
-  CalendarDays, Settings, Plus, Trash2, X, Timer, Play, BookOpen, Trophy, Target, AlertTriangle, CheckCircle2, Pencil, Save, Users,
+  CalendarDays, Settings, Plus, Trash2, X, Timer, Play, BookOpen, Trophy, Target, AlertTriangle, CheckCircle2, Pencil, Save, Users, Sparkles, ArrowRight,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
