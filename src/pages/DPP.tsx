@@ -762,7 +762,23 @@ export default function DPP() {
                 )}
               </div>
 
-              {/* Results banner */}
+              {/* AI Solver promo — gentle, non-intrusive nudge */}
+              {!inSession && (
+                <Link
+                  to="/ai-solver"
+                  className="group mb-6 flex items-center gap-3 rounded-xl border border-accent/40 bg-gradient-to-r from-accent/10 via-primary/5 to-accent/10 p-4 hover:border-accent transition-all hover:shadow-md"
+                >
+                  <div className="h-10 w-10 rounded-lg bg-accent/20 flex items-center justify-center flex-shrink-0">
+                    <Sparkles className="h-5 w-5 text-accent" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-heading font-semibold text-sm">Stuck on a question? Try the AI Solver ⚡</p>
+                    <p className="text-xs text-muted-foreground">Upload an image or paste any CAT question → get the shortcut method + full solution.</p>
+                  </div>
+                  <ArrowRight className="h-4 w-4 text-accent group-hover:translate-x-1 transition-transform flex-shrink-0" />
+                </Link>
+              )}
+
               {showResults && (
                 <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border bg-gradient-to-br from-accent/10 to-primary/5 p-5 mb-6">
                   <div className="grid sm:grid-cols-3 gap-4 mb-4">
