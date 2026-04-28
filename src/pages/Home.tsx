@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, BookOpen, Brain, MessageSquareText, Clock, Trophy, CalendarDays, FileText, Newspaper, Pencil, Check, X, Play, Users } from "lucide-react";
+import { ArrowRight, BookOpen, Brain, MessageSquareText, Clock, Trophy, CalendarDays, FileText, Newspaper, Pencil, Check, X, Play, Users, Sparkles, Zap, Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { dppData } from "@/data/dpp_data";
@@ -107,7 +107,62 @@ export default function Home() {
           <div className="absolute bottom-10 right-20 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
         </div>
         <div className="container relative z-10 text-center">
-          <DPPCountdown variant="hero" />
+          <div className="grid lg:grid-cols-5 gap-5 mb-8 md:mb-10 items-stretch">
+            <div className="lg:col-span-3 [&>div]:!mb-0 [&>div>div]:!max-w-none [&>div>div]:h-full">
+              <DPPCountdown variant="hero" />
+            </div>
+            <Link
+              to="/ai-solver"
+              className="lg:col-span-2 group relative rounded-2xl border-2 border-accent/50 bg-gradient-to-br from-accent/20 via-primary/10 to-purple-500/15 backdrop-blur-md p-5 md:p-6 shadow-2xl shadow-accent/15 overflow-hidden flex flex-col text-left hover:border-accent transition-all hover:shadow-accent/30 hover:scale-[1.01]"
+            >
+              <div className="absolute -top-12 -left-12 w-40 h-40 bg-accent/25 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-12 -right-12 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl pointer-events-none" />
+
+              <div className="relative flex flex-col h-full">
+                <div className="inline-flex items-center gap-2 mb-3">
+                  <Sparkles className="h-5 w-5 text-accent animate-pulse" />
+                  <span className="text-xs md:text-sm font-bold uppercase tracking-wider text-accent">
+                    <EditableText storageKey="ai_solver_promo_eyebrow" defaultValue="AI-Powered · New" isAdmin={isAdmin} />
+                  </span>
+                </div>
+
+                <h3 className="font-heading font-black text-xl md:text-2xl leading-tight mb-2 text-primary-foreground">
+                  <EditableText
+                    storageKey="ai_solver_promo_title"
+                    defaultValue="Stuck on a question? Solve it in seconds"
+                    isAdmin={isAdmin}
+                  />
+                </h3>
+
+                <p className="text-xs md:text-sm text-primary-foreground/80 mb-4 leading-relaxed">
+                  <EditableText
+                    storageKey="ai_solver_promo_sub"
+                    defaultValue="Snap a photo or paste any CAT question — get the shortcut method, full solution & expected time."
+                    isAdmin={isAdmin}
+                  />
+                </p>
+
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {[
+                    { icon: Camera, label: "Image upload" },
+                    { icon: Zap, label: "Shortcut first" },
+                    { icon: Brain, label: "Any CAT topic" },
+                  ].map((f) => (
+                    <span key={f.label} className="inline-flex items-center gap-1 rounded-full bg-primary-foreground/10 border border-primary-foreground/20 px-2.5 py-1 text-[10px] md:text-xs font-medium text-primary-foreground/90">
+                      <f.icon className="h-3 w-3" /> {f.label}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-auto inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent to-yellow-500 text-accent-foreground font-heading font-black text-sm md:text-base px-5 py-3 shadow-xl shadow-accent/30 group-hover:shadow-accent/50 transition-all uppercase tracking-wide">
+                  <Sparkles className="h-4 w-4 md:h-5 md:w-5 group-hover:rotate-12 transition-transform" />
+                  <EditableText storageKey="ai_solver_promo_cta" defaultValue="Try AI Solver Free" isAdmin={isAdmin} />
+                  <ArrowRight className="h-4 w-4 md:h-5 md:w-5 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </Link>
+          </div>
+
           <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0} className="flex flex-col items-center gap-3 mb-5">
             <div className="flex items-center gap-3">
               <img
