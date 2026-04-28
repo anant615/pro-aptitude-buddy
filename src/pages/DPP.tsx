@@ -85,6 +85,7 @@ export default function DPP() {
   const [fPassage, setFPassage] = useState("");
   const [fSetId, setFSetId] = useState("");
   const [fTimer, setFTimer] = useState<string>("");
+  const [fVarcSubtype, setFVarcSubtype] = useState<string>("none");
 
   // Session state
   const [sessionStarted, setSessionStarted] = useState(false);
