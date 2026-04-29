@@ -244,7 +244,7 @@ export default function DPP() {
     if (sessionSubmitted) return;
     let score = 0;
     for (const q of allQuestions) {
-      if (q.correct_answer != null && answers[q.id] === q.correct_answer) score++;
+      if (isCorrectAnswer(q)) score++;
     }
     const total = allQuestions.length;
     const taken = Math.max(secondsTaken, Math.round((Date.now() - startedAt.current) / 1000));
@@ -286,7 +286,7 @@ export default function DPP() {
       const key = q.q_type === "mcq" ? "Standalone MCQ" : q.q_type === "rc" ? "Reading Comprehension" : "LRDI";
       if (!buckets[key]) buckets[key] = { wrong: 0, total: 0 };
       buckets[key].total++;
-      if (answers[q.id] !== q.correct_answer) buckets[key].wrong++;
+      if (!isCorrectAnswer(q)) buckets[key].wrong++;
     }
     return Object.entries(buckets)
       .map(([k, v]) => ({ area: k, wrong: v.wrong, total: v.total, pct: v.total ? (v.wrong / v.total) * 100 : 0 }))
@@ -452,7 +452,7 @@ export default function DPP() {
     await load();
   };
 
-  const score = sessionSubmitted ? allQuestions.filter(q => answers[q.id] === q.correct_answer).length : 0;
+  const score = sessionSubmitted ? allQuestions.filter(q => isCorrectAnswer(q)).length : 0;
   const total = allQuestions.length;
   const showResults = sessionSubmitted;
   const inSession = sessionStarted && !sessionSubmitted;
