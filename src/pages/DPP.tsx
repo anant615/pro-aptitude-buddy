@@ -17,10 +17,11 @@ import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
 import { useActivityTracker } from "@/hooks/useActivityTracker";
 import ReminderSignupCard from "@/components/ReminderSignupCard";
-import QuestionBody from "@/components/QuestionBody";
+import QuestionBody, { renderWithImages } from "@/components/QuestionBody";
 import { EditableText } from "@/components/EditableText";
 import { aspirantBaseline } from "@/lib/aspirantCount";
 import { FileUpload } from "@/components/FileUpload";
+import { extractTitaAnswer, checkTitaAnswer } from "@/lib/titaAnswer";
 
 type QType = "mcq" | "rc" | "lrdi";
 
@@ -47,6 +48,18 @@ interface DPPGroup {
   durationMinutes: number;
 }
 
+type DPPAnswer = number | string;
+
+const stripLeadingTitaAnswer = (solution: string) =>
+  solution.replace(/^\s*(?:Answer|Ans)\s*[:\-–—]\s*[^\n<]+\n*/i, "").trimStart();
+
+const solutionWithTitaAnswer = (answer: string, solution: string) => {
+  const cleanAnswer = answer.trim();
+  const cleanSolution = stripLeadingTitaAnswer(solution.trim());
+  if (!cleanAnswer) return cleanSolution;
+  return `Answer: ${cleanAnswer}${cleanSolution ? `\n\n${cleanSolution}` : ""}`;
+};
+
 export default function DPP() {
   const { user, isAdmin } = useAuth();
   const { track } = useActivityTracker("dpp_completed");
@@ -68,6 +81,7 @@ export default function DPP() {
   const [eQuestion, setEQuestion] = useState("");
   const [eOptions, setEOptions] = useState<string[]>(["", "", "", ""]);
   const [eCorrect, setECorrect] = useState<string>("0");
+  const [eTitaAnswer, setETitaAnswer] = useState("");
   const [eSolution, setESolution] = useState("");
   const [eNumber, setENumber] = useState<string>("");
 
@@ -81,6 +95,7 @@ export default function DPP() {
   const [fQuestion, setFQuestion] = useState("");
   const [fOptions, setFOptions] = useState<string[]>(["", "", "", ""]);
   const [fCorrect, setFCorrect] = useState<string>("0");
+  const [fTitaAnswer, setFTitaAnswer] = useState("");
   const [fSolution, setFSolution] = useState("");
   const [fPassage, setFPassage] = useState("");
   const [fSetId, setFSetId] = useState("");
@@ -90,7 +105,7 @@ export default function DPP() {
   // Session state
   const [sessionStarted, setSessionStarted] = useState(false);
   const [sessionSubmitted, setSessionSubmitted] = useState(false);
-  const [answers, setAnswers] = useState<Record<string, number>>({});
+  const [answers, setAnswers] = useState<Record<string, DPPAnswer>>({});
   const [secondsLeft, setSecondsLeft] = useState(0);
   const [secondsTaken, setSecondsTaken] = useState(0);
   const [previousAttempt, setPreviousAttempt] = useState<any>(null);
@@ -185,7 +200,7 @@ export default function DPP() {
           .maybeSingle();
         if (prev) {
           setPreviousAttempt(prev);
-          setAnswers(prev.answers as Record<string, number>);
+          setAnswers(prev.answers as Record<string, DPPAnswer>);
           setSessionSubmitted(true);
           const { data: r } = await supabase.rpc("dpp_user_rank", { _date: current.date, _title: current.title, _user_id: user.id });
           if (r && r[0]) setRank({ rank: Number(r[0].rank), total_attempts: Number(r[0].total_attempts), user_pct: Number(r[0].user_pct) });
@@ -213,8 +228,22 @@ export default function DPP() {
     return out;
   }, [current]);
 
-  const allQuestions = useMemo(() => current?.rows.filter(r => r.options && r.options.length > 0) || [], [current]);
-  const displayNumbers = useMemo(() => new Map(allQuestions.map((q, index) => [q.id, index + 1])), [allQuestions]);
+  const allQuestions = useMemo(
+    () => current?.rows.filter(r => (r.options && r.options.length > 0) || !!extractTitaAnswer(r.solution || "")) || [],
+    [current]
+  );
+  const displayNumbers = useMemo(() => new Map((current?.rows || []).map((q, index) => [q.id, index + 1])), [current]);
+
+  const isTitaQuestion = (q: DPPRow) => !q.options || q.options.length === 0;
+  const getTitaAnswer = (q: DPPRow) => extractTitaAnswer(q.solution || "");
+  const isCorrectAnswer = (q: DPPRow) => {
+    if (isTitaQuestion(q)) {
+      const canonical = getTitaAnswer(q);
+      const given = answers[q.id];
+      return canonical ? checkTitaAnswer(String(given ?? ""), canonical) : false;
+    }
+    return q.correct_answer != null && answers[q.id] === q.correct_answer;
+  };
 
   const startSession = () => {
     if (!current) return;
@@ -230,7 +259,7 @@ export default function DPP() {
     if (sessionSubmitted) return;
     let score = 0;
     for (const q of allQuestions) {
-      if (q.correct_answer != null && answers[q.id] === q.correct_answer) score++;
+      if (isCorrectAnswer(q)) score++;
     }
     const total = allQuestions.length;
     const taken = Math.max(secondsTaken, Math.round((Date.now() - startedAt.current) / 1000));
@@ -272,7 +301,7 @@ export default function DPP() {
       const key = q.q_type === "mcq" ? "Standalone MCQ" : q.q_type === "rc" ? "Reading Comprehension" : "LRDI";
       if (!buckets[key]) buckets[key] = { wrong: 0, total: 0 };
       buckets[key].total++;
-      if (answers[q.id] !== q.correct_answer) buckets[key].wrong++;
+      if (!isCorrectAnswer(q)) buckets[key].wrong++;
     }
     return Object.entries(buckets)
       .map(([k, v]) => ({ area: k, wrong: v.wrong, total: v.total, pct: v.total ? (v.wrong / v.total) * 100 : 0 }))
@@ -282,7 +311,7 @@ export default function DPP() {
 
   const resetForm = () => {
     setFType("mcq"); setFNumber(""); setFQuestion("");
-    setFOptions(["", "", "", ""]); setFCorrect("0"); setFSolution("");
+    setFOptions(["", "", "", ""]); setFCorrect("0"); setFTitaAnswer(""); setFSolution("");
     setFPassage(""); setFSetId(""); setFTimer("");
   };
 
@@ -305,11 +334,11 @@ export default function DPP() {
     if (!fDate || !cleanTitle) { toast.error("Date and title are required"); return; }
     if (!fQuestion.trim()) { toast.error("Question text is required"); return; }
     const cleanOpts = fOptions.map(o => o.trim()).filter(Boolean);
-    if (fType !== "rc" || cleanOpts.length) {
-      if (cleanOpts.length < 2) { toast.error("Add at least 2 options"); return; }
-    }
+    const cleanTita = fTitaAnswer.trim();
+    const saveOpts = cleanOpts.length >= 2 ? cleanOpts : [];
+    if (!cleanTita && saveOpts.length < 2) { toast.error("Add options, or enter a TITA answer below"); return; }
     const correctIdx = parseInt(fCorrect, 10);
-    if (cleanOpts.length && (isNaN(correctIdx) || correctIdx < 0 || correctIdx >= cleanOpts.length)) {
+    if (saveOpts.length && (isNaN(correctIdx) || correctIdx < 0 || correctIdx >= saveOpts.length)) {
       toast.error("Pick a valid correct option"); return;
     }
     const dur = Math.max(1, parseInt(fDuration, 10) || 20);
@@ -321,9 +350,9 @@ export default function DPP() {
       question: fQuestion.trim(),
       q_type: fType,
       q_number: nextQuestionNumber,
-      options: cleanOpts,
-      correct_answer: cleanOpts.length ? correctIdx : null,
-      solution: fSolution.trim(),
+      options: saveOpts,
+      correct_answer: saveOpts.length ? correctIdx : null,
+      solution: saveOpts.length ? fSolution.trim() : solutionWithTitaAnswer(cleanTita, fSolution),
       passage: fPassage.trim(),
       set_id: fSetId.trim() || null,
       timer_seconds: fTimer ? parseInt(fTimer, 10) : null,
@@ -337,7 +366,7 @@ export default function DPP() {
       toast.error(error.message || "Question added, but numbering could not be repaired");
     }
     toast.success(`Question added as Q${nextQuestionNumber}`);
-    setFQuestion(""); setFOptions(["", "", "", ""]); setFCorrect("0"); setFSolution("");
+    setFQuestion(""); setFOptions(["", "", "", ""]); setFCorrect("0"); setFTitaAnswer(""); setFSolution("");
     await load();
   };
 
@@ -356,7 +385,8 @@ export default function DPP() {
     setEQuestion(q.question);
     setEOptions(q.options && q.options.length ? [...q.options] : ["", "", "", ""]);
     setECorrect(String(q.correct_answer ?? 0));
-    setESolution(q.solution || "");
+    setETitaAnswer(extractTitaAnswer(q.solution || "") || "");
+    setESolution(stripLeadingTitaAnswer(q.solution || ""));
     setENumber(q.q_number != null ? String(q.q_number) : "");
   };
 
@@ -365,13 +395,18 @@ export default function DPP() {
   const saveEdit = async () => {
     if (!editingId || !current) return;
     const cleanOpts = eOptions.map(o => o.trim()).filter(Boolean);
-    if (cleanOpts.length && cleanOpts.length < 2) { toast.error("At least 2 options"); return; }
+    const cleanTita = eTitaAnswer.trim();
+    const saveOpts = cleanOpts.length >= 2 ? cleanOpts : [];
+    if (!cleanTita && saveOpts.length < 2) { toast.error("Add options, or enter a TITA answer"); return; }
     const correctIdx = parseInt(eCorrect, 10);
+    if (saveOpts.length && (isNaN(correctIdx) || correctIdx < 0 || correctIdx >= saveOpts.length)) {
+      toast.error("Pick a valid correct option"); return;
+    }
     const { error } = await supabase.from("dpps").update({
       question: eQuestion.trim(),
-      options: cleanOpts,
-      correct_answer: cleanOpts.length ? correctIdx : null,
-      solution: eSolution.trim(),
+      options: saveOpts,
+      correct_answer: saveOpts.length ? correctIdx : null,
+      solution: saveOpts.length ? eSolution.trim() : solutionWithTitaAnswer(cleanTita, eSolution),
     } as any).eq("id", editingId);
     if (error) { toast.error("Failed to update: " + error.message); return; }
     try {
@@ -438,7 +473,7 @@ export default function DPP() {
     await load();
   };
 
-  const score = sessionSubmitted ? allQuestions.filter(q => answers[q.id] === q.correct_answer).length : 0;
+  const score = sessionSubmitted ? allQuestions.filter(q => isCorrectAnswer(q)).length : 0;
   const total = allQuestions.length;
   const showResults = sessionSubmitted;
   const inSession = sessionStarted && !sessionSubmitted;
@@ -514,16 +549,16 @@ export default function DPP() {
                   value={fVarcSubtype}
                   onValueChange={(v) => {
                     setFVarcSubtype(v);
-                    const templates: Record<string, { q: string; p?: string; opts?: string[] }> = {
+                    const templates: Record<string, { q: string; p?: string; opts?: string[]; tita?: boolean }> = {
                       parajumble: {
                         q: "Arrange the following sentences in the most logical order:\n\n1. \n2. \n3. \n4. \n\nKey in the correct sequence (e.g., 3142).",
                         p: "The four sentences (labelled 1, 2, 3, and 4) given below, when properly sequenced, form a coherent paragraph. Decide on the proper sequencing and key in the sequence as your answer.",
-                        opts: ["1234", "2143", "3142", "4321"],
+                        tita: true,
                       },
                       odd_one: {
                         q: "Identify the odd sentence out:\n\n1. \n2. \n3. \n4. \n5. ",
                         p: "Five jumbled sentences (labelled 1-5), related to a topic, are given below. Four of them can be put together to form a coherent paragraph. Identify the odd sentence out.",
-                        opts: ["1", "2", "3", "4"],
+                        tita: true,
                       },
                       sentence_filler: {
                         q: "Choose the option that best fits the blank in the passage above.",
@@ -543,6 +578,7 @@ export default function DPP() {
                         if (fType === "mcq") setFType("rc");
                       }
                       if (t.opts && fOptions.every(o => !o.trim())) setFOptions([...t.opts, ...Array(Math.max(0, 4 - t.opts.length)).fill("")].slice(0, 4));
+                      if (t.tita) { setFOptions(["", "", "", ""]); setFTitaAnswer(""); }
                     }
                   }}
                 >
@@ -609,6 +645,16 @@ export default function DPP() {
                     <Plus className="h-3.5 w-3.5" /> Add option
                   </Button>
                 )}
+                <div className="rounded-lg border border-dashed bg-muted/30 p-3 space-y-1">
+                  <Label className="text-xs">TITA answer (if no options)</Label>
+                  <Input
+                    value={fTitaAnswer}
+                    onChange={e => setFTitaAnswer(e.target.value)}
+                    placeholder="e.g. 3142, 42, 7.5"
+                    className="h-9 font-mono"
+                  />
+                  <p className="text-[10px] text-muted-foreground">Use this for Para Jumble / Odd Man Out / numeric answers. Leave options blank for a type-in answer.</p>
+                </div>
               </div>
 
               <div className="space-y-1">
@@ -881,6 +927,9 @@ export default function DPP() {
                           </div>
                           {manage && editingSetId === s.setId ? (
                             <div className="space-y-2">
+                              <div className="flex justify-end">
+                                <FileUpload onUploaded={(url) => setPassageDraft(p => (p ? p + "\n\n" : "") + `![](${url})`)} />
+                              </div>
                               <div className="flex flex-wrap gap-1.5">
                                 <span className="text-xs text-muted-foreground self-center mr-1">Quick presets:</span>
                                 {[
@@ -911,7 +960,7 @@ export default function DPP() {
                             </div>
                           ) : (
                             s.passage
-                              ? <p className="text-sm leading-relaxed whitespace-pre-line">{s.passage}</p>
+                              ? <div className="text-sm leading-relaxed whitespace-pre-line">{renderWithImages(s.passage)}</div>
                               : <p className="text-xs text-muted-foreground italic">No passage / instructions yet. Click "Edit passage" to add one.</p>
                           )}
                         </div>
@@ -920,6 +969,9 @@ export default function DPP() {
                       <AnimatePresence>
                         {s.items.map((q: DPPRow, qi: number) => {
                           const picked = answers[q.id];
+                          const isTita = isTitaQuestion(q);
+                          const titaAnswer = getTitaAnswer(q);
+                          const visibleSolution = isTita ? stripLeadingTitaAnswer(q.solution || "") : q.solution;
                           return (
                             <motion.div
                               key={q.id}
@@ -945,7 +997,10 @@ export default function DPP() {
                                     Question order is managed automatically to keep the DPP clean for learners.
                                   </div>
                                   <div>
-                                    <Label className="text-xs">Question</Label>
+                                    <div className="flex items-center justify-between gap-2 mb-1">
+                                      <Label className="text-xs">Question</Label>
+                                      <FileUpload onUploaded={(url) => setEQuestion(p => (p ? p + "\n\n" : "") + `![](${url})`)} />
+                                    </div>
                                     <Textarea value={eQuestion} onChange={e => setEQuestion(e.target.value)} className="min-h-[80px]" />
                                   </div>
                                   <div className="space-y-2">
@@ -956,11 +1011,34 @@ export default function DPP() {
                                           {String.fromCharCode(65 + i)}
                                         </Button>
                                         <Input value={opt} onChange={e => { const c = [...eOptions]; c[i] = e.target.value; setEOptions(c); }} className="h-9" />
+                                        {eOptions.length > 2 && (
+                                          <Button type="button" variant="ghost" size="icon" onClick={() => {
+                                            const c = eOptions.filter((_, idx) => idx !== i); setEOptions(c);
+                                            if (parseInt(eCorrect, 10) >= c.length) setECorrect("0");
+                                          }}><Trash2 className="h-3.5 w-3.5" /></Button>
+                                        )}
                                       </div>
                                     ))}
+                                    {eOptions.length < 6 && (
+                                      <Button type="button" variant="ghost" size="sm" onClick={() => setEOptions([...eOptions, ""])} className="gap-1.5">
+                                        <Plus className="h-3.5 w-3.5" /> Add option
+                                      </Button>
+                                    )}
+                                    <div className="rounded-lg border border-dashed bg-muted/30 p-3 space-y-1">
+                                      <Label className="text-xs">TITA answer (if no options)</Label>
+                                      <Input
+                                        value={eTitaAnswer}
+                                        onChange={e => setETitaAnswer(e.target.value)}
+                                        placeholder="e.g. 3142, 42, 7.5"
+                                        className="h-9 font-mono"
+                                      />
+                                    </div>
                                   </div>
                                   <div>
-                                    <Label className="text-xs">Solution</Label>
+                                    <div className="flex items-center justify-between gap-2 mb-1">
+                                      <Label className="text-xs">Solution</Label>
+                                      <FileUpload onUploaded={(url) => setESolution(p => (p ? p + "\n\n" : "") + `![](${url})`)} />
+                                    </div>
                                     <Textarea value={eSolution} onChange={e => setESolution(e.target.value)} className="min-h-[60px]" />
                                   </div>
                                   <div className="flex gap-2">
@@ -971,11 +1049,31 @@ export default function DPP() {
                               ) : (
                                 <>
                                   <div className="flex items-start justify-between mb-3 pr-20">
-                                    <span className="text-sm font-medium text-muted-foreground">Q{displayNumbers.get(q.id) ?? qi + 1}</span>
+                                    <div className="flex items-center gap-2">
+                                      <span className="text-sm font-medium text-muted-foreground">Q{displayNumbers.get(q.id) ?? qi + 1}</span>
+                                      {isTita && <Badge variant="outline" className="text-[10px]">TITA</Badge>}
+                                    </div>
                                   </div>
                                   <QuestionBody text={q.question} className="mb-4" />
 
-                                  {q.options && q.options.length > 0 && (
+                                  {isTita ? (
+                                    <div className="space-y-2">
+                                      <Label className="text-xs">Type your answer</Label>
+                                      <Input
+                                        value={typeof picked === "string" ? picked : ""}
+                                        onChange={(e) => setAnswers(a => ({ ...a, [q.id]: e.target.value }))}
+                                        disabled={showResults}
+                                        placeholder="Enter answer"
+                                        className="h-11 font-mono"
+                                      />
+                                      {showResults && titaAnswer && (
+                                        <p className="text-sm">
+                                          <span className="text-muted-foreground">Correct answer: </span>
+                                          <span className="font-semibold text-success">{titaAnswer}</span>
+                                        </p>
+                                      )}
+                                    </div>
+                                  ) : q.options && q.options.length > 0 && (
                                     <div className="space-y-2">
                                       {q.options.map((opt, oi) => {
                                         const isCorrect = q.correct_answer === oi;
@@ -992,16 +1090,16 @@ export default function DPP() {
                                               ${!showResults && !isPicked ? "hover:bg-muted/50" : ""}`}
                                           >
                                             <span className="font-mono text-xs mr-2 text-muted-foreground">{String.fromCharCode(65 + oi)}.</span>
-                                            {opt}
+                                            {renderWithImages(opt)}
                                           </button>
                                         );
                                       })}
                                     </div>
                                   )}
 
-                                  {showResults && q.solution && (
+                                  {showResults && visibleSolution && (
                                     <div className="mt-3 rounded-lg bg-muted/50 p-3 text-sm whitespace-pre-line">
-                                      <span className="font-semibold">Solution: </span>{q.solution}
+                                      <span className="font-semibold">Solution: </span>{renderWithImages(visibleSolution)}
                                     </div>
                                   )}
                                 </>
