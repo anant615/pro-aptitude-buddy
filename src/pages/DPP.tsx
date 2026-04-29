@@ -951,7 +951,7 @@ export default function DPP() {
                             </div>
                           ) : (
                             s.passage
-                              ? <p className="text-sm leading-relaxed whitespace-pre-line">{s.passage}</p>
+                              ? <div className="text-sm leading-relaxed whitespace-pre-line">{renderWithImages(s.passage)}</div>
                               : <p className="text-xs text-muted-foreground italic">No passage / instructions yet. Click "Edit passage" to add one.</p>
                           )}
                         </div>
@@ -960,6 +960,9 @@ export default function DPP() {
                       <AnimatePresence>
                         {s.items.map((q: DPPRow, qi: number) => {
                           const picked = answers[q.id];
+                          const isTita = isTitaQuestion(q);
+                          const titaAnswer = getTitaAnswer(q);
+                          const visibleSolution = isTita ? stripLeadingTitaAnswer(q.solution || "") : q.solution;
                           return (
                             <motion.div
                               key={q.id}
