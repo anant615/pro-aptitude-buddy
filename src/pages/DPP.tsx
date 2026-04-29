@@ -332,9 +332,10 @@ export default function DPP() {
     if (!fQuestion.trim()) { toast.error("Question text is required"); return; }
     const cleanOpts = fOptions.map(o => o.trim()).filter(Boolean);
     const cleanTita = fTitaAnswer.trim();
-    if (!cleanTita && cleanOpts.length < 2) { toast.error("Add options, or enter a TITA answer below"); return; }
+    const saveOpts = cleanOpts.length >= 2 ? cleanOpts : [];
+    if (!cleanTita && saveOpts.length < 2) { toast.error("Add options, or enter a TITA answer below"); return; }
     const correctIdx = parseInt(fCorrect, 10);
-    if (cleanOpts.length && (isNaN(correctIdx) || correctIdx < 0 || correctIdx >= cleanOpts.length)) {
+    if (saveOpts.length && (isNaN(correctIdx) || correctIdx < 0 || correctIdx >= saveOpts.length)) {
       toast.error("Pick a valid correct option"); return;
     }
     const dur = Math.max(1, parseInt(fDuration, 10) || 20);
@@ -346,9 +347,9 @@ export default function DPP() {
       question: fQuestion.trim(),
       q_type: fType,
       q_number: nextQuestionNumber,
-      options: cleanOpts,
-      correct_answer: cleanOpts.length ? correctIdx : null,
-      solution: cleanOpts.length ? fSolution.trim() : solutionWithTitaAnswer(cleanTita, fSolution),
+      options: saveOpts,
+      correct_answer: saveOpts.length ? correctIdx : null,
+      solution: saveOpts.length ? fSolution.trim() : solutionWithTitaAnswer(cleanTita, fSolution),
       passage: fPassage.trim(),
       set_id: fSetId.trim() || null,
       timer_seconds: fTimer ? parseInt(fTimer, 10) : null,
@@ -392,13 +393,14 @@ export default function DPP() {
     if (!editingId || !current) return;
     const cleanOpts = eOptions.map(o => o.trim()).filter(Boolean);
     const cleanTita = eTitaAnswer.trim();
-    if (!cleanTita && cleanOpts.length < 2) { toast.error("Add options, or enter a TITA answer"); return; }
+    const saveOpts = cleanOpts.length >= 2 ? cleanOpts : [];
+    if (!cleanTita && saveOpts.length < 2) { toast.error("Add options, or enter a TITA answer"); return; }
     const correctIdx = parseInt(eCorrect, 10);
     const { error } = await supabase.from("dpps").update({
       question: eQuestion.trim(),
-      options: cleanOpts,
-      correct_answer: cleanOpts.length ? correctIdx : null,
-      solution: cleanOpts.length ? eSolution.trim() : solutionWithTitaAnswer(cleanTita, eSolution),
+      options: saveOpts,
+      correct_answer: saveOpts.length ? correctIdx : null,
+      solution: saveOpts.length ? eSolution.trim() : solutionWithTitaAnswer(cleanTita, eSolution),
     } as any).eq("id", editingId);
     if (error) { toast.error("Failed to update: " + error.message); return; }
     try {
