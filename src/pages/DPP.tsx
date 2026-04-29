@@ -81,6 +81,7 @@ export default function DPP() {
   const [eQuestion, setEQuestion] = useState("");
   const [eOptions, setEOptions] = useState<string[]>(["", "", "", ""]);
   const [eCorrect, setECorrect] = useState<string>("0");
+  const [eTitaAnswer, setETitaAnswer] = useState("");
   const [eSolution, setESolution] = useState("");
   const [eNumber, setENumber] = useState<string>("");
 
@@ -94,6 +95,7 @@ export default function DPP() {
   const [fQuestion, setFQuestion] = useState("");
   const [fOptions, setFOptions] = useState<string[]>(["", "", "", ""]);
   const [fCorrect, setFCorrect] = useState<string>("0");
+  const [fTitaAnswer, setFTitaAnswer] = useState("");
   const [fSolution, setFSolution] = useState("");
   const [fPassage, setFPassage] = useState("");
   const [fSetId, setFSetId] = useState("");
