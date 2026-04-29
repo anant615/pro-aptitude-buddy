@@ -332,9 +332,7 @@ export default function DPP() {
     if (!fQuestion.trim()) { toast.error("Question text is required"); return; }
     const cleanOpts = fOptions.map(o => o.trim()).filter(Boolean);
     const cleanTita = fTitaAnswer.trim();
-    if (!cleanTita && (fType !== "rc" || cleanOpts.length)) {
-      if (cleanOpts.length < 2) { toast.error("Add at least 2 options"); return; }
-    }
+    if (!cleanTita && cleanOpts.length < 2) { toast.error("Add options, or enter a TITA answer below"); return; }
     const correctIdx = parseInt(fCorrect, 10);
     if (cleanOpts.length && (isNaN(correctIdx) || correctIdx < 0 || correctIdx >= cleanOpts.length)) {
       toast.error("Pick a valid correct option"); return;
@@ -383,7 +381,8 @@ export default function DPP() {
     setEQuestion(q.question);
     setEOptions(q.options && q.options.length ? [...q.options] : ["", "", "", ""]);
     setECorrect(String(q.correct_answer ?? 0));
-    setESolution(q.solution || "");
+    setETitaAnswer(extractTitaAnswer(q.solution || "") || "");
+    setESolution(stripLeadingTitaAnswer(q.solution || ""));
     setENumber(q.q_number != null ? String(q.q_number) : "");
   };
 
@@ -392,13 +391,14 @@ export default function DPP() {
   const saveEdit = async () => {
     if (!editingId || !current) return;
     const cleanOpts = eOptions.map(o => o.trim()).filter(Boolean);
-    if (cleanOpts.length && cleanOpts.length < 2) { toast.error("At least 2 options"); return; }
+    const cleanTita = eTitaAnswer.trim();
+    if (!cleanTita && cleanOpts.length < 2) { toast.error("Add options, or enter a TITA answer"); return; }
     const correctIdx = parseInt(eCorrect, 10);
     const { error } = await supabase.from("dpps").update({
       question: eQuestion.trim(),
       options: cleanOpts,
       correct_answer: cleanOpts.length ? correctIdx : null,
-      solution: eSolution.trim(),
+      solution: cleanOpts.length ? eSolution.trim() : solutionWithTitaAnswer(cleanTita, eSolution),
     } as any).eq("id", editingId);
     if (error) { toast.error("Failed to update: " + error.message); return; }
     try {
