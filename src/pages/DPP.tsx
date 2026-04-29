@@ -228,8 +228,11 @@ export default function DPP() {
     return out;
   }, [current]);
 
-  const allQuestions = useMemo(() => current?.rows || [], [current]);
-  const displayNumbers = useMemo(() => new Map(allQuestions.map((q, index) => [q.id, index + 1])), [allQuestions]);
+  const allQuestions = useMemo(
+    () => current?.rows.filter(r => (r.options && r.options.length > 0) || !!extractTitaAnswer(r.solution || "")) || [],
+    [current]
+  );
+  const displayNumbers = useMemo(() => new Map((current?.rows || []).map((q, index) => [q.id, index + 1])), [current]);
 
   const isTitaQuestion = (q: DPPRow) => !q.options || q.options.length === 0;
   const getTitaAnswer = (q: DPPRow) => extractTitaAnswer(q.solution || "");
