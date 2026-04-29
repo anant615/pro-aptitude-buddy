@@ -997,7 +997,10 @@ export default function DPP() {
                                     Question order is managed automatically to keep the DPP clean for learners.
                                   </div>
                                   <div>
-                                    <Label className="text-xs">Question</Label>
+                                    <div className="flex items-center justify-between gap-2 mb-1">
+                                      <Label className="text-xs">Question</Label>
+                                      <FileUpload onUploaded={(url) => setEQuestion(p => (p ? p + "\n\n" : "") + `![](${url})`)} />
+                                    </div>
                                     <Textarea value={eQuestion} onChange={e => setEQuestion(e.target.value)} className="min-h-[80px]" />
                                   </div>
                                   <div className="space-y-2">
@@ -1008,8 +1011,19 @@ export default function DPP() {
                                           {String.fromCharCode(65 + i)}
                                         </Button>
                                         <Input value={opt} onChange={e => { const c = [...eOptions]; c[i] = e.target.value; setEOptions(c); }} className="h-9" />
+                                        {eOptions.length > 2 && (
+                                          <Button type="button" variant="ghost" size="icon" onClick={() => {
+                                            const c = eOptions.filter((_, idx) => idx !== i); setEOptions(c);
+                                            if (parseInt(eCorrect, 10) >= c.length) setECorrect("0");
+                                          }}><Trash2 className="h-3.5 w-3.5" /></Button>
+                                        )}
                                       </div>
                                     ))}
+                                    {eOptions.length < 6 && (
+                                      <Button type="button" variant="ghost" size="sm" onClick={() => setEOptions([...eOptions, ""])} className="gap-1.5">
+                                        <Plus className="h-3.5 w-3.5" /> Add option
+                                      </Button>
+                                    )}
                                     <div className="rounded-lg border border-dashed bg-muted/30 p-3 space-y-1">
                                       <Label className="text-xs">TITA answer (if no options)</Label>
                                       <Input
