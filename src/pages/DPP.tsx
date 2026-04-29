@@ -659,11 +659,19 @@ export default function DPP() {
               </div>
 
               <div className="space-y-1">
-                <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center justify-between gap-2 flex-wrap">
                   <Label className="text-xs">Solution / Explanation (optional)</Label>
-                  <FileUpload onUploaded={(url) => setFSolution(p => (p ? p + "\n\n" : "") + `![](${url})`)} />
+                  <div className="flex items-center gap-2">
+                    <AISolveButton
+                      question={fQuestion}
+                      passage={fPassage}
+                      options={fOptions}
+                      onSolution={(sol) => setFSolution(p => (p ? p + "\n\n" : "") + sol)}
+                    />
+                    <FileUpload onUploaded={(url) => setFSolution(p => (p ? p + "\n\n" : "") + `![](${url})`)} />
+                  </div>
                 </div>
-                <Textarea value={fSolution} onChange={e => setFSolution(e.target.value)} placeholder="Step-by-step solution or upload a worked-out image..." className="min-h-[80px]" />
+                <Textarea value={fSolution} onChange={e => setFSolution(e.target.value)} placeholder="Step-by-step solution, use AI Solve to auto-generate, or upload a worked-out image..." className="min-h-[80px]" />
               </div>
 
               <div className="flex gap-2">
