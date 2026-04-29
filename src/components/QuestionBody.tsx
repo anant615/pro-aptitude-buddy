@@ -7,7 +7,7 @@ import { renderMath } from "@/lib/mathRender";
  * raw image URLs. Non-image text segments are passed through `renderMath` so
  * LaTeX still works.
  */
-function renderWithImages(text: string): React.ReactNode[] {
+export function renderWithImages(text: string): React.ReactNode[] {
   if (!text) return [];
   const out: React.ReactNode[] = [];
   // Match either ![alt](url) markdown or a bare image URL
