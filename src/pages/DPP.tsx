@@ -1044,9 +1044,17 @@ export default function DPP() {
                                     </div>
                                   </div>
                                   <div>
-                                    <div className="flex items-center justify-between gap-2 mb-1">
+                                    <div className="flex items-center justify-between gap-2 mb-1 flex-wrap">
                                       <Label className="text-xs">Solution</Label>
-                                      <FileUpload onUploaded={(url) => setESolution(p => (p ? p + "\n\n" : "") + `![](${url})`)} />
+                                      <div className="flex items-center gap-2">
+                                        <AISolveButton
+                                          question={eQuestion}
+                                          passage={s.passage || ""}
+                                          options={eOptions}
+                                          onSolution={(sol) => setESolution(p => (p ? p + "\n\n" : "") + sol)}
+                                        />
+                                        <FileUpload onUploaded={(url) => setESolution(p => (p ? p + "\n\n" : "") + `![](${url})`)} />
+                                      </div>
                                     </div>
                                     <Textarea value={eSolution} onChange={e => setESolution(e.target.value)} className="min-h-[60px]" />
                                   </div>
