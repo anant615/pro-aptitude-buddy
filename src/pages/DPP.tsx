@@ -50,6 +50,16 @@ interface DPPGroup {
 
 type DPPAnswer = number | string;
 
+const stripLeadingTitaAnswer = (solution: string) =>
+  solution.replace(/^\s*(?:Answer|Ans)\s*[:\-–—]\s*[^\n<]+\n*/i, "").trimStart();
+
+const solutionWithTitaAnswer = (answer: string, solution: string) => {
+  const cleanAnswer = answer.trim();
+  const cleanSolution = stripLeadingTitaAnswer(solution.trim());
+  if (!cleanAnswer) return cleanSolution;
+  return `Answer: ${cleanAnswer}${cleanSolution ? `\n\n${cleanSolution}` : ""}`;
+};
+
 export default function DPP() {
   const { user, isAdmin } = useAuth();
   const { track } = useActivityTracker("dpp_completed");
