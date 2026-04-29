@@ -1071,9 +1071,9 @@ export default function DPP() {
                                     </div>
                                   )}
 
-                                  {showResults && q.solution && (
+                                  {showResults && visibleSolution && (
                                     <div className="mt-3 rounded-lg bg-muted/50 p-3 text-sm whitespace-pre-line">
-                                      <span className="font-semibold">Solution: </span>{q.solution}
+                                      <span className="font-semibold">Solution: </span>{renderWithImages(visibleSolution)}
                                     </div>
                                   )}
                                 </>
