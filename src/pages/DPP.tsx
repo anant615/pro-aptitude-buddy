@@ -1035,7 +1035,10 @@ export default function DPP() {
                                     </div>
                                   </div>
                                   <div>
-                                    <Label className="text-xs">Solution</Label>
+                                    <div className="flex items-center justify-between gap-2 mb-1">
+                                      <Label className="text-xs">Solution</Label>
+                                      <FileUpload onUploaded={(url) => setESolution(p => (p ? p + "\n\n" : "") + `![](${url})`)} />
+                                    </div>
                                     <Textarea value={eSolution} onChange={e => setESolution(e.target.value)} className="min-h-[60px]" />
                                   </div>
                                   <div className="flex gap-2">
