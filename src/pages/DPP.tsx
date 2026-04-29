@@ -1023,11 +1023,31 @@ export default function DPP() {
                               ) : (
                                 <>
                                   <div className="flex items-start justify-between mb-3 pr-20">
-                                    <span className="text-sm font-medium text-muted-foreground">Q{displayNumbers.get(q.id) ?? qi + 1}</span>
+                                    <div className="flex items-center gap-2">
+                                      <span className="text-sm font-medium text-muted-foreground">Q{displayNumbers.get(q.id) ?? qi + 1}</span>
+                                      {isTita && <Badge variant="outline" className="text-[10px]">TITA</Badge>}
+                                    </div>
                                   </div>
                                   <QuestionBody text={q.question} className="mb-4" />
 
-                                  {q.options && q.options.length > 0 && (
+                                  {isTita ? (
+                                    <div className="space-y-2">
+                                      <Label className="text-xs">Type your answer</Label>
+                                      <Input
+                                        value={typeof picked === "string" ? picked : ""}
+                                        onChange={(e) => setAnswers(a => ({ ...a, [q.id]: e.target.value }))}
+                                        disabled={showResults}
+                                        placeholder="Enter answer"
+                                        className="h-11 font-mono"
+                                      />
+                                      {showResults && titaAnswer && (
+                                        <p className="text-sm">
+                                          <span className="text-muted-foreground">Correct answer: </span>
+                                          <span className="font-semibold text-success">{titaAnswer}</span>
+                                        </p>
+                                      )}
+                                    </div>
+                                  ) : q.options && q.options.length > 0 && (
                                     <div className="space-y-2">
                                       {q.options.map((opt, oi) => {
                                         const isCorrect = q.correct_answer === oi;
