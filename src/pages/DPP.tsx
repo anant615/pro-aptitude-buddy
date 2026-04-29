@@ -308,7 +308,7 @@ export default function DPP() {
 
   const resetForm = () => {
     setFType("mcq"); setFNumber(""); setFQuestion("");
-    setFOptions(["", "", "", ""]); setFCorrect("0"); setFSolution("");
+    setFOptions(["", "", "", ""]); setFCorrect("0"); setFTitaAnswer(""); setFSolution("");
     setFPassage(""); setFSetId(""); setFTimer("");
   };
 
@@ -331,7 +331,8 @@ export default function DPP() {
     if (!fDate || !cleanTitle) { toast.error("Date and title are required"); return; }
     if (!fQuestion.trim()) { toast.error("Question text is required"); return; }
     const cleanOpts = fOptions.map(o => o.trim()).filter(Boolean);
-    if (fType !== "rc" || cleanOpts.length) {
+    const cleanTita = fTitaAnswer.trim();
+    if (!cleanTita && (fType !== "rc" || cleanOpts.length)) {
       if (cleanOpts.length < 2) { toast.error("Add at least 2 options"); return; }
     }
     const correctIdx = parseInt(fCorrect, 10);
@@ -349,7 +350,7 @@ export default function DPP() {
       q_number: nextQuestionNumber,
       options: cleanOpts,
       correct_answer: cleanOpts.length ? correctIdx : null,
-      solution: fSolution.trim(),
+      solution: cleanOpts.length ? fSolution.trim() : solutionWithTitaAnswer(cleanTita, fSolution),
       passage: fPassage.trim(),
       set_id: fSetId.trim() || null,
       timer_seconds: fTimer ? parseInt(fTimer, 10) : null,
@@ -363,7 +364,7 @@ export default function DPP() {
       toast.error(error.message || "Question added, but numbering could not be repaired");
     }
     toast.success(`Question added as Q${nextQuestionNumber}`);
-    setFQuestion(""); setFOptions(["", "", "", ""]); setFCorrect("0"); setFSolution("");
+    setFQuestion(""); setFOptions(["", "", "", ""]); setFCorrect("0"); setFTitaAnswer(""); setFSolution("");
     await load();
   };
 
