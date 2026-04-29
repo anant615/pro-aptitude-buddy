@@ -21,6 +21,7 @@ import QuestionBody, { renderWithImages } from "@/components/QuestionBody";
 import { EditableText } from "@/components/EditableText";
 import { aspirantBaseline } from "@/lib/aspirantCount";
 import { FileUpload } from "@/components/FileUpload";
+import { AISolveButton } from "@/components/AISolveButton";
 import { extractTitaAnswer, checkTitaAnswer } from "@/lib/titaAnswer";
 
 type QType = "mcq" | "rc" | "lrdi";
