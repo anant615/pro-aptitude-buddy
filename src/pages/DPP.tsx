@@ -543,16 +543,16 @@ export default function DPP() {
                   value={fVarcSubtype}
                   onValueChange={(v) => {
                     setFVarcSubtype(v);
-                    const templates: Record<string, { q: string; p?: string; opts?: string[] }> = {
+                    const templates: Record<string, { q: string; p?: string; opts?: string[]; tita?: boolean }> = {
                       parajumble: {
                         q: "Arrange the following sentences in the most logical order:\n\n1. \n2. \n3. \n4. \n\nKey in the correct sequence (e.g., 3142).",
                         p: "The four sentences (labelled 1, 2, 3, and 4) given below, when properly sequenced, form a coherent paragraph. Decide on the proper sequencing and key in the sequence as your answer.",
-                        opts: ["1234", "2143", "3142", "4321"],
+                        tita: true,
                       },
                       odd_one: {
                         q: "Identify the odd sentence out:\n\n1. \n2. \n3. \n4. \n5. ",
                         p: "Five jumbled sentences (labelled 1-5), related to a topic, are given below. Four of them can be put together to form a coherent paragraph. Identify the odd sentence out.",
-                        opts: ["1", "2", "3", "4"],
+                        tita: true,
                       },
                       sentence_filler: {
                         q: "Choose the option that best fits the blank in the passage above.",
@@ -572,6 +572,7 @@ export default function DPP() {
                         if (fType === "mcq") setFType("rc");
                       }
                       if (t.opts && fOptions.every(o => !o.trim())) setFOptions([...t.opts, ...Array(Math.max(0, 4 - t.opts.length)).fill("")].slice(0, 4));
+                      if (t.tita) { setFOptions(["", "", "", ""]); setFTitaAnswer(""); }
                     }
                   }}
                 >
