@@ -93,7 +93,7 @@ export default function DPP() {
   // Session state
   const [sessionStarted, setSessionStarted] = useState(false);
   const [sessionSubmitted, setSessionSubmitted] = useState(false);
-  const [answers, setAnswers] = useState<Record<string, number>>({});
+  const [answers, setAnswers] = useState<Record<string, DPPAnswer>>({});
   const [secondsLeft, setSecondsLeft] = useState(0);
   const [secondsTaken, setSecondsTaken] = useState(0);
   const [previousAttempt, setPreviousAttempt] = useState<any>(null);
@@ -188,7 +188,7 @@ export default function DPP() {
           .maybeSingle();
         if (prev) {
           setPreviousAttempt(prev);
-          setAnswers(prev.answers as Record<string, number>);
+          setAnswers(prev.answers as Record<string, DPPAnswer>);
           setSessionSubmitted(true);
           const { data: r } = await supabase.rpc("dpp_user_rank", { _date: current.date, _title: current.title, _user_id: user.id });
           if (r && r[0]) setRank({ rank: Number(r[0].rank), total_attempts: Number(r[0].total_attempts), user_pct: Number(r[0].user_pct) });
@@ -216,8 +216,19 @@ export default function DPP() {
     return out;
   }, [current]);
 
-  const allQuestions = useMemo(() => current?.rows.filter(r => r.options && r.options.length > 0) || [], [current]);
+  const allQuestions = useMemo(() => current?.rows || [], [current]);
   const displayNumbers = useMemo(() => new Map(allQuestions.map((q, index) => [q.id, index + 1])), [allQuestions]);
+
+  const isTitaQuestion = (q: DPPRow) => !q.options || q.options.length === 0;
+  const getTitaAnswer = (q: DPPRow) => extractTitaAnswer(q.solution || "");
+  const isCorrectAnswer = (q: DPPRow) => {
+    if (isTitaQuestion(q)) {
+      const canonical = getTitaAnswer(q);
+      const given = answers[q.id];
+      return canonical ? checkTitaAnswer(String(given ?? ""), canonical) : false;
+    }
+    return q.correct_answer != null && answers[q.id] === q.correct_answer;
+  };
 
   const startSession = () => {
     if (!current) return;
