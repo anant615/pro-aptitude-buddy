@@ -396,6 +396,9 @@ export default function DPP() {
     const saveOpts = cleanOpts.length >= 2 ? cleanOpts : [];
     if (!cleanTita && saveOpts.length < 2) { toast.error("Add options, or enter a TITA answer"); return; }
     const correctIdx = parseInt(eCorrect, 10);
+    if (saveOpts.length && (isNaN(correctIdx) || correctIdx < 0 || correctIdx >= saveOpts.length)) {
+      toast.error("Pick a valid correct option"); return;
+    }
     const { error } = await supabase.from("dpps").update({
       question: eQuestion.trim(),
       options: saveOpts,
@@ -921,6 +924,9 @@ export default function DPP() {
                           </div>
                           {manage && editingSetId === s.setId ? (
                             <div className="space-y-2">
+                              <div className="flex justify-end">
+                                <FileUpload onUploaded={(url) => setPassageDraft(p => (p ? p + "\n\n" : "") + `![](${url})`)} />
+                              </div>
                               <div className="flex flex-wrap gap-1.5">
                                 <span className="text-xs text-muted-foreground self-center mr-1">Quick presets:</span>
                                 {[
@@ -1064,7 +1070,7 @@ export default function DPP() {
                                               ${!showResults && !isPicked ? "hover:bg-muted/50" : ""}`}
                                           >
                                             <span className="font-mono text-xs mr-2 text-muted-foreground">{String.fromCharCode(65 + oi)}.</span>
-                                            {opt}
+                                            {renderWithImages(opt)}
                                           </button>
                                         );
                                       })}
