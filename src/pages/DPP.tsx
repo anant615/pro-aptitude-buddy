@@ -17,10 +17,11 @@ import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
 import { useActivityTracker } from "@/hooks/useActivityTracker";
 import ReminderSignupCard from "@/components/ReminderSignupCard";
-import QuestionBody from "@/components/QuestionBody";
+import QuestionBody, { renderWithImages } from "@/components/QuestionBody";
 import { EditableText } from "@/components/EditableText";
 import { aspirantBaseline } from "@/lib/aspirantCount";
 import { FileUpload } from "@/components/FileUpload";
+import { extractTitaAnswer, checkTitaAnswer } from "@/lib/titaAnswer";
 
 type QType = "mcq" | "rc" | "lrdi";
 
@@ -46,6 +47,8 @@ interface DPPGroup {
   rows: DPPRow[];
   durationMinutes: number;
 }
+
+type DPPAnswer = number | string;
 
 export default function DPP() {
   const { user, isAdmin } = useAuth();
