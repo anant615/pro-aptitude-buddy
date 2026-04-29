@@ -638,6 +638,16 @@ export default function DPP() {
                     <Plus className="h-3.5 w-3.5" /> Add option
                   </Button>
                 )}
+                <div className="rounded-lg border border-dashed bg-muted/30 p-3 space-y-1">
+                  <Label className="text-xs">TITA answer (if no options)</Label>
+                  <Input
+                    value={fTitaAnswer}
+                    onChange={e => setFTitaAnswer(e.target.value)}
+                    placeholder="e.g. 3142, 42, 7.5"
+                    className="h-9 font-mono"
+                  />
+                  <p className="text-[10px] text-muted-foreground">Use this for Para Jumble / Odd Man Out / numeric answers. Leave options blank for a type-in answer.</p>
+                </div>
               </div>
 
               <div className="space-y-1">
@@ -987,6 +997,15 @@ export default function DPP() {
                                         <Input value={opt} onChange={e => { const c = [...eOptions]; c[i] = e.target.value; setEOptions(c); }} className="h-9" />
                                       </div>
                                     ))}
+                                    <div className="rounded-lg border border-dashed bg-muted/30 p-3 space-y-1">
+                                      <Label className="text-xs">TITA answer (if no options)</Label>
+                                      <Input
+                                        value={eTitaAnswer}
+                                        onChange={e => setETitaAnswer(e.target.value)}
+                                        placeholder="e.g. 3142, 42, 7.5"
+                                        className="h-9 font-mono"
+                                      />
+                                    </div>
                                   </div>
                                   <div>
                                     <Label className="text-xs">Solution</Label>
