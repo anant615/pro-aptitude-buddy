@@ -384,6 +384,7 @@ export default function AdminDashboard() {
                     </div>
                     <p className="whitespace-pre-wrap">{f.message}</p>
                     {f.email && <p className="text-xs text-muted-foreground mt-1">— {f.email}</p>}
+                    <AdminFeedbackReply feedbackId={f.id} feedbackUserId={f.user_id ?? null} />
                   </div>
                 ))}
               </div>
