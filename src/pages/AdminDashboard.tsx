@@ -13,6 +13,7 @@ import {
   LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer,
   CartesianGrid, BarChart, Bar, PieChart, Pie, Cell, Legend,
 } from "recharts";
+import AdminFeedbackReply from "@/components/AdminFeedbackReply";
 
 type Range = "today" | "7d" | "30d" | "lifetime";
 const RANGE_HOURS: Record<Range, number | null> = { today: 24, "7d": 168, "30d": 720, lifetime: null };
