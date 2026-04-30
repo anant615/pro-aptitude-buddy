@@ -244,6 +244,41 @@ export type Database = {
         }
         Relationships: []
       }
+      feedback_replies: {
+        Row: {
+          created_at: string
+          feedback_id: string
+          id: string
+          is_admin: boolean
+          message: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          feedback_id: string
+          id?: string
+          is_admin?: boolean
+          message: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          feedback_id?: string
+          id?: string
+          is_admin?: boolean
+          message?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "feedback_replies_feedback_id_fkey"
+            columns: ["feedback_id"]
+            isOneToOne: false
+            referencedRelation: "feedback"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       link_clicks: {
         Row: {
           created_at: string
