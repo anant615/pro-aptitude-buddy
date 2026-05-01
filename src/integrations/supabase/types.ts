@@ -606,6 +606,36 @@ export type Database = {
         }
         Relationships: []
       }
+      war_room_reports: {
+        Row: {
+          created_at: string
+          id: string
+          mock_link: string | null
+          mock_name: string | null
+          notes: string | null
+          report: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          mock_link?: string | null
+          mock_name?: string | null
+          notes?: string | null
+          report: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          mock_link?: string | null
+          mock_name?: string | null
+          notes?: string | null
+          report?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       leaderboard: {
