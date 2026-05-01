@@ -15,6 +15,7 @@ const navLinks = [
   { to: "/resources", label: "Resources" },
   { to: "/newspaper", label: "Newspaper" },
   { to: "/ai-solver", label: "AI Solver" },
+  { to: "/war-room", label: "War Room" },
   { to: "/community", label: "Community" },
   { to: "/leaderboard", label: "Leaderboard" },
   { to: "/about", label: "About" },
