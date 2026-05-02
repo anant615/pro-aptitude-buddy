@@ -610,6 +610,7 @@ export type Database = {
         Row: {
           created_at: string
           id: string
+          metrics: Json | null
           mock_link: string | null
           mock_name: string | null
           notes: string | null
@@ -619,6 +620,7 @@ export type Database = {
         Insert: {
           created_at?: string
           id?: string
+          metrics?: Json | null
           mock_link?: string | null
           mock_name?: string | null
           notes?: string | null
@@ -628,6 +630,7 @@ export type Database = {
         Update: {
           created_at?: string
           id?: string
+          metrics?: Json | null
           mock_link?: string | null
           mock_name?: string | null
           notes?: string | null

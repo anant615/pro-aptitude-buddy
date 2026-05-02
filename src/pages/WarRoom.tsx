@@ -11,6 +11,7 @@ import ReactMarkdown from "react-markdown";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
+import WarRoomCharts, { type WarRoomMetrics } from "@/components/WarRoomCharts";
 
 interface SavedReport {
   id: string;
@@ -18,6 +19,7 @@ interface SavedReport {
   mock_link: string | null;
   notes: string | null;
   report: string;
+  metrics: WarRoomMetrics | null;
   created_at: string;
 }
 
@@ -28,6 +30,7 @@ export default function WarRoom() {
   const [mockName, setMockName] = useState("");
   const [notes, setNotes] = useState("");
   const [report, setReport] = useState("");
+  const [metrics, setMetrics] = useState<WarRoomMetrics | null>(null);
   const [loading, setLoading] = useState(false);
   const [recentAttempts, setRecentAttempts] = useState<any[]>([]);
   const [history, setHistory] = useState<SavedReport[]>([]);
@@ -44,7 +47,7 @@ export default function WarRoom() {
   async function loadHistory() {
     if (!user) return;
     const { data } = await supabase.from("war_room_reports").select("*").eq("user_id", user.id).order("created_at", { ascending: false }).limit(20);
-    if (data) setHistory(data as SavedReport[]);
+    if (data) setHistory(data as unknown as SavedReport[]);
   }
 
   async function generate() {
@@ -59,6 +62,7 @@ export default function WarRoom() {
     }
     setLoading(true);
     setReport("");
+    setMetrics(null);
     try {
       const { data, error } = await supabase.functions.invoke("war-room-ai", {
         body: { mockLink: mockLink.trim(), mockName: mockName.trim(), notes: notes.trim(), recentDPPAttempts: recentAttempts },
@@ -66,7 +70,9 @@ export default function WarRoom() {
       if (error) throw error;
       if (data?.error) throw new Error(data.error);
       const r = data?.report || "";
+      const m = (data?.metrics as WarRoomMetrics | null) || null;
       setReport(r);
+      setMetrics(m);
       // Save to history
       if (r) {
         await supabase.from("war_room_reports").insert({
@@ -75,6 +81,7 @@ export default function WarRoom() {
           mock_name: mockName.trim() || null,
           notes: notes.trim() || null,
           report: r,
+          metrics: m as any,
         });
         loadHistory();
       }
@@ -93,6 +100,7 @@ export default function WarRoom() {
 
   function loadFromHistory(r: SavedReport) {
     setReport(r.report);
+    setMetrics(r.metrics || null);
     setMockName(r.mock_name || "");
     setMockLink(r.mock_link || "");
     setNotes(r.notes || "");
@@ -282,14 +290,15 @@ export default function WarRoom() {
           )}
 
           {report && (
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+              {metrics && <WarRoomCharts metrics={metrics} />}
               <Card className="p-6 md:p-8 border-2 border-destructive/30 bg-gradient-to-br from-card to-destructive/5">
                 <div className="flex items-center justify-between mb-4 pb-4 border-b border-destructive/20">
                   <div className="flex items-center gap-2">
                     <Sparkles className="h-5 w-5 text-destructive" />
                     <span className="font-heading font-bold text-sm uppercase tracking-wider text-destructive">War Room Verdict</span>
                   </div>
-                  <Button size="sm" variant="ghost" onClick={() => { setReport(""); setMockLink(""); setMockName(""); setNotes(""); }}>New Mock</Button>
+                  <Button size="sm" variant="ghost" onClick={() => { setReport(""); setMetrics(null); setMockLink(""); setMockName(""); setNotes(""); }}>New Mock</Button>
                 </div>
                 <div className="prose prose-sm md:prose-base max-w-none dark:prose-invert prose-headings:font-heading prose-headings:text-foreground prose-h2:text-lg prose-h2:mt-6 prose-h2:mb-2 prose-h2:border-l-4 prose-h2:border-destructive prose-h2:pl-3 prose-strong:text-foreground prose-li:my-1">
                   <ReactMarkdown>{report}</ReactMarkdown>
