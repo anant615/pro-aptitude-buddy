@@ -290,14 +290,15 @@ export default function WarRoom() {
           )}
 
           {report && (
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+              {metrics && <WarRoomCharts metrics={metrics} />}
               <Card className="p-6 md:p-8 border-2 border-destructive/30 bg-gradient-to-br from-card to-destructive/5">
                 <div className="flex items-center justify-between mb-4 pb-4 border-b border-destructive/20">
                   <div className="flex items-center gap-2">
                     <Sparkles className="h-5 w-5 text-destructive" />
                     <span className="font-heading font-bold text-sm uppercase tracking-wider text-destructive">War Room Verdict</span>
                   </div>
-                  <Button size="sm" variant="ghost" onClick={() => { setReport(""); setMockLink(""); setMockName(""); setNotes(""); }}>New Mock</Button>
+                  <Button size="sm" variant="ghost" onClick={() => { setReport(""); setMetrics(null); setMockLink(""); setMockName(""); setNotes(""); }}>New Mock</Button>
                 </div>
                 <div className="prose prose-sm md:prose-base max-w-none dark:prose-invert prose-headings:font-heading prose-headings:text-foreground prose-h2:text-lg prose-h2:mt-6 prose-h2:mb-2 prose-h2:border-l-4 prose-h2:border-destructive prose-h2:pl-3 prose-strong:text-foreground prose-li:my-1">
                   <ReactMarkdown>{report}</ReactMarkdown>
