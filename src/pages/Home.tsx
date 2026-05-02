@@ -107,8 +107,8 @@ export default function Home() {
           <div className="absolute bottom-10 right-20 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
         </div>
         <div className="container relative z-10 text-center">
-          <div className="grid lg:grid-cols-5 gap-5 mb-8 md:mb-10 items-stretch">
-            <div className="lg:col-span-3 [&>div]:!mb-0 [&>div>div]:!max-w-none [&>div>div]:h-full">
+          <div className="grid lg:grid-cols-6 gap-5 mb-8 md:mb-10 items-stretch">
+            <div className="lg:col-span-2 [&>div]:!mb-0 [&>div>div]:!max-w-none [&>div>div]:h-full">
               <DPPCountdown variant="hero" />
             </div>
             <Link
@@ -157,6 +157,57 @@ export default function Home() {
                 <div className="mt-auto inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent to-yellow-500 text-accent-foreground font-heading font-black text-sm md:text-base px-5 py-3 shadow-xl shadow-accent/30 group-hover:shadow-accent/50 transition-all uppercase tracking-wide">
                   <Sparkles className="h-4 w-4 md:h-5 md:w-5 group-hover:rotate-12 transition-transform" />
                   <EditableText storageKey="ai_solver_promo_cta" defaultValue="Try AI Solver Free" isAdmin={isAdmin} />
+                  <ArrowRight className="h-4 w-4 md:h-5 md:w-5 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </Link>
+
+            <Link
+              to="/war-room"
+              className="lg:col-span-2 group relative rounded-2xl border-2 border-red-500/50 bg-gradient-to-br from-red-500/20 via-primary/10 to-orange-500/15 backdrop-blur-md p-5 md:p-6 shadow-2xl shadow-red-500/15 overflow-hidden flex flex-col text-left hover:border-red-500 transition-all hover:shadow-red-500/30 hover:scale-[1.01]"
+            >
+              <div className="absolute -top-12 -left-12 w-40 h-40 bg-red-500/25 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-12 -right-12 w-40 h-40 bg-orange-500/20 rounded-full blur-3xl pointer-events-none" />
+
+              <div className="relative flex flex-col h-full">
+                <div className="inline-flex items-center gap-2 mb-3">
+                  <Swords className="h-5 w-5 text-red-400 animate-pulse" />
+                  <span className="text-xs md:text-sm font-bold uppercase tracking-wider text-red-400">
+                    <EditableText storageKey="war_room_promo_eyebrow" defaultValue="5-in-1 AI Mentor · Beta" isAdmin={isAdmin} />
+                  </span>
+                </div>
+
+                <h3 className="font-heading font-black text-xl md:text-2xl leading-tight mb-2 text-primary-foreground">
+                  <EditableText
+                    storageKey="war_room_promo_title"
+                    defaultValue="Drop your mock link. Get a brutal war plan."
+                    isAdmin={isAdmin}
+                  />
+                </h3>
+
+                <p className="text-xs md:text-sm text-primary-foreground/80 mb-4 leading-relaxed">
+                  <EditableText
+                    storageKey="war_room_promo_sub"
+                    defaultValue="Paste any SimCAT/AIMCAT/Cracku link — AI predicts your rank out of 2.8L, fixes formulas & plans next mock."
+                    isAdmin={isAdmin}
+                  />
+                </p>
+
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {[
+                    { icon: BarChart3, label: "Rank charts" },
+                    { icon: Target, label: "Formula bridges" },
+                    { icon: Brain, label: "Next-mock plan" },
+                  ].map((f) => (
+                    <span key={f.label} className="inline-flex items-center gap-1 rounded-full bg-primary-foreground/10 border border-primary-foreground/20 px-2.5 py-1 text-[10px] md:text-xs font-medium text-primary-foreground/90">
+                      <f.icon className="h-3 w-3" /> {f.label}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-auto inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 text-white font-heading font-black text-sm md:text-base px-5 py-3 shadow-xl shadow-red-500/30 group-hover:shadow-red-500/50 transition-all uppercase tracking-wide">
+                  <Swords className="h-4 w-4 md:h-5 md:w-5 group-hover:rotate-12 transition-transform" />
+                  <EditableText storageKey="war_room_promo_cta" defaultValue="Enter War Room" isAdmin={isAdmin} />
                   <ArrowRight className="h-4 w-4 md:h-5 md:w-5 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
