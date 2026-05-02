@@ -47,7 +47,7 @@ export default function WarRoom() {
   async function loadHistory() {
     if (!user) return;
     const { data } = await supabase.from("war_room_reports").select("*").eq("user_id", user.id).order("created_at", { ascending: false }).limit(20);
-    if (data) setHistory(data as SavedReport[]);
+    if (data) setHistory(data as unknown as SavedReport[]);
   }
 
   async function generate() {
