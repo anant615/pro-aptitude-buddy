@@ -30,6 +30,7 @@ export default function WarRoom() {
   const [mockName, setMockName] = useState("");
   const [notes, setNotes] = useState("");
   const [report, setReport] = useState("");
+  const [metrics, setMetrics] = useState<WarRoomMetrics | null>(null);
   const [loading, setLoading] = useState(false);
   const [recentAttempts, setRecentAttempts] = useState<any[]>([]);
   const [history, setHistory] = useState<SavedReport[]>([]);
