@@ -62,6 +62,7 @@ export default function WarRoom() {
     }
     setLoading(true);
     setReport("");
+    setMetrics(null);
     try {
       const { data, error } = await supabase.functions.invoke("war-room-ai", {
         body: { mockLink: mockLink.trim(), mockName: mockName.trim(), notes: notes.trim(), recentDPPAttempts: recentAttempts },
@@ -69,7 +70,9 @@ export default function WarRoom() {
       if (error) throw error;
       if (data?.error) throw new Error(data.error);
       const r = data?.report || "";
+      const m = (data?.metrics as WarRoomMetrics | null) || null;
       setReport(r);
+      setMetrics(m);
       // Save to history
       if (r) {
         await supabase.from("war_room_reports").insert({
@@ -78,6 +81,7 @@ export default function WarRoom() {
           mock_name: mockName.trim() || null,
           notes: notes.trim() || null,
           report: r,
+          metrics: m as any,
         });
         loadHistory();
       }
