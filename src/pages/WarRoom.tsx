@@ -100,6 +100,7 @@ export default function WarRoom() {
 
   function loadFromHistory(r: SavedReport) {
     setReport(r.report);
+    setMetrics(r.metrics || null);
     setMockName(r.mock_name || "");
     setMockLink(r.mock_link || "");
     setNotes(r.notes || "");
