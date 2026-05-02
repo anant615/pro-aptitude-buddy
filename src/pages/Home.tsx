@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, BookOpen, Brain, MessageSquareText, Clock, Trophy, CalendarDays, FileText, Newspaper, Pencil, Check, X, Play, Users, Sparkles, Zap, Camera } from "lucide-react";
+import { ArrowRight, BookOpen, Brain, MessageSquareText, Clock, Trophy, CalendarDays, FileText, Newspaper, Pencil, Check, X, Play, Users, Sparkles, Zap, Camera, Swords, BarChart3, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { dppData } from "@/data/dpp_data";
