@@ -11,6 +11,7 @@ import ReactMarkdown from "react-markdown";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
+import WarRoomCharts, { type WarRoomMetrics } from "@/components/WarRoomCharts";
 
 interface SavedReport {
   id: string;
@@ -18,6 +19,7 @@ interface SavedReport {
   mock_link: string | null;
   notes: string | null;
   report: string;
+  metrics: WarRoomMetrics | null;
   created_at: string;
 }
 
