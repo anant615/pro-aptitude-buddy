@@ -1,0 +1,1 @@
+ALTER TABLE public.war_room_reports ADD COLUMN IF NOT EXISTS metrics JSONB;
