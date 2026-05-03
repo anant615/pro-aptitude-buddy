@@ -359,6 +359,7 @@ export default function DPP() {
       timer_seconds: fTimer ? parseInt(fTimer, 10) : null,
       duration_minutes: dur,
     };
+    const isFirstQuestion = existing.length === 0;
     const { error } = await supabase.from("dpps").insert(payload);
     if (error) { toast.error("Failed to add: " + error.message); return; }
     try {
@@ -367,6 +368,16 @@ export default function DPP() {
       toast.error(error.message || "Question added, but numbering could not be repaired");
     }
     toast.success(`Question added as Q${nextQuestionNumber}`);
+    // Auto-broadcast launch email to all users on the FIRST question of a new DPP
+    if (isFirstQuestion) {
+      supabase.functions.invoke("dpp-launch-notify", {
+        body: { dpp_date: fDate, dpp_title: cleanTitle },
+      }).then(({ data, error }) => {
+        if (error) { toast.error("Launch email failed: " + error.message); return; }
+        if (data?.skipped) return;
+        if (data?.sent != null) toast.success(`📧 Launch email: ${data.sent} sent / ${data.failed} failed (of ${data.recipients})`);
+      });
+    }
     setFQuestion(""); setFOptions(["", "", "", ""]); setFCorrect("0"); setFTitaAnswer(""); setFSolution("");
     await load();
   };
