@@ -121,6 +121,125 @@ export type Database = {
         }
         Relationships: []
       }
+      crm_campaigns: {
+        Row: {
+          audience: string
+          audience_meta: Json
+          body_html: string
+          created_at: string
+          created_by: string | null
+          failed_count: number
+          id: string
+          recipient_count: number
+          sent_count: number
+          subject: string
+          template_key: string
+        }
+        Insert: {
+          audience?: string
+          audience_meta?: Json
+          body_html: string
+          created_at?: string
+          created_by?: string | null
+          failed_count?: number
+          id?: string
+          recipient_count?: number
+          sent_count?: number
+          subject: string
+          template_key: string
+        }
+        Update: {
+          audience?: string
+          audience_meta?: Json
+          body_html?: string
+          created_at?: string
+          created_by?: string | null
+          failed_count?: number
+          id?: string
+          recipient_count?: number
+          sent_count?: number
+          subject?: string
+          template_key?: string
+        }
+        Relationships: []
+      }
+      crm_contacts: {
+        Row: {
+          created_at: string
+          email: string | null
+          followup_at: string | null
+          id: string
+          last_contacted_at: string | null
+          notes: string
+          status: string
+          tags: string[]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          followup_at?: string | null
+          id?: string
+          last_contacted_at?: string | null
+          notes?: string
+          status?: string
+          tags?: string[]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          followup_at?: string | null
+          id?: string
+          last_contacted_at?: string | null
+          notes?: string
+          status?: string
+          tags?: string[]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      crm_email_sends: {
+        Row: {
+          campaign_id: string
+          created_at: string
+          email: string
+          error: string | null
+          id: string
+          status: string
+          user_id: string | null
+        }
+        Insert: {
+          campaign_id: string
+          created_at?: string
+          email: string
+          error?: string | null
+          id?: string
+          status?: string
+          user_id?: string | null
+        }
+        Update: {
+          campaign_id?: string
+          created_at?: string
+          email?: string
+          error?: string | null
+          id?: string
+          status?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_email_sends_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "crm_campaigns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       dpp_attempts: {
         Row: {
           answers: Json
