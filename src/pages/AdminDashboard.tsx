@@ -14,10 +14,11 @@ import {
   CartesianGrid, BarChart, Bar, PieChart, Pie, Cell, Legend,
 } from "recharts";
 import AdminFeedbackReply from "@/components/AdminFeedbackReply";
+import CRMPanel from "@/components/CRMPanel";
 
 type Range = "today" | "7d" | "30d" | "lifetime";
 const RANGE_HOURS: Record<Range, number | null> = { today: 24, "7d": 168, "30d": 720, lifetime: null };
-type Tab = "traffic" | "activation" | "retention" | "content" | "dpp";
+type Tab = "traffic" | "activation" | "retention" | "content" | "dpp" | "crm";
 
 const COLORS = ["hsl(var(--primary))", "hsl(var(--accent))", "#f59e0b", "#10b981", "#ef4444", "#8b5cf6"];
 
@@ -201,6 +202,7 @@ export default function AdminDashboard() {
           { k: "retention", label: "Retention", icon: Flame },
           { k: "content", label: "Content", icon: FileText },
           { k: "dpp", label: "DPP Stats", icon: Trophy },
+          { k: "crm", label: "CRM (RRR)", icon: MessageSquare },
         ] as { k: Tab; label: string; icon: any }[]).map(({ k, label, icon: Icon }) => (
           <button
             key={k}
@@ -421,6 +423,8 @@ export default function AdminDashboard() {
           </ChartCard>
         </div>
       )}
+
+      {tab === "crm" && <CRMPanel />}
     </div>
   );
 }
