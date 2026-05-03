@@ -423,6 +423,8 @@ export default function AdminDashboard() {
           </ChartCard>
         </div>
       )}
+
+      {tab === "crm" && <CRMPanel />}
     </div>
   );
 }
