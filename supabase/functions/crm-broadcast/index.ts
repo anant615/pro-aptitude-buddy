@@ -37,17 +37,16 @@ function wrapHtml(subject: string, bodyHtml: string, email: string) {
 }
 
 async function sendOne(to: string, subject: string, html: string) {
-  const res = await fetch("https://connector-gateway.lovable.dev/resend/emails", {
+  const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${LOVABLE_API_KEY}`,
-      "X-Connection-Api-Key": RESEND_API_KEY,
+      Authorization: `Bearer ${RESEND_API_KEY}`,
     },
     body: JSON.stringify({ from: FROM, to: [to], subject, html }),
   });
   const body = await res.text();
-  return { ok: res.ok, status: res.status, body: body.slice(0, 200) };
+  return { ok: res.ok, status: res.status, body: body.slice(0, 300) };
 }
 
 Deno.serve(async (req) => {
