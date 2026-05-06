@@ -210,6 +210,18 @@ export default function WarRoom() {
                   onChange={(e) => setMockName(e.target.value)}
                   className="mt-1"
                 />
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  {["SimCAT", "AIMCAT", "Cracku FLT", "IMS SimCAT", "TIME AIMCAT", "2IIM CAT", "CL Proc-CAT"].map(s => (
+                    <button
+                      key={s}
+                      type="button"
+                      onClick={() => setMockName(s + " ")}
+                      className="px-2 py-0.5 rounded-full border text-[10px] hover:bg-destructive/10 hover:border-destructive/40 transition"
+                    >
+                      {s}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div>
@@ -221,6 +233,25 @@ export default function WarRoom() {
                   onChange={(e) => setNotes(e.target.value)}
                   className="mt-1"
                 />
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  {[
+                    "Only 1 DILR set attempted",
+                    "Panicked in QA",
+                    "RC took too long",
+                    "Missed TSD",
+                    "Para-jumble weak",
+                    "Time ran out",
+                  ].map(t => (
+                    <button
+                      key={t}
+                      type="button"
+                      onClick={() => setNotes(n => (n ? n + ", " + t.toLowerCase() : t))}
+                      className="px-2 py-0.5 rounded-full border text-[10px] hover:bg-destructive/10 hover:border-destructive/40 transition"
+                    >
+                      + {t}
+                    </button>
+                  ))}
+                </div>
                 <p className="text-[11px] text-muted-foreground mt-1">The more you tell, the sharper the surgery.</p>
               </div>
 
@@ -282,10 +313,33 @@ export default function WarRoom() {
           )}
 
           {loading && (
-            <Card className="p-10 text-center min-h-[500px] flex flex-col items-center justify-center">
-              <Loader2 className="h-12 w-12 animate-spin text-destructive mb-4" />
-              <p className="font-heading font-bold text-lg">Syncing with your mock…</p>
-              <p className="text-sm text-muted-foreground">Diagnosing chapters. Mapping formulas. Predicting rank in 2.8 lakh pool.</p>
+            <Card className="p-10 min-h-[500px] flex flex-col items-center justify-center border-2 border-destructive/30 bg-gradient-to-br from-card to-destructive/5">
+              <div className="relative mb-6">
+                <div className="absolute inset-0 bg-destructive/30 blur-3xl rounded-full animate-pulse" />
+                <Brain className="h-16 w-16 text-destructive relative animate-pulse" />
+              </div>
+              <p className="font-heading font-bold text-xl mb-1">Elite Mentor analyzing…</p>
+              <p className="text-xs text-muted-foreground mb-6">Powered by GPT-5 class reasoning · 2.8 lakh aspirant pool</p>
+              <div className="space-y-2 text-left w-full max-w-sm">
+                {[
+                  "Scraping mock metadata",
+                  "Mapping section-wise weakness",
+                  "Cross-referencing DPP attempts",
+                  "Prescribing chapter formulas",
+                  "Computing India rank & trajectory",
+                ].map((s, i) => (
+                  <motion.div
+                    key={s}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.6 }}
+                    className="flex items-center gap-2 text-sm"
+                  >
+                    <Loader2 className="h-3.5 w-3.5 animate-spin text-destructive" />
+                    <span>{s}</span>
+                  </motion.div>
+                ))}
+              </div>
             </Card>
           )}
 
