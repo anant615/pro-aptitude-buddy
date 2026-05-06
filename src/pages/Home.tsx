@@ -107,13 +107,13 @@ export default function Home() {
           <div className="absolute bottom-10 right-20 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
         </div>
         <div className="container relative z-10 text-center">
-          <div className="grid lg:grid-cols-6 gap-5 mb-8 md:mb-10 items-stretch">
-            <div className="lg:col-span-2 [&>div]:!mb-0 [&>div>div]:!max-w-none [&>div>div]:h-full">
+          <div className="grid lg:grid-cols-3 gap-5 mb-8 md:mb-10 items-stretch">
+            <div className="[&>div]:!mb-0 [&>div>div]:!max-w-none [&>div>div]:h-full">
               <DPPCountdown variant="hero" />
             </div>
             <Link
               to="/ai-solver"
-              className="lg:col-span-2 group relative rounded-2xl border-2 border-accent/50 bg-gradient-to-br from-accent/20 via-primary/10 to-purple-500/15 backdrop-blur-md p-5 md:p-6 shadow-2xl shadow-accent/15 overflow-hidden flex flex-col text-left hover:border-accent transition-all hover:shadow-accent/30 hover:scale-[1.01]"
+              className="group relative rounded-2xl border-2 border-accent/50 bg-gradient-to-br from-accent/20 via-primary/10 to-purple-500/15 backdrop-blur-md p-5 md:p-6 shadow-2xl shadow-accent/15 overflow-hidden flex flex-col text-left hover:border-accent transition-all hover:shadow-accent/30 hover:scale-[1.01]"
             >
               <div className="absolute -top-12 -left-12 w-40 h-40 bg-accent/25 rounded-full blur-3xl pointer-events-none" />
               <div className="absolute -bottom-12 -right-12 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl pointer-events-none" />
