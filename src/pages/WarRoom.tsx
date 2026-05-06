@@ -313,10 +313,33 @@ export default function WarRoom() {
           )}
 
           {loading && (
-            <Card className="p-10 text-center min-h-[500px] flex flex-col items-center justify-center">
-              <Loader2 className="h-12 w-12 animate-spin text-destructive mb-4" />
-              <p className="font-heading font-bold text-lg">Syncing with your mock…</p>
-              <p className="text-sm text-muted-foreground">Diagnosing chapters. Mapping formulas. Predicting rank in 2.8 lakh pool.</p>
+            <Card className="p-10 min-h-[500px] flex flex-col items-center justify-center border-2 border-destructive/30 bg-gradient-to-br from-card to-destructive/5">
+              <div className="relative mb-6">
+                <div className="absolute inset-0 bg-destructive/30 blur-3xl rounded-full animate-pulse" />
+                <Brain className="h-16 w-16 text-destructive relative animate-pulse" />
+              </div>
+              <p className="font-heading font-bold text-xl mb-1">Elite Mentor analyzing…</p>
+              <p className="text-xs text-muted-foreground mb-6">Powered by GPT-5 class reasoning · 2.8 lakh aspirant pool</p>
+              <div className="space-y-2 text-left w-full max-w-sm">
+                {[
+                  "Scraping mock metadata",
+                  "Mapping section-wise weakness",
+                  "Cross-referencing DPP attempts",
+                  "Prescribing chapter formulas",
+                  "Computing India rank & trajectory",
+                ].map((s, i) => (
+                  <motion.div
+                    key={s}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.6 }}
+                    className="flex items-center gap-2 text-sm"
+                  >
+                    <Loader2 className="h-3.5 w-3.5 animate-spin text-destructive" />
+                    <span>{s}</span>
+                  </motion.div>
+                ))}
+              </div>
             </Card>
           )}
 
