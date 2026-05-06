@@ -210,6 +210,18 @@ export default function WarRoom() {
                   onChange={(e) => setMockName(e.target.value)}
                   className="mt-1"
                 />
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  {["SimCAT", "AIMCAT", "Cracku FLT", "IMS SimCAT", "TIME AIMCAT", "2IIM CAT", "CL Proc-CAT"].map(s => (
+                    <button
+                      key={s}
+                      type="button"
+                      onClick={() => setMockName(s + " ")}
+                      className="px-2 py-0.5 rounded-full border text-[10px] hover:bg-destructive/10 hover:border-destructive/40 transition"
+                    >
+                      {s}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div>
@@ -221,6 +233,25 @@ export default function WarRoom() {
                   onChange={(e) => setNotes(e.target.value)}
                   className="mt-1"
                 />
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  {[
+                    "Only 1 DILR set attempted",
+                    "Panicked in QA",
+                    "RC took too long",
+                    "Missed TSD",
+                    "Para-jumble weak",
+                    "Time ran out",
+                  ].map(t => (
+                    <button
+                      key={t}
+                      type="button"
+                      onClick={() => setNotes(n => (n ? n + ", " + t.toLowerCase() : t))}
+                      className="px-2 py-0.5 rounded-full border text-[10px] hover:bg-destructive/10 hover:border-destructive/40 transition"
+                    >
+                      + {t}
+                    </button>
+                  ))}
+                </div>
                 <p className="text-[11px] text-muted-foreground mt-1">The more you tell, the sharper the surgery.</p>
               </div>
 
