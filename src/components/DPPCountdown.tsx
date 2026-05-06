@@ -80,61 +80,61 @@ export default function DPPCountdown({ variant = "default" }: { variant?: "defau
 
   if (variant === "hero") {
     return (
-      <div className="mb-8 md:mb-10">
-        <div className="relative max-w-3xl mx-auto rounded-2xl border-2 border-accent/60 bg-gradient-to-br from-red-500/20 via-orange-500/15 to-accent/25 backdrop-blur-md p-5 md:p-6 shadow-2xl shadow-accent/20 overflow-hidden">
+      <div className="mb-8 md:mb-10 h-full">
+        <div className="relative h-full rounded-2xl border-2 border-accent/60 bg-gradient-to-br from-red-500/20 via-orange-500/15 to-accent/25 backdrop-blur-md p-5 md:p-6 shadow-2xl shadow-accent/20 overflow-hidden flex flex-col">
           <div className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/10 to-accent/0 animate-pulse pointer-events-none" />
           <div className="absolute -top-12 -right-12 w-40 h-40 bg-red-500/20 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="relative flex flex-col md:flex-row items-center gap-5">
-            <div className="flex-1 text-center md:text-left">
-              <div className="inline-flex items-center gap-2 mb-2">
-                <Flame className="h-5 w-5 text-red-400 animate-pulse" />
-                <span className="text-sm md:text-base font-bold uppercase tracking-wider text-red-300">
-                  <EditableText
-                    storageKey="dpp_countdown_title"
-                    defaultValue="Next Hot DPP drops in"
-                    isAdmin={isAdmin}
-                  />
-                </span>
-              </div>
-              <div className="flex items-center justify-center md:justify-start gap-2 md:gap-3 mb-3">
-                {[
-                  { v: h, l: "HRS" },
-                  { v: m, l: "MIN" },
-                  { v: s, l: "SEC" },
-                ].map((b, i) => (
-                  <div key={b.l} className="flex items-center">
-                    <div className="flex flex-col items-center bg-gradient-to-b from-primary-foreground/95 to-primary-foreground/85 text-primary rounded-lg px-3 md:px-4 py-2 min-w-[60px] md:min-w-[72px] shadow-xl">
-                      <span className="font-heading font-black text-2xl md:text-4xl tabular-nums leading-none">{b.v}</span>
-                      <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest opacity-70 mt-1">{b.l}</span>
-                    </div>
-                    {i < 2 && <span className="text-accent font-black text-2xl md:text-3xl mx-0.5 md:mx-1">:</span>}
+          <div className="relative flex flex-col h-full text-left">
+            <div className="inline-flex items-center gap-2 mb-3">
+              <Flame className="h-5 w-5 text-red-400 animate-pulse" />
+              <span className="text-xs md:text-sm font-bold uppercase tracking-wider text-red-300">
+                <EditableText
+                  storageKey="dpp_countdown_title"
+                  defaultValue="Next Hot DPP drops in"
+                  isAdmin={isAdmin}
+                />
+              </span>
+            </div>
+            <div className="flex items-center gap-1.5 md:gap-2 mb-3">
+              {[
+                { v: h, l: "HRS" },
+                { v: m, l: "MIN" },
+                { v: s, l: "SEC" },
+              ].map((b, i) => (
+                <div key={b.l} className="flex items-center">
+                  <div className="flex flex-col items-center bg-gradient-to-b from-primary-foreground/95 to-primary-foreground/85 text-primary rounded-lg px-2.5 md:px-3 py-1.5 md:py-2 min-w-[52px] md:min-w-[60px] shadow-xl">
+                    <span className="font-heading font-black text-xl md:text-2xl tabular-nums leading-none">{b.v}</span>
+                    <span className="text-[9px] font-bold uppercase tracking-widest opacity-70 mt-1">{b.l}</span>
                   </div>
-                ))}
-              </div>
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-primary-foreground/15 px-3 py-1 text-xs md:text-sm font-semibold text-primary-foreground/90">
-                <Users className="h-3.5 w-3.5 text-green-400" />
-                <span className="font-bold text-green-300 tabular-nums">{attemptCount.toLocaleString()}</span>
+                  {i < 2 && <span className="text-accent font-black text-xl md:text-2xl mx-0.5">:</span>}
+                </div>
+              ))}
+            </div>
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-primary-foreground/15 px-3 py-1 text-[11px] md:text-xs font-semibold text-primary-foreground/90 mb-4 self-start max-w-full">
+              <Users className="h-3.5 w-3.5 text-green-400 shrink-0" />
+              <span className="font-bold text-green-300 tabular-nums">{attemptCount.toLocaleString()}</span>
+              <span className="truncate">
                 <EditableText
                   storageKey="dpp_attempts_today_label"
                   defaultValue="aspirants attempted today's DPP"
                   isAdmin={isAdmin}
                 />
-                <span className="ml-1 h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />
-              </div>
+              </span>
+              <span className="ml-1 h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse shrink-0" />
             </div>
 
             <Link
               to="/dpp"
-              className="group relative inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 hover:from-red-600 hover:via-orange-600 hover:to-yellow-600 text-white font-heading font-black text-base md:text-lg px-6 md:px-8 py-4 md:py-5 shadow-2xl shadow-red-500/40 transition-all hover:scale-105 hover:shadow-red-500/60 whitespace-nowrap uppercase tracking-wide"
+              className="mt-auto group relative inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 hover:from-red-600 hover:via-orange-600 hover:to-yellow-600 text-white font-heading font-black text-sm md:text-base px-5 py-3 shadow-xl shadow-red-500/40 transition-all hover:shadow-red-500/60 uppercase tracking-wide"
             >
-              <Zap className="h-5 w-5 md:h-6 md:w-6 group-hover:rotate-12 transition-transform" fill="currentColor" />
+              <Zap className="h-4 w-4 md:h-5 md:w-5 group-hover:rotate-12 transition-transform" fill="currentColor" />
               <EditableText
                 storageKey="dpp_countdown_cta"
                 defaultValue="Attempt Today's DPP"
                 isAdmin={isAdmin}
               />
-              <ArrowRight className="h-5 w-5 md:h-6 md:w-6 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="h-4 w-4 md:h-5 md:w-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         </div>
