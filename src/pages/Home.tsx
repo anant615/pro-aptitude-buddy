@@ -164,7 +164,7 @@ export default function Home() {
 
             <Link
               to="/war-room"
-              className="lg:col-span-2 group relative rounded-2xl border-2 border-red-500/50 bg-gradient-to-br from-red-500/20 via-primary/10 to-orange-500/15 backdrop-blur-md p-5 md:p-6 shadow-2xl shadow-red-500/15 overflow-hidden flex flex-col text-left hover:border-red-500 transition-all hover:shadow-red-500/30 hover:scale-[1.01]"
+              className="group relative rounded-2xl border-2 border-red-500/50 bg-gradient-to-br from-red-500/20 via-primary/10 to-orange-500/15 backdrop-blur-md p-5 md:p-6 shadow-2xl shadow-red-500/15 overflow-hidden flex flex-col text-left hover:border-red-500 transition-all hover:shadow-red-500/30 hover:scale-[1.01]"
             >
               <div className="absolute -top-12 -left-12 w-40 h-40 bg-red-500/25 rounded-full blur-3xl pointer-events-none" />
               <div className="absolute -bottom-12 -right-12 w-40 h-40 bg-orange-500/20 rounded-full blur-3xl pointer-events-none" />
