@@ -173,8 +173,16 @@ export default function Mentor() {
               <Textarea rows={2} placeholder="e.g. I freeze in mocks, my accuracy drops in last 10 min…" value={notes} onChange={(e)=>setNotes(e.target.value)} />
             </div>
 
+            {!user && (
+              <div className="rounded-md border border-accent/40 bg-accent/5 p-3 space-y-2">
+                <p className="text-sm font-semibold flex items-center gap-2"><LogIn className="h-4 w-4 text-accent" /> Login for a 10× better plan</p>
+                <p className="text-xs text-muted-foreground">Sign in with Google to unlock <strong>War Room AI mock analyzer</strong> — upload your last mock screenshot and the Council will pinpoint your exact leaks (Geometry, RC-inference, etc.) and feed them into THIS plan.</p>
+                <Button onClick={signInGoogle} variant="outline" size="sm" className="w-full"><LogIn className="h-3 w-3 mr-1" /> Continue with Google</Button>
+              </div>
+            )}
+
             <Button onClick={runDiagnosis} disabled={loading} size="lg" className="w-full">
-              {loading ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Council deliberating…</> : <><Sparkles className="h-4 w-4 mr-2" /> Get my 99+%ile plan</>}
+              {loading ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Council deliberating…</> : <><Sparkles className="h-4 w-4 mr-2" /> Get my {targetPercentile}%ile plan</>}
             </Button>
           </CardContent>
         </Card>
