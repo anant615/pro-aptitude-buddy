@@ -93,10 +93,10 @@ export default function Mentor() {
           <Sparkles className="h-3 w-3 mr-1" /> The Council — 6 AI Mentors, 1 Aspirant
         </Badge>
         <h1 className="text-3xl md:text-5xl font-heading font-bold">
-          Your personal <span className="text-gradient-gold">99+%ile</span> war-plan
+          Your personal <span className="text-gradient-gold">{targetPercentile}%ile</span> war-plan
         </h1>
         <p className="text-muted-foreground max-w-2xl mx-auto">
-          Drop your sectional scores. 6 elite mentors — synthesized from TIME, IMS, CL, 2IIM, Cracku &amp; Bodhee Prep — diagnose, predict your percentile, and hand you a week-by-week roadmap.
+          Drop your sectional scores. The Council uses <strong>real CAT 2022-2025 score-vs-percentile data</strong> to build a plan tailored to YOUR target — not a generic 99+%ile blueprint.
         </p>
       </motion.div>
 
