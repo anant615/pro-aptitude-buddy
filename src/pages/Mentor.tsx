@@ -64,6 +64,8 @@ export default function Mentor() {
           targetPercentile, monthsLeft, hoursPerDay,
           isWorkingProfessional: isWorking,
           weakestArea: weakest, notes,
+          isLoggedIn: !!user,
+          hasMockAnalysis: false,
         },
       });
       if (error) throw error;
