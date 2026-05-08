@@ -64,6 +64,8 @@ export default function Mentor() {
           targetPercentile, monthsLeft, hoursPerDay,
           isWorkingProfessional: isWorking,
           weakestArea: weakest, notes,
+          isLoggedIn: !!user,
+          hasMockAnalysis: false,
         },
       });
       if (error) throw error;
@@ -91,10 +93,10 @@ export default function Mentor() {
           <Sparkles className="h-3 w-3 mr-1" /> The Council — 6 AI Mentors, 1 Aspirant
         </Badge>
         <h1 className="text-3xl md:text-5xl font-heading font-bold">
-          Your personal <span className="text-gradient-gold">99+%ile</span> war-plan
+          Your personal <span className="text-gradient-gold">{targetPercentile}%ile</span> war-plan
         </h1>
         <p className="text-muted-foreground max-w-2xl mx-auto">
-          Drop your sectional scores. 6 elite mentors — synthesized from TIME, IMS, CL, 2IIM, Cracku &amp; Bodhee Prep — diagnose, predict your percentile, and hand you a week-by-week roadmap.
+          Drop your sectional scores. The Council uses <strong>real CAT 2022-2025 score-vs-percentile data</strong> to build a plan tailored to YOUR target — not a generic 99+%ile blueprint.
         </p>
       </motion.div>
 
@@ -132,7 +134,14 @@ export default function Mentor() {
 
             <div>
               <Label className="text-xs flex justify-between"><span>Target percentile</span><span className="text-accent font-bold">{targetPercentile}%ile</span></Label>
-              <Slider value={[targetPercentile]} onValueChange={(v)=>setTargetPercentile(v[0])} min={85} max={100} step={0.5} className="mt-2" />
+              <Slider value={[targetPercentile]} onValueChange={(v)=>setTargetPercentile(v[0])} min={80} max={100} step={0.5} className="mt-2" />
+              <p className="text-[11px] text-muted-foreground mt-1">
+                {targetPercentile >= 99.5 ? "🔥 Elite tier — daily mocks, zero weak section" :
+                 targetPercentile >= 99 ? "⚡ Top tier — 99%ile in 2 sections required" :
+                 targetPercentile >= 95 ? "✅ Strong tier — realistic, sustainable, ONE strong section can carry" :
+                 targetPercentile >= 90 ? "🌱 Solid tier — foundations + PYQs, no need to chase hard sets" :
+                 "🏗 Foundation tier — basics first, sectionals only"}
+              </p>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
@@ -164,8 +173,16 @@ export default function Mentor() {
               <Textarea rows={2} placeholder="e.g. I freeze in mocks, my accuracy drops in last 10 min…" value={notes} onChange={(e)=>setNotes(e.target.value)} />
             </div>
 
+            {!user && (
+              <div className="rounded-md border border-accent/40 bg-accent/5 p-3 space-y-2">
+                <p className="text-sm font-semibold flex items-center gap-2"><LogIn className="h-4 w-4 text-accent" /> Login for a 10× better plan</p>
+                <p className="text-xs text-muted-foreground">Sign in with Google to unlock <strong>War Room AI mock analyzer</strong> — upload your last mock screenshot and the Council will pinpoint your exact leaks (Geometry, RC-inference, etc.) and feed them into THIS plan.</p>
+                <Button onClick={signInGoogle} variant="outline" size="sm" className="w-full"><LogIn className="h-3 w-3 mr-1" /> Continue with Google</Button>
+              </div>
+            )}
+
             <Button onClick={runDiagnosis} disabled={loading} size="lg" className="w-full">
-              {loading ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Council deliberating…</> : <><Sparkles className="h-4 w-4 mr-2" /> Get my 99+%ile plan</>}
+              {loading ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Council deliberating…</> : <><Sparkles className="h-4 w-4 mr-2" /> Get my {targetPercentile}%ile plan</>}
             </Button>
           </CardContent>
         </Card>
@@ -189,19 +206,49 @@ export default function Mentor() {
           )}
 
           {!loading && !plan && (
-            <Card className="bg-gradient-to-br from-accent/5 to-transparent">
-              <CardContent className="pt-6 space-y-3">
-                <h3 className="font-semibold flex items-center gap-2"><Target className="h-4 w-4 text-accent" /> What you'll get</h3>
-                <ul className="text-sm space-y-2 text-muted-foreground">
-                  <li>• Honest diagnosis + predicted CAT percentile &amp; raw score</li>
-                  <li>• Week-by-week chapter-level plan (synthesized from TIME / IMS / CL / 2IIM)</li>
-                  <li>• Daily timetable tuned to your free hours &amp; work schedule</li>
-                  <li>• Weak-area drill sequence + which on-site tool to use (DPP, PYQs, AI Solver, War Room)</li>
-                  <li>• Mock cadence + analysis ritual</li>
-                  <li>• Personal message from each of the 6 mentors</li>
-                </ul>
-              </CardContent>
-            </Card>
+            <>
+              <Card className="bg-gradient-to-br from-accent/5 to-transparent">
+                <CardContent className="pt-6 space-y-3">
+                  <h3 className="font-semibold flex items-center gap-2"><Target className="h-4 w-4 text-accent" /> What you'll get</h3>
+                  <ul className="text-sm space-y-2 text-muted-foreground">
+                    <li>• Honest diagnosis vs <strong>real CAT 2022-2025 cutoffs</strong></li>
+                    <li>• Plan tailored to YOUR target tier (95%ile gets a 95%ile plan, not a 99+ one)</li>
+                    <li>• Week-by-week chapter plan + daily timetable</li>
+                    <li>• Weak-area drill + on-site tools (DPP, AI Solver, War Room, PYQs)</li>
+                    <li>• Personal message from each of the 6 mentors</li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm flex items-center gap-2"><TrendingUp className="h-4 w-4 text-accent" /> CAT Score → Percentile (real data)</CardTitle>
+                  <CardDescription className="text-xs">Overall raw score needed (out of 198)</CardDescription>
+                </CardHeader>
+                <CardContent className="text-xs">
+                  <table className="w-full">
+                    <thead className="text-muted-foreground">
+                      <tr className="border-b"><th className="text-left py-1">%ile</th><th>CAT 2025</th><th>CAT 2024</th><th>CAT 2023</th><th>CAT 2022</th><th>2026 (proj)</th></tr>
+                    </thead>
+                    <tbody className="font-mono">
+                      {[
+                        ["99.9","111.48","127","101.43","110","110+"],
+                        ["99","84.8","95.13","76.15","84","86+"],
+                        ["95","62.3","70","54.86","60","64+"],
+                        ["90","51.5","58","44.36","49","54+"],
+                        ["85","44.2","50","—","41.32","48+"],
+                        ["80","38","44","—","36.02","40+"],
+                      ].map((r,i)=>(
+                        <tr key={i} className={`border-b ${+r[0] === Math.round(targetPercentile) || (targetPercentile>=99.5&&r[0]==="99.9") ? "bg-accent/10 font-bold" : ""}`}>
+                          {r.map((c,j)=><td key={j} className={j===0?"text-left py-1 text-accent":"text-center py-1"}>{c}</td>)}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <p className="text-[10px] text-muted-foreground mt-2">Sectional CAT 2026 for 95%ile: VARC 32.5 · DILR 21.5 · QA 18.5</p>
+                </CardContent>
+              </Card>
+            </>
           )}
 
           {plan?.diagnosis && (
@@ -211,7 +258,7 @@ export default function Mentor() {
                   <span className="flex items-center gap-2"><TrendingUp className="h-5 w-5 text-accent" /> Diagnosis</span>
                   <Badge className="bg-accent text-accent-foreground text-base">{plan.diagnosis.predictedPercentile}%ile</Badge>
                 </CardTitle>
-                <CardDescription>Predicted raw score: {plan.diagnosis.predictedScore}/198</CardDescription>
+                <CardDescription>Predicted raw score: {plan.diagnosis.predictedScore}/198 · Target: {targetPercentile}%ile</CardDescription>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="grid grid-cols-3 gap-2 text-center text-xs">
@@ -220,6 +267,18 @@ export default function Mentor() {
                   <div className="p-2 rounded bg-muted"><div className="text-muted-foreground">LRDI</div><div className="font-bold capitalize">{plan.diagnosis.lrdiLevel}</div></div>
                 </div>
                 <p className="text-sm">{plan.diagnosis.summary}</p>
+                {plan.percentileBenchmarks && (
+                  <div className="text-xs space-y-1 border-t pt-2 text-muted-foreground">
+                    <p className="font-semibold text-foreground">Your target ({targetPercentile}%ile) across years:</p>
+                    <p>• CAT 2025: {plan.percentileBenchmarks.year2025}</p>
+                    <p>• CAT 2024: {plan.percentileBenchmarks.year2024}</p>
+                    <p>• CAT 2023: {plan.percentileBenchmarks.year2023}</p>
+                    <p>• CAT 2026 (projected): {plan.percentileBenchmarks.year2026Projected}</p>
+                  </div>
+                )}
+                {plan.gapToTarget?.rawScoreNeeded && (
+                  <div className="rounded bg-accent/10 p-2 text-xs"><strong>🎯 {plan.gapToTarget.rawScoreNeeded}</strong></div>
+                )}
               </CardContent>
             </Card>
           )}
