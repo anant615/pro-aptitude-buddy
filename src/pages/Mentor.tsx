@@ -288,8 +288,9 @@ export default function Mentor() {
       {/* PLAN OUTPUT */}
       {plan && (
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <Tabs defaultValue="weekly" className="w-full">
+          <Tabs defaultValue="roadmap" className="w-full">
             <TabsList className="flex flex-wrap h-auto">
+              <TabsTrigger value="roadmap"><Sparkles className="h-4 w-4 mr-1" /> Month-wise Roadmap</TabsTrigger>
               <TabsTrigger value="weekly"><Calendar className="h-4 w-4 mr-1" /> Weekly Plan</TabsTrigger>
               <TabsTrigger value="daily"><Clock className="h-4 w-4 mr-1" /> Daily Timetable</TabsTrigger>
               <TabsTrigger value="today"><ListChecks className="h-4 w-4 mr-1" /> Today</TabsTrigger>
@@ -297,6 +298,72 @@ export default function Mentor() {
               <TabsTrigger value="mocks"><Target className="h-4 w-4 mr-1" /> Mock Strategy</TabsTrigger>
               <TabsTrigger value="council"><Users className="h-4 w-4 mr-1" /> Council</TabsTrigger>
             </TabsList>
+
+            <TabsContent value="roadmap" className="mt-4 space-y-3">
+              <Card className="border-accent/30 bg-gradient-to-br from-accent/5 to-transparent">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <Sparkles className="h-4 w-4 text-accent" />
+                    Pro Aptitude Month-by-Month Tackling Strategy
+                  </CardTitle>
+                  <CardDescription>Each month = a phase. Use the on-site tools listed in <strong>Daily Resources</strong> — they're all linked from your dashboard.</CardDescription>
+                </CardHeader>
+                <CardContent className="p-0 overflow-x-auto">
+                  <table className="w-full text-xs md:text-sm border-collapse">
+                    <thead className="bg-accent/10 text-accent">
+                      <tr>
+                        <th className="text-left p-2 border-b border-accent/20 font-semibold sticky left-0 bg-accent/10">Month</th>
+                        <th className="text-left p-2 border-b border-accent/20 font-semibold">Phase</th>
+                        <th className="text-left p-2 border-b border-accent/20 font-semibold text-blue-600">QA Focus</th>
+                        <th className="text-left p-2 border-b border-accent/20 font-semibold text-pink-600">VARC Focus</th>
+                        <th className="text-left p-2 border-b border-accent/20 font-semibold text-emerald-600">LRDI Focus</th>
+                        <th className="text-left p-2 border-b border-accent/20 font-semibold">Daily Resources</th>
+                        <th className="text-left p-2 border-b border-accent/20 font-semibold">Mocks/wk</th>
+                        <th className="text-left p-2 border-b border-accent/20 font-semibold">Hours/day</th>
+                        <th className="text-left p-2 border-b border-accent/20 font-semibold">End-of-Month Goal</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {plan.monthlyStrategy?.map((m: any, i: number) => (
+                        <tr key={i} className="border-b hover:bg-muted/50 align-top">
+                          <td className="p-2 font-bold text-accent sticky left-0 bg-background">M{m.month}</td>
+                          <td className="p-2"><Badge variant="outline" className="text-[10px]">{m.phase}</Badge></td>
+                          <td className="p-2 text-muted-foreground">{m.qaFocus}</td>
+                          <td className="p-2 text-muted-foreground">{m.varcFocus}</td>
+                          <td className="p-2 text-muted-foreground">{m.lrdiFocus}</td>
+                          <td className="p-2 text-[11px]">{m.dailyResources}</td>
+                          <td className="p-2 font-mono text-center">{m.weeklyMocks}</td>
+                          <td className="p-2 font-mono text-center">{m.hoursPerDay}</td>
+                          <td className="p-2 text-emerald-600 font-medium text-[11px]">🎯 {m.endOfMonthGoal}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </CardContent>
+              </Card>
+
+              {plan.monthlyStrategy?.some((m: any) => m.warning) && (
+                <Card className="border-orange-500/30 bg-orange-500/5">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm flex items-center gap-2"><AlertTriangle className="h-4 w-4 text-orange-500" /> Phase warnings — what NOT to do</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-1 text-sm">
+                    {plan.monthlyStrategy.filter((m: any) => m.warning).map((m: any, i: number) => (
+                      <p key={i}><span className="font-bold text-accent">M{m.month}:</span> <span className="text-muted-foreground">{m.warning}</span></p>
+                    ))}
+                  </CardContent>
+                </Card>
+              )}
+
+              <div className="flex flex-wrap gap-2">
+                <Button asChild variant="outline" size="sm"><Link to="/dpp"><BookOpen className="h-3 w-3 mr-1" /> Open DPP</Link></Button>
+                <Button asChild variant="outline" size="sm"><Link to="/pyqs"><BookOpen className="h-3 w-3 mr-1" /> PYQs</Link></Button>
+                <Button asChild variant="outline" size="sm"><Link to="/ai-solver"><Brain className="h-3 w-3 mr-1" /> AI Solver</Link></Button>
+                <Button asChild variant="outline" size="sm"><Link to="/war-room"><Target className="h-3 w-3 mr-1" /> War Room</Link></Button>
+                <Button asChild variant="outline" size="sm"><Link to="/practice"><ListChecks className="h-3 w-3 mr-1" /> Practice</Link></Button>
+              </div>
+            </TabsContent>
+
 
             <TabsContent value="weekly" className="space-y-3 mt-4">
               {plan.gapToTarget && (

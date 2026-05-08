@@ -97,6 +97,20 @@ Return ONLY valid JSON (no markdown, no prose outside JSON):
   "dailyTimetable": { "weekday": [ { "time": "string", "activity": "string" } ], "weekend": [ { "time": "string", "activity": "string" } ] },
   "todayActions": [ "string", ... 5 items ],
   "monthlyMilestones": [ { "month": 1, "goal": "string", "mockTarget": "string" } ],
+  "monthlyStrategy": [
+    {
+      "month": 1,
+      "phase": "string e.g. 'Foundation' | 'Concept-Building' | 'PYQ Mastery' | 'Mock Phase' | 'Peak Phase' | 'Revision & Test-Temperament'",
+      "qaFocus": "specific chapters e.g. 'Arithmetic — Percentages, Profit-Loss, TSD'",
+      "varcFocus": "specific e.g. 'RC — 1 passage/day from PYQs, Para-Summary daily'",
+      "lrdiFocus": "specific e.g. 'Arrangement sets + easy Bar/Line DI'",
+      "dailyResources": "comma-separated on-site tools e.g. 'DPP (3Q), AI Solver (1 doubt), PYQ section, War Room (weekly mock)'",
+      "weeklyMocks": "e.g. '1 sectional + 0 full' or '2 full mocks + 3 sectionals'",
+      "hoursPerDay": "tailored to working-pro/full-time",
+      "endOfMonthGoal": "measurable e.g. 'Hit 18/22 in QA sectional, 60%ile sectional'",
+      "warning": "what to avoid this month e.g. 'Do NOT touch Geometry yet — finish Arithmetic first'"
+    }
+  ],
   "weakAreaPlan": { "area": "string", "rootCause": "string", "drillSequence": ["string", ...], "resourcesOnSite": ["DPP", "AI Solver", "War Room", "PYQs"], "expectedTimeToFix": "string" },
   "mockStrategy": { "frequency": "string tailored to target tier", "rule": "string", "analysisProcess": ["string", ...] },
   "councilMessages": [ { "mentor": "Arun", "message": "string" }, ... 6 total: Arun, Priya, Rohit, Sneha, Karthik, Meera ],
@@ -104,7 +118,14 @@ Return ONLY valid JSON (no markdown, no prose outside JSON):
   "registerCTA": "Personalized line urging Google sign-in + War Room mock upload"
 }
 
-Number of weeks in weeklyPlan = min(monthsLeft × 4, 12).`;
+CRITICAL — monthlyStrategy:
+- Generate EXACTLY ${monthsLeft} entries (one per month, month 1 = current month, month ${monthsLeft} = CAT month).
+- Phase progression depends on monthsLeft. Standard arc: Foundation → Concept-Building → PYQ Mastery → Mock Phase → Peak Phase → Revision. Compress if monthsLeft is small.
+- dailyResources MUST reference on-site tools by exact name: DPP, PYQs, AI Solver, War Room, Practice, Videos, LRDI Sets.
+- Be brutally specific with chapter names — no vague "improve QA".
+- Tailor hoursPerDay & mock frequency to the target tier and working-professional flag.
+
+Number of weeks in weeklyPlan = min(monthsLeft × 4, 12). dailyTimetable.weekday must have 6-8 time slots covering the full hoursPerDay.`;
 
     const userPrompt = `Aspirant inputs:
 - QA: ${qaScore}/${qaTotal} (${((qaScore/qaTotal)*100).toFixed(0)}%)
