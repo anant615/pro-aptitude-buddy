@@ -134,7 +134,14 @@ export default function Mentor() {
 
             <div>
               <Label className="text-xs flex justify-between"><span>Target percentile</span><span className="text-accent font-bold">{targetPercentile}%ile</span></Label>
-              <Slider value={[targetPercentile]} onValueChange={(v)=>setTargetPercentile(v[0])} min={85} max={100} step={0.5} className="mt-2" />
+              <Slider value={[targetPercentile]} onValueChange={(v)=>setTargetPercentile(v[0])} min={80} max={100} step={0.5} className="mt-2" />
+              <p className="text-[11px] text-muted-foreground mt-1">
+                {targetPercentile >= 99.5 ? "🔥 Elite tier — daily mocks, zero weak section" :
+                 targetPercentile >= 99 ? "⚡ Top tier — 99%ile in 2 sections required" :
+                 targetPercentile >= 95 ? "✅ Strong tier — realistic, sustainable, ONE strong section can carry" :
+                 targetPercentile >= 90 ? "🌱 Solid tier — foundations + PYQs, no need to chase hard sets" :
+                 "🏗 Foundation tier — basics first, sectionals only"}
+              </p>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
