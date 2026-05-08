@@ -206,19 +206,49 @@ export default function Mentor() {
           )}
 
           {!loading && !plan && (
-            <Card className="bg-gradient-to-br from-accent/5 to-transparent">
-              <CardContent className="pt-6 space-y-3">
-                <h3 className="font-semibold flex items-center gap-2"><Target className="h-4 w-4 text-accent" /> What you'll get</h3>
-                <ul className="text-sm space-y-2 text-muted-foreground">
-                  <li>• Honest diagnosis + predicted CAT percentile &amp; raw score</li>
-                  <li>• Week-by-week chapter-level plan (synthesized from TIME / IMS / CL / 2IIM)</li>
-                  <li>• Daily timetable tuned to your free hours &amp; work schedule</li>
-                  <li>• Weak-area drill sequence + which on-site tool to use (DPP, PYQs, AI Solver, War Room)</li>
-                  <li>• Mock cadence + analysis ritual</li>
-                  <li>• Personal message from each of the 6 mentors</li>
-                </ul>
-              </CardContent>
-            </Card>
+            <>
+              <Card className="bg-gradient-to-br from-accent/5 to-transparent">
+                <CardContent className="pt-6 space-y-3">
+                  <h3 className="font-semibold flex items-center gap-2"><Target className="h-4 w-4 text-accent" /> What you'll get</h3>
+                  <ul className="text-sm space-y-2 text-muted-foreground">
+                    <li>• Honest diagnosis vs <strong>real CAT 2022-2025 cutoffs</strong></li>
+                    <li>• Plan tailored to YOUR target tier (95%ile gets a 95%ile plan, not a 99+ one)</li>
+                    <li>• Week-by-week chapter plan + daily timetable</li>
+                    <li>• Weak-area drill + on-site tools (DPP, AI Solver, War Room, PYQs)</li>
+                    <li>• Personal message from each of the 6 mentors</li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm flex items-center gap-2"><TrendingUp className="h-4 w-4 text-accent" /> CAT Score → Percentile (real data)</CardTitle>
+                  <CardDescription className="text-xs">Overall raw score needed (out of 198)</CardDescription>
+                </CardHeader>
+                <CardContent className="text-xs">
+                  <table className="w-full">
+                    <thead className="text-muted-foreground">
+                      <tr className="border-b"><th className="text-left py-1">%ile</th><th>CAT 2025</th><th>CAT 2024</th><th>CAT 2023</th><th>CAT 2022</th><th>2026 (proj)</th></tr>
+                    </thead>
+                    <tbody className="font-mono">
+                      {[
+                        ["99.9","111.48","127","101.43","110","110+"],
+                        ["99","84.8","95.13","76.15","84","86+"],
+                        ["95","62.3","70","54.86","60","64+"],
+                        ["90","51.5","58","44.36","49","54+"],
+                        ["85","44.2","50","—","41.32","48+"],
+                        ["80","38","44","—","36.02","40+"],
+                      ].map((r,i)=>(
+                        <tr key={i} className={`border-b ${+r[0] === Math.round(targetPercentile) || (targetPercentile>=99.5&&r[0]==="99.9") ? "bg-accent/10 font-bold" : ""}`}>
+                          {r.map((c,j)=><td key={j} className={j===0?"text-left py-1 text-accent":"text-center py-1"}>{c}</td>)}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <p className="text-[10px] text-muted-foreground mt-2">Sectional CAT 2026 for 95%ile: VARC 32.5 · DILR 21.5 · QA 18.5</p>
+                </CardContent>
+              </Card>
+            </>
           )}
 
           {plan?.diagnosis && (
