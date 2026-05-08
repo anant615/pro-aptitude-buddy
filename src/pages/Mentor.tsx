@@ -258,7 +258,7 @@ export default function Mentor() {
                   <span className="flex items-center gap-2"><TrendingUp className="h-5 w-5 text-accent" /> Diagnosis</span>
                   <Badge className="bg-accent text-accent-foreground text-base">{plan.diagnosis.predictedPercentile}%ile</Badge>
                 </CardTitle>
-                <CardDescription>Predicted raw score: {plan.diagnosis.predictedScore}/198</CardDescription>
+                <CardDescription>Predicted raw score: {plan.diagnosis.predictedScore}/198 · Target: {targetPercentile}%ile</CardDescription>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="grid grid-cols-3 gap-2 text-center text-xs">
@@ -267,6 +267,18 @@ export default function Mentor() {
                   <div className="p-2 rounded bg-muted"><div className="text-muted-foreground">LRDI</div><div className="font-bold capitalize">{plan.diagnosis.lrdiLevel}</div></div>
                 </div>
                 <p className="text-sm">{plan.diagnosis.summary}</p>
+                {plan.percentileBenchmarks && (
+                  <div className="text-xs space-y-1 border-t pt-2 text-muted-foreground">
+                    <p className="font-semibold text-foreground">Your target ({targetPercentile}%ile) across years:</p>
+                    <p>• CAT 2025: {plan.percentileBenchmarks.year2025}</p>
+                    <p>• CAT 2024: {plan.percentileBenchmarks.year2024}</p>
+                    <p>• CAT 2023: {plan.percentileBenchmarks.year2023}</p>
+                    <p>• CAT 2026 (projected): {plan.percentileBenchmarks.year2026Projected}</p>
+                  </div>
+                )}
+                {plan.gapToTarget?.rawScoreNeeded && (
+                  <div className="rounded bg-accent/10 p-2 text-xs"><strong>🎯 {plan.gapToTarget.rawScoreNeeded}</strong></div>
+                )}
               </CardContent>
             </Card>
           )}
