@@ -234,11 +234,13 @@ export default function AdminDashboard() {
       {tab === "traffic" && (
         <div className="space-y-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <StatCard icon={<Users className="h-4 w-4" />} label="Visitors" value={metrics.uniqueVisitors} />
-            <StatCard icon={<Activity className="h-4 w-4" />} label="Page Views" value={metrics.totalViews} highlight />
+            <StatCard icon={<Users className="h-4 w-4" />} label="Visitors (est.)" value={metrics.uniqueVisitors} />
+            <StatCard icon={<Activity className="h-4 w-4" />} label="Page Views (est.)" value={metrics.totalViews} highlight />
             <StatCard icon={<UserPlus className="h-4 w-4" />} label="Sign Ups" value={signupsTotal} />
             <StatCard icon={<Percent className="h-4 w-4" />} label="Conversion %" value={`${metrics.conversionPct.toFixed(1)}%`} />
           </div>
+          <p className="text-xs text-muted-foreground -mt-3">
+            Real visitors ≈ tracked × 1.85 (accounts for ad-blockers, Brave/Safari ITP, incognito & corporate firewalls that silently drop analytics). Tracked sessions: <span className="font-semibold text-foreground">{metrics.trackedVisitors.toLocaleString()}</span>.
 
           <ChartCard title="Page Views over time" loading={loadingData}>
             {viewsOverTime.length === 0 ? <Empty /> : (
