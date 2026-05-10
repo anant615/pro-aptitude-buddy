@@ -45,7 +45,7 @@ export default function AdminDashboard() {
       const hrs = RANGE_HOURS[range];
       const since = hrs ? new Date(Date.now() - hrs * 3600_000).toISOString() : null;
 
-      const pvQ = supabase.from("page_views").select("path, created_at, user_id, session_id, user_agent, referrer").order("created_at", { ascending: false }).limit(10000);
+      const pvQ = supabase.from("page_views").select("path, created_at, user_id, session_id, user_agent, referrer").order("created_at", { ascending: false }).limit(50000);
       const lcQ = supabase.from("link_clicks").select("url, link_type, source_path, created_at, user_id").order("created_at", { ascending: false }).limit(5000);
       const fbQ = supabase.from("feedback").select("*").order("created_at", { ascending: false }).limit(100);
       const upQ = supabase.from("user_points").select("*").order("total_points", { ascending: false }).limit(2000);
