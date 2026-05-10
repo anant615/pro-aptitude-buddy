@@ -241,6 +241,7 @@ export default function AdminDashboard() {
           </div>
           <p className="text-xs text-muted-foreground -mt-3">
             Real visitors ≈ tracked × 1.85 (accounts for ad-blockers, Brave/Safari ITP, incognito & corporate firewalls that silently drop analytics). Tracked sessions: <span className="font-semibold text-foreground">{metrics.trackedVisitors.toLocaleString()}</span>.
+          </p>
 
           <ChartCard title="Page Views over time" loading={loadingData}>
             {viewsOverTime.length === 0 ? <Empty /> : (
