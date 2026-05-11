@@ -707,6 +707,42 @@ export type Database = {
         }
         Relationships: []
       }
+      solved_questions: {
+        Row: {
+          created_at: string
+          difficulty: string | null
+          exam_type: string
+          id: string
+          image_url: string | null
+          question: string
+          solution: string
+          topic: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          difficulty?: string | null
+          exam_type?: string
+          id?: string
+          image_url?: string | null
+          question: string
+          solution: string
+          topic?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          difficulty?: string | null
+          exam_type?: string
+          id?: string
+          image_url?: string | null
+          question?: string
+          solution?: string
+          topic?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       suppressed_emails: {
         Row: {
           created_at: string
