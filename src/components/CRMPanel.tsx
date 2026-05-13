@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Send, Mail, Users, Loader2, History, Sparkles, FileText, Save, Pencil, Search } from "lucide-react";
 import { toast } from "sonner";
+import { DAILY_PRACTICE_EMAIL_HTML } from "@/lib/dailyPracticeEmail";
 
 type Audience = "all" | "subscribers" | "dpp_attempters_7d";
 
