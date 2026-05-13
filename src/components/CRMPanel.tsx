@@ -7,10 +7,16 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Send, Mail, Users, Loader2, History, Sparkles, FileText, Save, Pencil, Search } from "lucide-react";
 import { toast } from "sonner";
+import { DAILY_PRACTICE_EMAIL_HTML } from "@/lib/dailyPracticeEmail";
 
 type Audience = "all" | "subscribers" | "dpp_attempters_7d";
 
 const TEMPLATES: Record<string, { name: string; subject: string; body: string }> = {
+  daily_practice: {
+    name: "🔥 Daily Practice (VARC + LRDI + Quants + AI Solver)",
+    subject: "📚 Hi {{FIRST_NAME|Aspirant}} — your CAT 2026 daily practice is ready 🔥",
+    body: DAILY_PRACTICE_EMAIL_HTML,
+  },
   new_dpp: {
     name: "📚 New DPP launched",
     subject: "📚 New DPP just dropped — try it in 10 mins",
@@ -59,9 +65,9 @@ export default function CRMPanel() {
   const [tab, setTab] = useState<"compose" | "contacts" | "history">("compose");
 
   // Compose
-  const [templateKey, setTemplateKey] = useState<string>("new_dpp");
-  const [subject, setSubject] = useState(TEMPLATES.new_dpp.subject);
-  const [body, setBody] = useState(TEMPLATES.new_dpp.body);
+  const [templateKey, setTemplateKey] = useState<string>("daily_practice");
+  const [subject, setSubject] = useState(TEMPLATES.daily_practice.subject);
+  const [body, setBody] = useState(TEMPLATES.daily_practice.body);
   const [audience, setAudience] = useState<Audience>("all");
   const [testEmail, setTestEmail] = useState("");
   const [sending, setSending] = useState(false);

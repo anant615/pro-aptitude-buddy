@@ -655,6 +655,7 @@ export type Database = {
           active: boolean
           created_at: string
           email: string
+          first_name: string | null
           id: string
           source: string
           topics: string[]
@@ -664,6 +665,7 @@ export type Database = {
           active?: boolean
           created_at?: string
           email: string
+          first_name?: string | null
           id?: string
           source?: string
           topics?: string[]
@@ -673,6 +675,7 @@ export type Database = {
           active?: boolean
           created_at?: string
           email?: string
+          first_name?: string | null
           id?: string
           source?: string
           topics?: string[]

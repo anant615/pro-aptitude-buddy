@@ -11,6 +11,7 @@ import { EditableText } from "@/components/EditableText";
 import { supabase } from "@/integrations/supabase/client";
 import { getYoutubeId } from "@/data/videos_data";
 import DPPCountdown from "@/components/DPPCountdown";
+import EmailSignupSection from "@/components/EmailSignupSection";
 
 interface Resource { id: string; title: string; description: string; link: string; type: string; }
 interface NewsItem { id: string; title: string; description: string; link: string; date: string; source: string; }
@@ -475,6 +476,8 @@ export default function Home() {
           </div>
         )}
       </section>
+
+      <EmailSignupSection />
 
       {/* Feedback CTA */}
       <section className="py-14 bg-card border-y">
