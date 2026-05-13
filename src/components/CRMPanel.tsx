@@ -12,6 +12,11 @@ import { DAILY_PRACTICE_EMAIL_HTML } from "@/lib/dailyPracticeEmail";
 type Audience = "all" | "subscribers" | "dpp_attempters_7d";
 
 const TEMPLATES: Record<string, { name: string; subject: string; body: string }> = {
+  daily_practice: {
+    name: "🔥 Daily Practice (VARC + LRDI + Quants + AI Solver)",
+    subject: "📚 Hi {{FIRST_NAME|Aspirant}} — your CAT 2026 daily practice is ready 🔥",
+    body: DAILY_PRACTICE_EMAIL_HTML,
+  },
   new_dpp: {
     name: "📚 New DPP launched",
     subject: "📚 New DPP just dropped — try it in 10 mins",
