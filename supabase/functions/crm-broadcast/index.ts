@@ -90,14 +90,16 @@ Deno.serve(async (req) => {
 
     // Test send
     if (testEmail) {
-      const r = await sendOne(testEmail, subject, wrapHtml(subject, bodyHtml, testEmail));
+      const personalSubject = personalize(subject);
+      const personalBody = personalize(bodyHtml);
+      const r = await sendOne(testEmail, personalSubject, wrapHtml(personalSubject, personalBody, testEmail));
       return new Response(JSON.stringify({ test: true, ...r }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
 
-    // Build recipient list
-    let emails: { email: string; user_id?: string }[] = [];
+    // Build recipient list (with first_name where we have it)
+    let emails: { email: string; user_id?: string; first_name?: string | null }[] = [];
     if (audience === "subscribers") {
-      const { data } = await admin.from("reminder_subscribers").select("email,user_id").eq("active", true);
+      const { data } = await admin.from("reminder_subscribers").select("email,user_id,first_name").eq("active", true);
       emails = (data ?? []).filter((r: any) => r.email);
     } else if (audience === "dpp_attempters_7d") {
       const since = new Date(Date.now() - 7 * 86400_000).toISOString();
@@ -112,16 +114,16 @@ Deno.serve(async (req) => {
       const { data: profs } = await admin.from("profiles").select("email,user_id").not("email", "is", null);
       emails = (profs ?? []).filter((p: any) => p.email).map((p: any) => ({ email: p.email, user_id: p.user_id }));
       // also merge subscriber-only (no account) emails
-      const { data: subs } = await admin.from("reminder_subscribers").select("email,user_id").eq("active", true);
+      const { data: subs } = await admin.from("reminder_subscribers").select("email,user_id,first_name").eq("active", true);
       const seen = new Set(emails.map((e) => e.email.toLowerCase()));
       for (const s of subs ?? []) {
         const e = (s as any).email;
-        if (e && !seen.has(e.toLowerCase())) { emails.push({ email: e, user_id: (s as any).user_id }); seen.add(e.toLowerCase()); }
+        if (e && !seen.has(e.toLowerCase())) { emails.push({ email: e, user_id: (s as any).user_id, first_name: (s as any).first_name }); seen.add(e.toLowerCase()); }
       }
     }
 
     // Dedupe
-    const map = new Map<string, { email: string; user_id?: string }>();
+    const map = new Map<string, typeof emails[number]>();
     for (const r of emails) map.set(r.email.toLowerCase(), r);
     const recipients = Array.from(map.values());
 
@@ -134,8 +136,11 @@ Deno.serve(async (req) => {
 
     let sent = 0, failed = 0;
     for (const r of recipients) {
-      const html = wrapHtml(subject, bodyHtml, r.email);
-      const res = await sendOne(r.email, subject, html);
+      const fname = deriveFirstName(r);
+      const personalSubject = personalize(subject, fname);
+      const personalBody = personalize(bodyHtml, fname);
+      const html = wrapHtml(personalSubject, personalBody, r.email);
+      const res = await sendOne(r.email, personalSubject, html);
       await admin.from("crm_email_sends").insert({
         campaign_id: campaign.id, email: r.email, user_id: r.user_id ?? null,
         status: res.ok ? "sent" : "failed", error: res.ok ? null : `${res.status} ${res.body}`,
