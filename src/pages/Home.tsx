@@ -477,6 +477,8 @@ export default function Home() {
         )}
       </section>
 
+      <EmailSignupSection />
+
       {/* Feedback CTA */}
       <section className="py-14 bg-card border-y">
         <div className="container max-w-2xl text-center">
