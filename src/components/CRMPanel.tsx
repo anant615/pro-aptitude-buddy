@@ -65,9 +65,9 @@ export default function CRMPanel() {
   const [tab, setTab] = useState<"compose" | "contacts" | "history">("compose");
 
   // Compose
-  const [templateKey, setTemplateKey] = useState<string>("new_dpp");
-  const [subject, setSubject] = useState(TEMPLATES.new_dpp.subject);
-  const [body, setBody] = useState(TEMPLATES.new_dpp.body);
+  const [templateKey, setTemplateKey] = useState<string>("daily_practice");
+  const [subject, setSubject] = useState(TEMPLATES.daily_practice.subject);
+  const [body, setBody] = useState(TEMPLATES.daily_practice.body);
   const [audience, setAudience] = useState<Audience>("all");
   const [testEmail, setTestEmail] = useState("");
   const [sending, setSending] = useState(false);
