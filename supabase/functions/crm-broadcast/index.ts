@@ -19,6 +19,8 @@ function escapeHtml(s: string) {
 }
 
 function wrapHtml(subject: string, bodyHtml: string, email: string) {
+  // If the body is a full HTML document already (has <html>), don't wrap it.
+  if (/<html[\s>]/i.test(bodyHtml)) return bodyHtml;
   return `<!doctype html><html><body style="font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:#f9fafb;padding:24px;margin:0">
   <div style="max-width:560px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden">
     <div style="background:linear-gradient(135deg,#2563eb,#7c3aed);padding:20px 24px;color:#fff">
@@ -34,6 +36,24 @@ function wrapHtml(subject: string, bodyHtml: string, email: string) {
       Sent to ${escapeHtml(email)} · Reply "unsubscribe" to opt out.
     </div>
   </div></body></html>`;
+}
+
+// Replace {{FIRST_NAME|Aspirant}} merge tags with recipient's first name (or default).
+function personalize(text: string, firstName?: string | null): string {
+  const name = (firstName || "").trim();
+  return text.replace(/\{\{\s*FIRST_NAME(?:\s*\|\s*([^}]*))?\s*\}\}/g, (_m, def) => {
+    if (name) return name;
+    return (def ?? "Aspirant").trim() || "Aspirant";
+  });
+}
+
+function deriveFirstName(row: { first_name?: string | null; email?: string | null }): string | null {
+  if (row.first_name && row.first_name.trim()) return row.first_name.trim();
+  const e = (row.email || "").split("@")[0] || "";
+  // Take portion before any digit/dot/_, capitalize. Skip if it looks generic.
+  const raw = e.split(/[._\-+0-9]/)[0];
+  if (!raw || raw.length < 2 || raw.length > 24) return null;
+  return raw[0].toUpperCase() + raw.slice(1).toLowerCase();
 }
 
 async function sendOne(to: string, subject: string, html: string) {
