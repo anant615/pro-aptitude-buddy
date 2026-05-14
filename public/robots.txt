@@ -4,3 +4,13 @@ Disallow: /admin
 Disallow: /reset-password
 
 Sitemap: https://proaptitude.lovable.app/sitemap.xml
+
+# AI search engines (ChatGPT, Perplexity, Claude) — see /llms.txt
+User-agent: GPTBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Google-Extended
+Allow: /

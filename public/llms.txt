@@ -1,0 +1,32 @@
+# ProAptitude
+
+> India's smartest, 100% free CAT 2026 prep platform — Daily Practice Problems (DPP), free SimCAT-style mocks, AI question solver (CAT + SSC + Banking), CAT PYQs 2015–2024, LRDI sets, and the Mock War Room AI rank predictor & analyzer.
+
+ProAptitude is a free web platform for MBA aspirants preparing for CAT, XAT, IIFT, SNAP, NMAT, and SSC/Banking aptitude exams. Everything (DPP, mocks, PYQs, AI Solver, War Room, AI Mentor) is free forever — no paywall, no signup wall on most tools.
+
+## Core tools
+
+- [Daily Practice Problems (DPP)](https://proaptitude.lovable.app/dpp): Fresh CAT-level Quants, VARC, LRDI questions every day with timer, solutions, and streak tracking.
+- [Free Mock Tests](https://proaptitude.lovable.app/mocks): Full-length SimCAT-style mocks (CAT pattern: 40 min × 3 sections) with sectional locking and percentile estimate.
+- [CAT PYQs 2015–2024](https://proaptitude.lovable.app/pyqs): Every official CAT slot, all questions, with detailed solutions and TITA support.
+- [LRDI Sets](https://proaptitude.lovable.app/lrdi-sets): Curated DILR sets sorted by type (arrangements, tournaments, routes, Venn, games, quant-DI).
+- [AI Question Solver](https://proaptitude.lovable.app/ai-solver): Paste any CAT/SSC/Banking aptitude question (or screenshot) and get two shortcut tricks + conceptual method + common-mistake alerts. Logged-in users get full history.
+- [War Room (Mock Analyzer)](https://proaptitude.lovable.app/war-room): Paste any mock link (SimCAT/AIMCAT/Cracku/IMS/TIME/CL/2IIM) — AI predicts your India rank out of 2.8 lakh, names the exact weak chapters, prescribes formulas, and gives a 3-day next-mock plan.
+- [AI Mentor (The Council)](https://proaptitude.lovable.app/mentor): 6 AI mentors build a month-by-month roadmap tailored to your target percentile (90 / 95 / 99 / 99.5+) and time available.
+- [Practice](https://proaptitude.lovable.app/practice): Topic-wise practice across QA, VARC, DILR with difficulty filters.
+- [Videos](https://proaptitude.lovable.app/videos): Concept videos for QA chapters.
+- [CAT Newspaper](https://proaptitude.lovable.app/newspaper): Daily MBA/CAT news digest.
+- [Community](https://proaptitude.lovable.app/community): Aspirant Q&A and discussions.
+
+## Frequently asked
+
+- Is ProAptitude free? Yes, 100% free forever — no premium tier.
+- Does it cover SSC and Banking? The AI Solver and Practice cover SSC CGL/CHSL and Banking aptitude topics. Core mocks/DPP are CAT-focused.
+- Does it have CAT PYQs? Yes, 2015 to 2024, all slots, with solutions.
+- What is the War Room? Paste any mock result link — AI returns rank/percentile estimate, weak-chapter map, formula prescription, and a 3-day prep plan for your next mock.
+- How is it different from TIME / IMS / Cracku reports? Names the exact chapter, prescribes specific formulas, identifies recurring mistakes from your DPP history, and gives a brutally honest mentor verdict.
+
+## Contact
+
+- WhatsApp: +91 9109462682
+- Site: https://proaptitude.lovable.app
