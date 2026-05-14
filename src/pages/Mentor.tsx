@@ -14,6 +14,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
+import MentorCharts from "@/components/MentorCharts";
 
 const MENTOR_COLORS: Record<string, string> = {
   Arun: "bg-blue-500/10 text-blue-600 border-blue-500/30",
@@ -287,7 +288,14 @@ export default function Mentor() {
 
       {/* PLAN OUTPUT */}
       {plan && (
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+          <MentorCharts
+            qaScore={qaScore} qaTotal={22}
+            varcScore={varcScore} varcTotal={24}
+            lrdiScore={lrdiScore} lrdiTotal={22}
+            targetPercentile={targetPercentile}
+            plan={plan}
+          />
           <Tabs defaultValue="roadmap" className="w-full">
             <TabsList className="flex flex-wrap h-auto">
               <TabsTrigger value="roadmap"><Sparkles className="h-4 w-4 mr-1" /> Month-wise Roadmap</TabsTrigger>
