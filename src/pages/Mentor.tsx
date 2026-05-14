@@ -288,7 +288,14 @@ export default function Mentor() {
 
       {/* PLAN OUTPUT */}
       {plan && (
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+          <MentorCharts
+            qaScore={qaScore} qaTotal={22}
+            varcScore={varcScore} varcTotal={24}
+            lrdiScore={lrdiScore} lrdiTotal={22}
+            targetPercentile={targetPercentile}
+            plan={plan}
+          />
           <Tabs defaultValue="roadmap" className="w-full">
             <TabsList className="flex flex-wrap h-auto">
               <TabsTrigger value="roadmap"><Sparkles className="h-4 w-4 mr-1" /> Month-wise Roadmap</TabsTrigger>
