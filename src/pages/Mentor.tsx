@@ -14,6 +14,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
+import MentorCharts from "@/components/MentorCharts";
 
 const MENTOR_COLORS: Record<string, string> = {
   Arun: "bg-blue-500/10 text-blue-600 border-blue-500/30",
