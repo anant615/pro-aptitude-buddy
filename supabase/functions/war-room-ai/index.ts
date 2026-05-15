@@ -81,15 +81,13 @@ Your ONLY goal is IMPROVE MARKS through precise, NUMBER-driven, FORMULA-driven, 
 {
   "metrics": {
     "overall": {
-      "estimatedScore": <number, scaled 0-198>,
-      "estimatedPercentile": <number 0-100>,
-      "estimatedRank": <number, out of 280000>,
-      "totalAspirants": 280000
+      "estimatedScore": <number, scaled 0-198 — MUST equal actualScores.overall.score if provided>,
+      "estimatedPercentile": <number 0-100 — MUST equal actualScores.overall.percentile if provided>
     },
     "sections": [
-      { "name": "QA",   "score": <0-66>, "attempted": <0-22>, "correct": <number>, "wrong": <number>, "accuracy": <0-100>, "percentile": <0-100>, "topperScore": <number>, "avgScore": <number> },
-      { "name": "VARC", "score": <0-72>, "attempted": <0-24>, "correct": <number>, "wrong": <number>, "accuracy": <0-100>, "percentile": <0-100>, "topperScore": <number>, "avgScore": <number> },
-      { "name": "DILR", "score": <0-60>, "attempted": <0-20>, "correct": <number>, "wrong": <number>, "accuracy": <0-100>, "percentile": <0-100>, "topperScore": <number>, "avgScore": <number> }
+      { "name": "QA",   "score": <0-66 — copy from actualScores>, "attempted": <0-22 — copy>, "correct": <copy>, "wrong": <copy>, "accuracy": <0-100>, "percentile": <copy from actualScores>, "topperScore": <number>, "avgScore": <number> },
+      { "name": "VARC", "score": <0-72 — copy from actualScores>, "attempted": <0-24 — copy>, "correct": <copy>, "wrong": <copy>, "accuracy": <0-100>, "percentile": <copy from actualScores>, "topperScore": <number>, "avgScore": <number> },
+      { "name": "DILR", "score": <0-60 — copy from actualScores LRDI>, "attempted": <0-20 — copy>, "correct": <copy>, "wrong": <copy>, "accuracy": <0-100>, "percentile": <copy from actualScores>, "topperScore": <number>, "avgScore": <number> }
     ],
     "topicBreakdown": [
       { "section": "QA"|"VARC"|"DILR", "topic": "<chapter>", "attempted": <n>, "correct": <n>, "status": "strong"|"weak"|"avoid" }
@@ -109,7 +107,7 @@ Your ONLY goal is IMPROVE MARKS through precise, NUMBER-driven, FORMULA-driven, 
 📝 MARKDOWN REPORT TEMPLATE (inside the "report" field — use these EXACT headings, in order):
 
 ## 🔍 REALITY CHECK
-2-3 brutal lines. Reference the mock by name. Mention India context (out of 2.8 lakh, this is rank ~X).
+2-3 brutal lines. Reference the mock by name. Talk about score & percentile gap to target. NEVER mention rank out of any pool.
 
 ## 🧠 CORE PROBLEM (Section-wise)
 **QA:** one exact issue + chapter name
@@ -159,7 +157,7 @@ From recent DPPs, name the chapter/Q-type repeatedly wrong. If insufficient data
 3-4 "bridge" formulas/techniques that unlock the jump from current → next percentile band. Be specific.
 
 ## 📊 SCORE IMPACT (India-context)
-**Current:** ~X marks (~Y%ile, rank ~Z / 2.8L)
+**Current:** X marks at Y%ile (use actual numbers from actualScores)
 **+2 weeks if mission followed:** +A → ~B%ile (rank ~C)
 **+6 weeks:** +D → ~E%ile
 **CAT-day realistic peak:** ~F%ile
@@ -173,7 +171,7 @@ ONE brutal Hinglish line. No emojis. No softening.
 - Every line in markdown must be actionable with NUMBERS or FORMULA NAMES.
 - If only 1 DILR set attempted — make it the LOUDEST point.
 - Markdown total under 800 words.
-- metrics numbers must be internally consistent (correct+wrong ≤ attempted; score ≈ correct×3 - wrong×1; percentile aligned with rank/280000).`;
+- metrics numbers must be internally consistent (correct+wrong ≤ attempted; score ≈ correct×3 - wrong×1). Use actualScores VERBATIM when provided.`;
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
@@ -213,7 +211,7 @@ ${pageContext}
 
 CRITICAL:
 - Return ONLY valid JSON matching the schema. No prose, no fences.
-- Use 2.8 lakh aspirant pool for percentile/rank.
+- USE actualScores VERBATIM in metrics. Never invent score/percentile if user provided them.
 - Prescribe SPECIFIC formulas by chapter name from the formula bank.
 - Identify recurring mistake pattern from recent DPP attempts.
 - If notes mention 1 DILR set / panic / specific weak chapter — make it CENTRAL.
