@@ -26,8 +26,6 @@ export interface WarRoomMetrics {
   overall: {
     estimatedScore: number;
     estimatedPercentile: number;
-    estimatedRank: number;
-    totalAspirants: number;
   };
   sections: SectionMetric[];
   topicBreakdown: TopicRow[];
