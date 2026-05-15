@@ -207,6 +207,7 @@ MockLink: ${mockLink || "(not provided)"}
 MockName: ${mockName || "(not provided)"}
 ExtraNotes: ${notes || "(none)"}
 RecentDPPAttempts: ${JSON.stringify(recentDPPAttempts || [], null, 2)}
+ActualScores (GROUND TRUTH — copy verbatim into metrics): ${JSON.stringify(actualScores || null, null, 2)}
 ${pageContext}
 
 CRITICAL:
