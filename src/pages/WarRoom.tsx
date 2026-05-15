@@ -73,8 +73,29 @@ export default function WarRoom() {
     setReport("");
     setMetrics(null);
     try {
+      const num = (s: string) => (s.trim() === "" ? null : Number(s));
+      const buildSec = (name: string, r: SecRow) => {
+        const hasAny = Object.values(r).some(v => v.trim() !== "");
+        if (!hasAny) return null;
+        return {
+          name,
+          attempted: num(r.attempted),
+          correct: num(r.correct),
+          wrong: num(r.wrong),
+          score: num(r.score),
+          percentile: num(r.percentile),
+        };
+      };
+      const actualScores = {
+        overall: {
+          score: num(overallScore),
+          percentile: num(overallPct),
+        },
+        sections: [buildSec("VARC", varc), buildSec("LRDI", lrdi), buildSec("QA", qa)].filter(Boolean),
+      };
+
       const { data, error } = await supabase.functions.invoke("war-room-ai", {
-        body: { mockLink: mockLink.trim(), mockName: mockName.trim(), notes: notes.trim(), recentDPPAttempts: recentAttempts },
+        body: { mockLink: mockLink.trim(), mockName: mockName.trim(), notes: notes.trim(), recentDPPAttempts: recentAttempts, actualScores },
       });
       if (error) throw error;
       if (data?.error) throw new Error(data.error);
