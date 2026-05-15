@@ -36,6 +36,15 @@ export default function WarRoom() {
   const [history, setHistory] = useState<SavedReport[]>([]);
   const [showHistory, setShowHistory] = useState(false);
 
+  // Real, user-entered ground-truth scores (so AI never hallucinates)
+  type SecRow = { attempted: string; correct: string; wrong: string; score: string; percentile: string };
+  const blankSec: SecRow = { attempted: "", correct: "", wrong: "", score: "", percentile: "" };
+  const [varc, setVarc] = useState<SecRow>(blankSec);
+  const [lrdi, setLrdi] = useState<SecRow>(blankSec);
+  const [qa, setQa]   = useState<SecRow>(blankSec);
+  const [overallScore, setOverallScore] = useState("");
+  const [overallPct, setOverallPct] = useState("");
+
   useEffect(() => {
     if (!user) return;
     supabase.from("dpp_attempts").select("dpp_title,dpp_date,score,total,seconds_taken").eq("user_id", user.id).order("created_at", { ascending: false }).limit(10).then(({ data }) => {
