@@ -177,7 +177,7 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const { mockLink, mockName, recentDPPAttempts, notes } = await req.json();
+    const { mockLink, mockName, recentDPPAttempts, notes, actualScores } = await req.json();
     if (!mockLink && !mockName) {
       return new Response(JSON.stringify({ error: "Provide a mock link or name" }), {
         status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
