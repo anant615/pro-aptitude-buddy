@@ -285,6 +285,53 @@ export default function WarRoom() {
                 <p className="text-[11px] text-muted-foreground mt-1">The more you tell, the sharper the surgery.</p>
               </div>
 
+              {/* REAL SCORES — ground truth */}
+              <div className="rounded-lg border-2 border-destructive/30 bg-destructive/5 p-3 space-y-3">
+                <div>
+                  <p className="text-xs font-bold text-destructive uppercase tracking-wider">📊 Your actual scores (recommended)</p>
+                  <p className="text-[11px] text-muted-foreground">Fill what you have from the result page. AI uses these as <strong>ground truth</strong> — never invents numbers.</p>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <Label className="text-[10px] uppercase tracking-wider text-muted-foreground">Overall score</Label>
+                    <Input type="number" inputMode="decimal" placeholder="e.g. 118" value={overallScore} onChange={e => setOverallScore(e.target.value)} className="mt-1 h-9" />
+                  </div>
+                  <div>
+                    <Label className="text-[10px] uppercase tracking-wider text-muted-foreground">Overall %ile</Label>
+                    <Input type="number" inputMode="decimal" placeholder="e.g. 99.97" value={overallPct} onChange={e => setOverallPct(e.target.value)} className="mt-1 h-9" />
+                  </div>
+                </div>
+
+                {([
+                  { label: "VARC", row: varc, set: setVarc, color: "text-primary" },
+                  { label: "LRDI / DILR", row: lrdi, set: setLrdi, color: "text-accent" },
+                  { label: "Quant (QA)", row: qa, set: setQa, color: "text-destructive" },
+                ] as const).map(({ label, row, set, color }) => (
+                  <div key={label} className="rounded-md border bg-background/60 p-2.5">
+                    <p className={`text-xs font-bold mb-1.5 ${color}`}>{label}</p>
+                    <div className="grid grid-cols-5 gap-1.5">
+                      {([
+                        ["attempted", "Att"],
+                        ["correct", "✓"],
+                        ["wrong", "✗"],
+                        ["score", "Score"],
+                        ["percentile", "%ile"],
+                      ] as const).map(([k, ph]) => (
+                        <Input
+                          key={k}
+                          type="number"
+                          inputMode="decimal"
+                          placeholder={ph}
+                          value={(row as any)[k]}
+                          onChange={e => set({ ...row, [k]: e.target.value } as any)}
+                          className="h-8 text-xs px-2"
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
               <Button onClick={generate} disabled={loading} size="lg" className="w-full bg-gradient-to-r from-destructive to-orange-600 hover:from-destructive/90 hover:to-orange-600/90 text-white font-bold gap-2">
                 {loading ? <><Loader2 className="h-4 w-4 animate-spin" /> Syncing & analyzing…</> : <><Swords className="h-4 w-4" /> Sync & Generate War Plan</>}
               </Button>
