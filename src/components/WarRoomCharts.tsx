@@ -26,8 +26,6 @@ export interface WarRoomMetrics {
   overall: {
     estimatedScore: number;
     estimatedPercentile: number;
-    estimatedRank: number;
-    totalAspirants: number;
   };
   sections: SectionMetric[];
   topicBreakdown: TopicRow[];
@@ -70,7 +68,7 @@ export default function WarRoomCharts({ metrics }: { metrics: WarRoomMetrics }) 
   return (
     <div className="space-y-4 mb-6">
       {/* HEADLINE STATS */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         <Card className="p-4 border-2 border-destructive/30 bg-gradient-to-br from-destructive/10 to-transparent">
           <div className="flex items-center gap-2 text-xs font-bold text-destructive uppercase tracking-wider mb-1">
             <Target className="h-3.5 w-3.5" /> Score
@@ -84,13 +82,6 @@ export default function WarRoomCharts({ metrics }: { metrics: WarRoomMetrics }) 
           </div>
           <p className="text-3xl font-heading font-bold">{overall.estimatedPercentile}</p>
           <p className="text-[11px] text-muted-foreground">india-wide</p>
-        </Card>
-        <Card className="p-4 border-2 border-accent/30 bg-gradient-to-br from-accent/10 to-transparent">
-          <div className="flex items-center gap-2 text-xs font-bold text-accent uppercase tracking-wider mb-1">
-            <Users className="h-3.5 w-3.5" /> Rank
-          </div>
-          <p className="text-3xl font-heading font-bold">{overall.estimatedRank.toLocaleString("en-IN")}</p>
-          <p className="text-[11px] text-muted-foreground">/ {overall.totalAspirants.toLocaleString("en-IN")}</p>
         </Card>
         <Card className="p-4 border-2 border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-transparent">
           <div className="flex items-center gap-2 text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-1">
