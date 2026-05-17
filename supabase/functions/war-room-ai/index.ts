@@ -155,10 +155,10 @@ From recent DPPs, name the chapter/Q-type repeatedly wrong. If insufficient data
 ## 🌉 FORMULA BRIDGES (to climb the next percentile)
 3-4 "bridge" formulas/techniques that unlock the jump from current → next percentile band. Be specific.
 
-## 📊 SCORE IMPACT (India-context)
+## 📊 SCORE IMPACT (percentile-only, no rank)
 **Current:** X marks at Y%ile (use actual numbers from actualScores)
-**+2 weeks if mission followed:** +A → ~B%ile (rank ~C)
-**+6 weeks:** +D → ~E%ile
+**+2 weeks if mission followed:** +A marks → ~B%ile
+**+6 weeks:** +D marks → ~E%ile
 **CAT-day realistic peak:** ~F%ile
 
 ## 🔥 DISCIPLINE LINE
