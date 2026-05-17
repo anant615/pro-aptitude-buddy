@@ -13,11 +13,10 @@ Your ONLY goal is IMPROVE MARKS through precise, NUMBER-driven, FORMULA-driven, 
 - You MUST copy these numbers verbatim into your metrics output (overall.estimatedScore = actualScores.overall.score; sections[i].score/attempted/correct/wrong/percentile = actualScores.sections[i].* exactly).
 - NEVER invent or override numbers the user has given. If user says VARC=55, %ile=99.99 — you write 55 and 99.99. Period.
 - Only when a field is missing/null may you estimate, and you must label it as estimate in the report.
-- DO NOT compute or display any "rank out of X aspirants". Rank concept is removed. Only score + percentile.
-`;
+- DO NOT compute or display any "rank out of X aspirants" — rank concept is REMOVED. Only score + percentile. Never write phrases like "rank ~2800" or "top X of 2.8 lakh".
 
-⚠️ CORE CAT FACTS (use silently for percentile/rank math):
-- 2.5–3 LAKH aspirants. 99.9%ile ≈ top 300, 99%ile ≈ top 2800, 95%ile ≈ top 14000, 90%ile ≈ top 28000, 85%ile ≈ top 42000.
+⚠️ CORE CAT FACTS (use silently for percentile math — never output rank):
+- 99.9%ile, 99%ile, 95%ile, 90%ile, 85%ile bands exist. Use ONLY percentile bands in output, never absolute rank.
 - Section 40-min hard cap. QA 22 Qs, VARC 24 Qs (4 RCs × 4 + 4 VA), DILR 20 Qs (5 sets × 4).
 - Marking +3 / -1 (MCQ) / 0 (TITA wrong).
 - 99%ile cutoff ≈ 90+ scaled, 95%ile ≈ 70+, 90%ile ≈ 60+.
@@ -156,10 +155,10 @@ From recent DPPs, name the chapter/Q-type repeatedly wrong. If insufficient data
 ## 🌉 FORMULA BRIDGES (to climb the next percentile)
 3-4 "bridge" formulas/techniques that unlock the jump from current → next percentile band. Be specific.
 
-## 📊 SCORE IMPACT (India-context)
+## 📊 SCORE IMPACT (percentile-only, no rank)
 **Current:** X marks at Y%ile (use actual numbers from actualScores)
-**+2 weeks if mission followed:** +A → ~B%ile (rank ~C)
-**+6 weeks:** +D → ~E%ile
+**+2 weeks if mission followed:** +A marks → ~B%ile
+**+6 weeks:** +D marks → ~E%ile
 **CAT-day realistic peak:** ~F%ile
 
 ## 🔥 DISCIPLINE LINE
@@ -190,13 +189,25 @@ Deno.serve(async (req) => {
     let pageContext = "";
     if (mockLink) {
       try {
-        const r = await fetch(mockLink, { headers: { "User-Agent": "Mozilla/5.0 CATWarRoomBot" } });
+        const r = await fetch(mockLink, {
+          redirect: "follow",
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 13_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Accept-Language": "en-IN,en;q=0.9",
+          },
+        });
         if (r.ok) {
           const html = await r.text();
           const titleMatch = html.match(/<title>([^<]+)<\/title>/i);
           const descMatch = html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)/i);
-          const text = html.replace(/<script[\s\S]*?<\/script>/gi, "").replace(/<style[\s\S]*?<\/style>/gi, "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").slice(0, 3500);
-          pageContext = `\nMockTitle: ${titleMatch?.[1] || "n/a"}\nMockDescription: ${descMatch?.[1] || "n/a"}\nPageExcerpt: ${text}`;
+          const cleaned = html.replace(/<script[\s\S]*?<\/script>/gi, "").replace(/<style[\s\S]*?<\/style>/gi, "").replace(/<[^>]+>/g, " ").replace(/&nbsp;/g, " ").replace(/\s+/g, " ");
+          // Extract number-rich snippets (likely score tables)
+          const numericLines = cleaned.split(/(?<=[\.\|])\s+/).filter(s => (s.match(/\d/g) || []).length >= 3).slice(0, 40).join(" | ");
+          const text = cleaned.slice(0, 4000);
+          pageContext = `\nMockTitle: ${titleMatch?.[1] || "n/a"}\nMockDescription: ${descMatch?.[1] || "n/a"}\nNumericSnippets: ${numericLines.slice(0, 2500)}\nPageExcerpt: ${text}`;
+        } else {
+          pageContext = `\n[Could not fetch mockLink — HTTP ${r.status}. Rely on actualScores + mockName.]`;
         }
       } catch (_) { /* ignore */ }
     }
