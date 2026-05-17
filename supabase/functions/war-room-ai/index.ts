@@ -189,13 +189,25 @@ Deno.serve(async (req) => {
     let pageContext = "";
     if (mockLink) {
       try {
-        const r = await fetch(mockLink, { headers: { "User-Agent": "Mozilla/5.0 CATWarRoomBot" } });
+        const r = await fetch(mockLink, {
+          redirect: "follow",
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 13_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Accept-Language": "en-IN,en;q=0.9",
+          },
+        });
         if (r.ok) {
           const html = await r.text();
           const titleMatch = html.match(/<title>([^<]+)<\/title>/i);
           const descMatch = html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)/i);
-          const text = html.replace(/<script[\s\S]*?<\/script>/gi, "").replace(/<style[\s\S]*?<\/style>/gi, "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").slice(0, 3500);
-          pageContext = `\nMockTitle: ${titleMatch?.[1] || "n/a"}\nMockDescription: ${descMatch?.[1] || "n/a"}\nPageExcerpt: ${text}`;
+          const cleaned = html.replace(/<script[\s\S]*?<\/script>/gi, "").replace(/<style[\s\S]*?<\/style>/gi, "").replace(/<[^>]+>/g, " ").replace(/&nbsp;/g, " ").replace(/\s+/g, " ");
+          // Extract number-rich snippets (likely score tables)
+          const numericLines = cleaned.split(/(?<=[\.\|])\s+/).filter(s => (s.match(/\d/g) || []).length >= 3).slice(0, 40).join(" | ");
+          const text = cleaned.slice(0, 4000);
+          pageContext = `\nMockTitle: ${titleMatch?.[1] || "n/a"}\nMockDescription: ${descMatch?.[1] || "n/a"}\nNumericSnippets: ${numericLines.slice(0, 2500)}\nPageExcerpt: ${text}`;
+        } else {
+          pageContext = `\n[Could not fetch mockLink — HTTP ${r.status}. Rely on actualScores + mockName.]`;
         }
       } catch (_) { /* ignore */ }
     }
