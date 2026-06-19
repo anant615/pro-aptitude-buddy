@@ -464,7 +464,8 @@ export default function Mentor() {
               )}
             </TabsContent>
 
-            <TabsContent value="weak" className="mt-4">
+            <TabsContent value="weak" className="mt-4 space-y-4">
+              <WeakAreaCurve weakAreaPlan={plan.weakAreaPlan} />
               <Card>
                 <CardHeader>
                   <CardTitle className="text-base">{plan.weakAreaPlan?.area}</CardTitle>
