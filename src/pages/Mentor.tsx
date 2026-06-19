@@ -15,6 +15,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import MentorCharts from "@/components/MentorCharts";
+import { RoadmapChart, WeeklyRadar, DailyPie, WeakAreaCurve, MockCadenceChart, TodayPriorityChart } from "@/components/MentorStrategyCharts";
 
 const MENTOR_COLORS: Record<string, string> = {
   Arun: "bg-blue-500/10 text-blue-600 border-blue-500/30",
@@ -308,7 +309,9 @@ export default function Mentor() {
             </TabsList>
 
             <TabsContent value="roadmap" className="mt-4 space-y-3">
+              <RoadmapChart monthlyStrategy={plan.monthlyStrategy} />
               <Card className="border-accent/30 bg-gradient-to-br from-accent/5 to-transparent">
+
                 <CardHeader className="pb-3">
                   <CardTitle className="text-base flex items-center gap-2">
                     <Sparkles className="h-4 w-4 text-accent" />
@@ -374,6 +377,7 @@ export default function Mentor() {
 
 
             <TabsContent value="weekly" className="space-y-3 mt-4">
+              <WeeklyRadar weeklyPlan={plan.weeklyPlan} />
               {plan.gapToTarget && (
                 <Card className="bg-destructive/5 border-destructive/20">
                   <CardContent className="pt-4 text-sm space-y-1">
@@ -405,7 +409,9 @@ export default function Mentor() {
               </div>
             </TabsContent>
 
-            <TabsContent value="daily" className="grid md:grid-cols-2 gap-4 mt-4">
+            <TabsContent value="daily" className="mt-4 space-y-4">
+              <DailyPie dailyTimetable={plan.dailyTimetable} />
+              <div className="grid md:grid-cols-2 gap-4">
               <Card>
                 <CardHeader><CardTitle className="text-base">Weekday</CardTitle></CardHeader>
                 <CardContent className="space-y-2 text-sm">
@@ -428,9 +434,11 @@ export default function Mentor() {
                   ))}
                 </CardContent>
               </Card>
+              </div>
             </TabsContent>
 
-            <TabsContent value="today" className="mt-4">
+            <TabsContent value="today" className="mt-4 space-y-4">
+              <TodayPriorityChart todayActions={plan.todayActions} />
               <Card>
                 <CardHeader><CardTitle className="text-base flex items-center gap-2"><ListChecks className="h-4 w-4 text-accent" /> Do these 5 things today</CardTitle></CardHeader>
                 <CardContent>
@@ -456,7 +464,8 @@ export default function Mentor() {
               )}
             </TabsContent>
 
-            <TabsContent value="weak" className="mt-4">
+            <TabsContent value="weak" className="mt-4 space-y-4">
+              <WeakAreaCurve weakAreaPlan={plan.weakAreaPlan} />
               <Card>
                 <CardHeader>
                   <CardTitle className="text-base">{plan.weakAreaPlan?.area}</CardTitle>
@@ -483,7 +492,8 @@ export default function Mentor() {
               </Card>
             </TabsContent>
 
-            <TabsContent value="mocks" className="mt-4">
+            <TabsContent value="mocks" className="mt-4 space-y-4">
+              <MockCadenceChart monthlyStrategy={plan.monthlyStrategy} />
               <Card>
                 <CardHeader>
                   <CardTitle className="text-base">Mock cadence: {plan.mockStrategy?.frequency}</CardTitle>
