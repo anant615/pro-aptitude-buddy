@@ -492,7 +492,8 @@ export default function Mentor() {
               </Card>
             </TabsContent>
 
-            <TabsContent value="mocks" className="mt-4">
+            <TabsContent value="mocks" className="mt-4 space-y-4">
+              <MockCadenceChart monthlyStrategy={plan.monthlyStrategy} />
               <Card>
                 <CardHeader>
                   <CardTitle className="text-base">Mock cadence: {plan.mockStrategy?.frequency}</CardTitle>
