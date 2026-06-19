@@ -92,11 +92,23 @@ export default function CRMPanel() {
   }, [tab]);
 
   const loadContacts = async () => {
-    const [{ data: profs }, { data: cs }] = await Promise.all([
-      supabase.from("profiles").select("user_id,email,created_at").order("created_at", { ascending: false }).limit(500),
+    const [{ data: profs }, { data: cs }, { data: subs }] = await Promise.all([
+      supabase.from("profiles").select("user_id,email,created_at").order("created_at", { ascending: false }).limit(2000),
       supabase.from("crm_contacts").select("*"),
+      supabase.from("reminder_subscribers").select("user_id,email,first_name,created_at,active").order("created_at", { ascending: false }).limit(2000),
     ]);
-    setProfiles(profs || []);
+    // Merge profiles + email-only subscribers (people who signed up via the email form without an account)
+    const profEmails = new Set((profs || []).map((p: any) => (p.email || "").toLowerCase()));
+    const emailOnly = (subs || [])
+      .filter((s: any) => s.email && !profEmails.has(s.email.toLowerCase()))
+      .map((s: any) => ({
+        user_id: s.user_id || `sub:${s.email}`,
+        email: s.email,
+        created_at: s.created_at,
+        first_name: s.first_name,
+        source: "email_signup",
+      }));
+    setProfiles([...(profs || []), ...emailOnly]);
     setContacts(cs || []);
   };
 
