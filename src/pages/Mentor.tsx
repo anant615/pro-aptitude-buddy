@@ -377,6 +377,7 @@ export default function Mentor() {
 
 
             <TabsContent value="weekly" className="space-y-3 mt-4">
+              <WeeklyRadar weeklyPlan={plan.weeklyPlan} />
               {plan.gapToTarget && (
                 <Card className="bg-destructive/5 border-destructive/20">
                   <CardContent className="pt-4 text-sm space-y-1">
