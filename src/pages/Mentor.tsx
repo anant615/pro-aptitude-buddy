@@ -434,6 +434,7 @@ export default function Mentor() {
                   ))}
                 </CardContent>
               </Card>
+              </div>
             </TabsContent>
 
             <TabsContent value="today" className="mt-4">
