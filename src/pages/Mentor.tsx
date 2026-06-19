@@ -409,7 +409,9 @@ export default function Mentor() {
               </div>
             </TabsContent>
 
-            <TabsContent value="daily" className="grid md:grid-cols-2 gap-4 mt-4">
+            <TabsContent value="daily" className="mt-4 space-y-4">
+              <DailyPie dailyTimetable={plan.dailyTimetable} />
+              <div className="grid md:grid-cols-2 gap-4">
               <Card>
                 <CardHeader><CardTitle className="text-base">Weekday</CardTitle></CardHeader>
                 <CardContent className="space-y-2 text-sm">
