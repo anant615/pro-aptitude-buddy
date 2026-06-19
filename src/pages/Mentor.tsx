@@ -437,7 +437,8 @@ export default function Mentor() {
               </div>
             </TabsContent>
 
-            <TabsContent value="today" className="mt-4">
+            <TabsContent value="today" className="mt-4 space-y-4">
+              <TodayPriorityChart todayActions={plan.todayActions} />
               <Card>
                 <CardHeader><CardTitle className="text-base flex items-center gap-2"><ListChecks className="h-4 w-4 text-accent" /> Do these 5 things today</CardTitle></CardHeader>
                 <CardContent>
