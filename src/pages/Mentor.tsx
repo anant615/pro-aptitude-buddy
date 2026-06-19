@@ -309,7 +309,9 @@ export default function Mentor() {
             </TabsList>
 
             <TabsContent value="roadmap" className="mt-4 space-y-3">
+              <RoadmapChart monthlyStrategy={plan.monthlyStrategy} />
               <Card className="border-accent/30 bg-gradient-to-br from-accent/5 to-transparent">
+
                 <CardHeader className="pb-3">
                   <CardTitle className="text-base flex items-center gap-2">
                     <Sparkles className="h-4 w-4 text-accent" />
