@@ -490,17 +490,42 @@ export default function DPP() {
   const showResults = sessionSubmitted;
   const inSession = sessionStarted && !sessionSubmitted;
 
+  const answeredCount = allQuestions.filter(q => {
+    const a = answers[q.id];
+    return a !== undefined && a !== null && a !== "";
+  }).length;
+
   return (
-    <div className="container py-10 max-w-4xl">
-      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
-        <Badge variant="secondary" className="mb-3 gap-1.5"><CalendarDays className="h-3.5 w-3.5" /> Daily Practice</Badge>
-        <h1 className="font-heading text-3xl font-bold mb-1">Daily Practice Problems (DPP)</h1>
-        <p className="text-muted-foreground mb-4">Timed sessions · See answers & your rank after submission</p>
-        {isAdmin && (
-          <Button variant="ghost" size="sm" className="mb-6 gap-1.5 text-xs text-muted-foreground" onClick={() => setManage(m => !m)}>
-            <Settings className="h-3.5 w-3.5" /> {manage ? "Hide Manage" : "Manage"}
-          </Button>
-        )}
+    <div className="container py-10 max-w-4xl pb-32">
+      {/* HERO — magical CAT-prep header */}
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="relative mb-8 overflow-hidden rounded-2xl border bg-gradient-to-br from-primary/10 via-accent/5 to-background p-6 sm:p-8"
+      >
+        <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-primary/20 blur-3xl" />
+        <div className="pointer-events-none absolute -left-12 -bottom-16 h-40 w-40 rounded-full bg-accent/20 blur-3xl" />
+        <div className="relative">
+          <Badge variant="secondary" className="mb-3 gap-1.5 border-accent/30 bg-accent/10 text-accent">
+            <Sparkles className="h-3.5 w-3.5" /> Daily Practice · CAT-Level
+          </Badge>
+          <h1 className="font-heading text-3xl sm:text-4xl font-bold mb-2 bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text">
+            One DPP a day. <span className="text-accent">Every day.</span>
+          </h1>
+          <p className="text-sm sm:text-base text-muted-foreground max-w-xl">
+            Hand-picked, exam-grade questions. Timed like the real CAT. Solutions + weak-area breakdown the moment you submit.
+          </p>
+          <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-muted-foreground">
+            <span className="inline-flex items-center gap-1.5"><Target className="h-3.5 w-3.5 text-primary" /> CAT-aligned difficulty</span>
+            <span className="inline-flex items-center gap-1.5"><Timer className="h-3.5 w-3.5 text-primary" /> Real exam timer</span>
+            <span className="inline-flex items-center gap-1.5"><BookOpen className="h-3.5 w-3.5 text-primary" /> Step-by-step solutions</span>
+          </div>
+          {isAdmin && (
+            <Button variant="ghost" size="sm" className="mt-4 gap-1.5 text-xs text-muted-foreground" onClick={() => setManage(m => !m)}>
+              <Settings className="h-3.5 w-3.5" /> {manage ? "Hide Manage" : "Manage"}
+            </Button>
+          )}
+        </div>
       </motion.div>
 
       {manage && (
