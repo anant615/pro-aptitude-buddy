@@ -806,20 +806,25 @@ export default function DPP() {
                   </div>
                   <div className="flex items-center gap-2">
                     {inSession && (
-                      <>
-                        <Badge variant={secondsLeft < 60 ? "destructive" : "secondary"} className="gap-1.5 text-base py-1.5">
-                          <Timer className="h-4 w-4" /> {fmt(secondsLeft)}
-                        </Badge>
-                        <Button size="sm" onClick={() => submitSession(false)}>Submit</Button>
-                      </>
+                      <motion.div
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className={`flex items-center gap-2 rounded-xl border px-4 py-2 font-mono text-lg font-bold tabular-nums ${
+                          secondsLeft < 60
+                            ? "border-destructive/40 bg-destructive/10 text-destructive animate-pulse"
+                            : "border-primary/30 bg-primary/10 text-primary"
+                        }`}
+                      >
+                        <Timer className="h-4 w-4" /> {fmt(secondsLeft)}
+                      </motion.div>
                     )}
                     {!sessionStarted && !sessionSubmitted && (
-                      <Button size="sm" onClick={startSession} className="gap-1.5">
+                      <Button size="lg" onClick={startSession} className="gap-1.5 shadow-lg shadow-primary/30">
                         <Play className="h-4 w-4" /> Start DPP ({current.durationMinutes} min)
                       </Button>
                     )}
                     {sessionSubmitted && (
-                      <Badge variant="outline" className="gap-1.5"><CheckCircle2 className="h-3.5 w-3.5 text-green-500" /> Submitted</Badge>
+                      <Badge variant="outline" className="gap-1.5 border-green-500/40 bg-green-500/10 text-green-600 dark:text-green-400"><CheckCircle2 className="h-3.5 w-3.5" /> Submitted</Badge>
                     )}
                   </div>
                 </div>
