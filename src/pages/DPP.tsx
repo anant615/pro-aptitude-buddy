@@ -1163,19 +1163,90 @@ export default function DPP() {
                   ))}
                 </div>
               ) : (
-                <div className="rounded-xl border bg-muted/30 p-10 text-center">
-                  <Timer className="h-10 w-10 mx-auto mb-3 text-muted-foreground" />
-                  <p className="font-medium mb-1">Ready when you are</p>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {allQuestions.length} CAT-level questions · {current.durationMinutes} minutes · Answers and your rank reveal after submission.
-                  </p>
-                  <Button onClick={startSession} className="gap-1.5"><Play className="h-4 w-4" /> Start DPP</Button>
-                </div>
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="relative overflow-hidden rounded-2xl border bg-gradient-to-br from-card via-card to-primary/5 p-8 sm:p-10 text-center"
+                >
+                  <div className="pointer-events-none absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_50%_0%,hsl(var(--primary)/0.15),transparent_60%)]" />
+                  <div className="relative">
+                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-accent text-primary-foreground shadow-lg shadow-primary/30">
+                      <Play className="h-7 w-7 fill-current" />
+                    </div>
+                    <h3 className="font-heading text-2xl font-bold mb-2">Ready to crack today's DPP?</h3>
+                    <p className="text-sm text-muted-foreground max-w-md mx-auto mb-5">
+                      {allQuestions.length} CAT-level questions · {current.durationMinutes} minutes on the clock. The moment you submit, you'll see every solution and a personalised weak-area report.
+                    </p>
+                    <div className="flex items-center justify-center gap-4 mb-6 text-xs">
+                      <div className="flex flex-col items-center gap-1">
+                        <span className="font-heading text-2xl font-bold text-primary">{allQuestions.length}</span>
+                        <span className="text-muted-foreground uppercase tracking-wide text-[10px]">Questions</span>
+                      </div>
+                      <div className="h-8 w-px bg-border" />
+                      <div className="flex flex-col items-center gap-1">
+                        <span className="font-heading text-2xl font-bold text-accent">{current.durationMinutes}</span>
+                        <span className="text-muted-foreground uppercase tracking-wide text-[10px]">Minutes</span>
+                      </div>
+                      <div className="h-8 w-px bg-border" />
+                      <div className="flex flex-col items-center gap-1">
+                        <span className="font-heading text-2xl font-bold">100%</span>
+                        <span className="text-muted-foreground uppercase tracking-wide text-[10px]">CAT-Grade</span>
+                      </div>
+                    </div>
+                    <Button size="lg" onClick={startSession} className="gap-2 shadow-xl shadow-primary/30 px-8">
+                      <Play className="h-4 w-4 fill-current" /> Start DPP
+                    </Button>
+                  </div>
+                </motion.div>
               )}
             </>
           )}
         </>
       )}
+
+      {/* STICKY SUBMIT BAR — only during active session */}
+      <AnimatePresence>
+        {inSession && (
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 100, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 260, damping: 24 }}
+            className="fixed bottom-0 left-0 right-0 z-40 border-t bg-card/95 backdrop-blur-md shadow-[0_-8px_30px_-10px_rgba(0,0,0,0.2)]"
+          >
+            <div className="container max-w-4xl py-3 sm:py-4 flex items-center gap-3 sm:gap-4 flex-wrap">
+              <div className="flex-1 min-w-[140px]">
+                <div className="flex items-center justify-between text-xs mb-1.5">
+                  <span className="font-semibold">Progress</span>
+                  <span className="text-muted-foreground tabular-nums">{answeredCount} / {allQuestions.length} answered</span>
+                </div>
+                <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
+                  <motion.div
+                    className="h-full bg-gradient-to-r from-primary to-accent"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${allQuestions.length ? (answeredCount / allQuestions.length) * 100 : 0}%` }}
+                    transition={{ type: "spring", stiffness: 120, damping: 20 }}
+                  />
+                </div>
+              </div>
+              <div className={`hidden sm:flex items-center gap-2 rounded-lg border px-3 py-2 font-mono text-sm font-bold tabular-nums ${
+                secondsLeft < 60
+                  ? "border-destructive/40 bg-destructive/10 text-destructive"
+                  : "border-primary/30 bg-primary/10 text-primary"
+              }`}>
+                <Timer className="h-4 w-4" /> {fmt(secondsLeft)}
+              </div>
+              <Button
+                size="lg"
+                onClick={() => submitSession(false)}
+                className="gap-2 shadow-lg shadow-primary/30 px-6"
+              >
+                <CheckCircle2 className="h-4 w-4" /> Submit DPP
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
