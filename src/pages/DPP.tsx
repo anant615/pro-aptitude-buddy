@@ -490,17 +490,42 @@ export default function DPP() {
   const showResults = sessionSubmitted;
   const inSession = sessionStarted && !sessionSubmitted;
 
+  const answeredCount = allQuestions.filter(q => {
+    const a = answers[q.id];
+    return a !== undefined && a !== null && a !== "";
+  }).length;
+
   return (
-    <div className="container py-10 max-w-4xl">
-      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
-        <Badge variant="secondary" className="mb-3 gap-1.5"><CalendarDays className="h-3.5 w-3.5" /> Daily Practice</Badge>
-        <h1 className="font-heading text-3xl font-bold mb-1">Daily Practice Problems (DPP)</h1>
-        <p className="text-muted-foreground mb-4">Timed sessions · See answers & your rank after submission</p>
-        {isAdmin && (
-          <Button variant="ghost" size="sm" className="mb-6 gap-1.5 text-xs text-muted-foreground" onClick={() => setManage(m => !m)}>
-            <Settings className="h-3.5 w-3.5" /> {manage ? "Hide Manage" : "Manage"}
-          </Button>
-        )}
+    <div className="container py-10 max-w-4xl pb-32">
+      {/* HERO — magical CAT-prep header */}
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="relative mb-8 overflow-hidden rounded-2xl border bg-gradient-to-br from-primary/10 via-accent/5 to-background p-6 sm:p-8"
+      >
+        <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-primary/20 blur-3xl" />
+        <div className="pointer-events-none absolute -left-12 -bottom-16 h-40 w-40 rounded-full bg-accent/20 blur-3xl" />
+        <div className="relative">
+          <Badge variant="secondary" className="mb-3 gap-1.5 border-accent/30 bg-accent/10 text-accent">
+            <Sparkles className="h-3.5 w-3.5" /> Daily Practice · CAT-Level
+          </Badge>
+          <h1 className="font-heading text-3xl sm:text-4xl font-bold mb-2 bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text">
+            One DPP a day. <span className="text-accent">Every day.</span>
+          </h1>
+          <p className="text-sm sm:text-base text-muted-foreground max-w-xl">
+            Hand-picked, exam-grade questions. Timed like the real CAT. Solutions + weak-area breakdown the moment you submit.
+          </p>
+          <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-muted-foreground">
+            <span className="inline-flex items-center gap-1.5"><Target className="h-3.5 w-3.5 text-primary" /> CAT-aligned difficulty</span>
+            <span className="inline-flex items-center gap-1.5"><Timer className="h-3.5 w-3.5 text-primary" /> Real exam timer</span>
+            <span className="inline-flex items-center gap-1.5"><BookOpen className="h-3.5 w-3.5 text-primary" /> Step-by-step solutions</span>
+          </div>
+          {isAdmin && (
+            <Button variant="ghost" size="sm" className="mt-4 gap-1.5 text-xs text-muted-foreground" onClick={() => setManage(m => !m)}>
+              <Settings className="h-3.5 w-3.5" /> {manage ? "Hide Manage" : "Manage"}
+            </Button>
+          )}
+        </div>
       </motion.div>
 
       {manage && (
@@ -781,20 +806,25 @@ export default function DPP() {
                   </div>
                   <div className="flex items-center gap-2">
                     {inSession && (
-                      <>
-                        <Badge variant={secondsLeft < 60 ? "destructive" : "secondary"} className="gap-1.5 text-base py-1.5">
-                          <Timer className="h-4 w-4" /> {fmt(secondsLeft)}
-                        </Badge>
-                        <Button size="sm" onClick={() => submitSession(false)}>Submit</Button>
-                      </>
+                      <motion.div
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className={`flex items-center gap-2 rounded-xl border px-4 py-2 font-mono text-lg font-bold tabular-nums ${
+                          secondsLeft < 60
+                            ? "border-destructive/40 bg-destructive/10 text-destructive animate-pulse"
+                            : "border-primary/30 bg-primary/10 text-primary"
+                        }`}
+                      >
+                        <Timer className="h-4 w-4" /> {fmt(secondsLeft)}
+                      </motion.div>
                     )}
                     {!sessionStarted && !sessionSubmitted && (
-                      <Button size="sm" onClick={startSession} className="gap-1.5">
+                      <Button size="lg" onClick={startSession} className="gap-1.5 shadow-lg shadow-primary/30">
                         <Play className="h-4 w-4" /> Start DPP ({current.durationMinutes} min)
                       </Button>
                     )}
                     {sessionSubmitted && (
-                      <Badge variant="outline" className="gap-1.5"><CheckCircle2 className="h-3.5 w-3.5 text-green-500" /> Submitted</Badge>
+                      <Badge variant="outline" className="gap-1.5 border-green-500/40 bg-green-500/10 text-green-600 dark:text-green-400"><CheckCircle2 className="h-3.5 w-3.5" /> Submitted</Badge>
                     )}
                   </div>
                 </div>
@@ -1133,19 +1163,90 @@ export default function DPP() {
                   ))}
                 </div>
               ) : (
-                <div className="rounded-xl border bg-muted/30 p-10 text-center">
-                  <Timer className="h-10 w-10 mx-auto mb-3 text-muted-foreground" />
-                  <p className="font-medium mb-1">Ready when you are</p>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {allQuestions.length} CAT-level questions · {current.durationMinutes} minutes · Answers and your rank reveal after submission.
-                  </p>
-                  <Button onClick={startSession} className="gap-1.5"><Play className="h-4 w-4" /> Start DPP</Button>
-                </div>
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="relative overflow-hidden rounded-2xl border bg-gradient-to-br from-card via-card to-primary/5 p-8 sm:p-10 text-center"
+                >
+                  <div className="pointer-events-none absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_50%_0%,hsl(var(--primary)/0.15),transparent_60%)]" />
+                  <div className="relative">
+                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-accent text-primary-foreground shadow-lg shadow-primary/30">
+                      <Play className="h-7 w-7 fill-current" />
+                    </div>
+                    <h3 className="font-heading text-2xl font-bold mb-2">Ready to crack today's DPP?</h3>
+                    <p className="text-sm text-muted-foreground max-w-md mx-auto mb-5">
+                      {allQuestions.length} CAT-level questions · {current.durationMinutes} minutes on the clock. The moment you submit, you'll see every solution and a personalised weak-area report.
+                    </p>
+                    <div className="flex items-center justify-center gap-4 mb-6 text-xs">
+                      <div className="flex flex-col items-center gap-1">
+                        <span className="font-heading text-2xl font-bold text-primary">{allQuestions.length}</span>
+                        <span className="text-muted-foreground uppercase tracking-wide text-[10px]">Questions</span>
+                      </div>
+                      <div className="h-8 w-px bg-border" />
+                      <div className="flex flex-col items-center gap-1">
+                        <span className="font-heading text-2xl font-bold text-accent">{current.durationMinutes}</span>
+                        <span className="text-muted-foreground uppercase tracking-wide text-[10px]">Minutes</span>
+                      </div>
+                      <div className="h-8 w-px bg-border" />
+                      <div className="flex flex-col items-center gap-1">
+                        <span className="font-heading text-2xl font-bold">100%</span>
+                        <span className="text-muted-foreground uppercase tracking-wide text-[10px]">CAT-Grade</span>
+                      </div>
+                    </div>
+                    <Button size="lg" onClick={startSession} className="gap-2 shadow-xl shadow-primary/30 px-8">
+                      <Play className="h-4 w-4 fill-current" /> Start DPP
+                    </Button>
+                  </div>
+                </motion.div>
               )}
             </>
           )}
         </>
       )}
+
+      {/* STICKY SUBMIT BAR — only during active session */}
+      <AnimatePresence>
+        {inSession && (
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 100, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 260, damping: 24 }}
+            className="fixed bottom-0 left-0 right-0 z-40 border-t bg-card/95 backdrop-blur-md shadow-[0_-8px_30px_-10px_rgba(0,0,0,0.2)]"
+          >
+            <div className="container max-w-4xl py-3 sm:py-4 flex items-center gap-3 sm:gap-4 flex-wrap">
+              <div className="flex-1 min-w-[140px]">
+                <div className="flex items-center justify-between text-xs mb-1.5">
+                  <span className="font-semibold">Progress</span>
+                  <span className="text-muted-foreground tabular-nums">{answeredCount} / {allQuestions.length} answered</span>
+                </div>
+                <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
+                  <motion.div
+                    className="h-full bg-gradient-to-r from-primary to-accent"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${allQuestions.length ? (answeredCount / allQuestions.length) * 100 : 0}%` }}
+                    transition={{ type: "spring", stiffness: 120, damping: 20 }}
+                  />
+                </div>
+              </div>
+              <div className={`hidden sm:flex items-center gap-2 rounded-lg border px-3 py-2 font-mono text-sm font-bold tabular-nums ${
+                secondsLeft < 60
+                  ? "border-destructive/40 bg-destructive/10 text-destructive"
+                  : "border-primary/30 bg-primary/10 text-primary"
+              }`}>
+                <Timer className="h-4 w-4" /> {fmt(secondsLeft)}
+              </div>
+              <Button
+                size="lg"
+                onClick={() => submitSession(false)}
+                className="gap-2 shadow-lg shadow-primary/30 px-6"
+              >
+                <CheckCircle2 className="h-4 w-4" /> Submit DPP
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
