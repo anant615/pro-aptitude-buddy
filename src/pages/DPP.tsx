@@ -9,7 +9,7 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
 import {
-  CalendarDays, Settings, Plus, Trash2, X, Timer, Play, BookOpen, Trophy, Target, AlertTriangle, CheckCircle2, Pencil, Save, Users, Sparkles, ArrowRight,
+  CalendarDays, Settings, Plus, Trash2, X, Timer, Play, BookOpen, Trophy, Target, AlertTriangle, CheckCircle2, Pencil, Save, Users, Sparkles, ArrowRight, Bookmark, BookmarkCheck, Eye, Zap, TrendingUp, Flag,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -114,6 +114,14 @@ export default function DPP() {
   const [rank, setRank] = useState<{ rank: number; total_attempts: number; user_pct: number } | null>(null);
   const startedAt = useRef<number>(0);
 
+  // CAT-style navigator state
+  const [markedForReview, setMarkedForReview] = useState<Set<string>>(new Set());
+  const [visited, setVisited] = useState<Set<string>>(new Set());
+  const [perQTime, setPerQTime] = useState<Record<string, number>>({});
+  const [activeQId, setActiveQId] = useState<string | null>(null);
+  const questionRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const lastTickRef = useRef<number>(0);
+
   // "Today" in IST — DPPs go live at 9 AM IST. Before 9 AM IST, today's date is yesterday's IST date.
   const today = (() => {
     const istNow = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
@@ -137,9 +145,10 @@ export default function DPP() {
   };
   useEffect(() => { load(); }, []);
 
-  // Countdown timer
+  // Countdown timer + per-question time accumulator
   useEffect(() => {
     if (!sessionStarted || sessionSubmitted) return;
+    lastTickRef.current = Date.now();
     const i = setInterval(() => {
       setSecondsLeft(s => {
         if (s <= 1) {
@@ -150,10 +159,14 @@ export default function DPP() {
         return s - 1;
       });
       setSecondsTaken(t => t + 1);
+      // attribute the second to currently active question
+      if (activeQId) {
+        setPerQTime(prev => ({ ...prev, [activeQId]: (prev[activeQId] || 0) + 1 }));
+      }
     }, 1000);
     return () => clearInterval(i);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sessionStarted, sessionSubmitted]);
+  }, [sessionStarted, sessionSubmitted, activeQId]);
 
   const fmt = (s: number) => `${Math.floor(s/60).toString().padStart(2,"0")}:${(s%60).toString().padStart(2,"0")}`;
 
@@ -184,6 +197,10 @@ export default function DPP() {
     setPreviousAttempt(null);
     setRank(null);
     setStats(null);
+    setMarkedForReview(new Set());
+    setVisited(new Set());
+    setPerQTime({});
+    setActiveQId(null);
     if (!current) return;
     setSecondsLeft(current.durationMinutes * 60);
     (async () => {
@@ -252,7 +269,44 @@ export default function DPP() {
     setSecondsLeft(current.durationMinutes * 60);
     setSecondsTaken(0);
     setAnswers({});
+    setMarkedForReview(new Set());
+    setVisited(new Set());
+    setPerQTime({});
+    // Mark first question as visited/active
+    const first = current.rows[0];
+    if (first) {
+      setActiveQId(first.id);
+      setVisited(new Set([first.id]));
+    }
     startedAt.current = Date.now();
+  };
+
+  const toggleMarkForReview = (qid: string) => {
+    setMarkedForReview(prev => {
+      const next = new Set(prev);
+      if (next.has(qid)) next.delete(qid); else next.add(qid);
+      return next;
+    });
+  };
+
+  const scrollToQuestion = (qid: string) => {
+    const el = questionRefs.current[qid];
+    if (!el) return;
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+    setActiveQId(qid);
+    setVisited(prev => prev.has(qid) ? prev : new Set(prev).add(qid));
+  };
+
+  const getQStatus = (qid: string): "answered" | "marked" | "answered-marked" | "not-answered" | "not-visited" => {
+    const a = answers[qid];
+    const isAnswered = a !== undefined && a !== null && a !== "";
+    const isMarked = markedForReview.has(qid);
+    const isVisited = visited.has(qid);
+    if (isAnswered && isMarked) return "answered-marked";
+    if (isAnswered) return "answered";
+    if (isMarked) return "marked";
+    if (isVisited) return "not-answered";
+    return "not-visited";
   };
 
   const submitSession = async (auto = false) => {
@@ -916,6 +970,57 @@ export default function DPP() {
                     )}
                   </div>
 
+                  {/* CAT-style performance breakdown */}
+                  {(() => {
+                    const attempted = allQuestions.filter(q => answers[q.id] !== undefined && answers[q.id] !== "").length;
+                    const wrong = attempted - score;
+                    const accuracy = attempted ? Math.round((score / attempted) * 100) : 0;
+                    const attemptRate = total ? Math.round((attempted / total) * 100) : 0;
+                    const totalTimeSec = Object.values(perQTime).reduce((a, b) => a + b, 0) || (previousAttempt?.seconds_taken || secondsTaken);
+                    const avgPerQ = attempted ? Math.round(totalTimeSec / attempted) : 0;
+                    // CAT scoring: +3 correct, -1 incorrect MCQ (TITA no negative)
+                    const netScore = allQuestions.reduce((acc, q) => {
+                      const ans = answers[q.id];
+                      if (ans === undefined || ans === "") return acc;
+                      if (isCorrectAnswer(q)) return acc + 3;
+                      return isTitaQuestion(q) ? acc : acc - 1;
+                    }, 0);
+                    const maxNet = total * 3;
+                    return (
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+                        <div className="rounded-lg border bg-card p-3">
+                          <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground uppercase tracking-wide mb-1">
+                            <Zap className="h-3 w-3" /> CAT Net Score
+                          </div>
+                          <div className="font-heading text-lg font-bold tabular-nums">{netScore}<span className="text-xs text-muted-foreground">/{maxNet}</span></div>
+                          <div className="text-[10px] text-muted-foreground">+3 / -1 scheme</div>
+                        </div>
+                        <div className="rounded-lg border bg-card p-3">
+                          <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground uppercase tracking-wide mb-1">
+                            <TrendingUp className="h-3 w-3" /> Accuracy
+                          </div>
+                          <div className="font-heading text-lg font-bold tabular-nums text-green-600 dark:text-green-400">{accuracy}%</div>
+                          <div className="text-[10px] text-muted-foreground">{score} right · {wrong} wrong</div>
+                        </div>
+                        <div className="rounded-lg border bg-card p-3">
+                          <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground uppercase tracking-wide mb-1">
+                            <Eye className="h-3 w-3" /> Attempt Rate
+                          </div>
+                          <div className="font-heading text-lg font-bold tabular-nums">{attemptRate}%</div>
+                          <div className="text-[10px] text-muted-foreground">{attempted}/{total} attempted</div>
+                        </div>
+                        <div className="rounded-lg border bg-card p-3">
+                          <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground uppercase tracking-wide mb-1">
+                            <Timer className="h-3 w-3" /> Avg / Q
+                          </div>
+                          <div className="font-heading text-lg font-bold tabular-nums">{avgPerQ}s</div>
+                          <div className="text-[10px] text-muted-foreground">Target: &lt; 120s</div>
+                        </div>
+                      </div>
+                    );
+                  })()}
+
+
                   {weakAreas.length > 0 && (
                     <div className="rounded-lg bg-card border p-3">
                       <p className="text-xs font-semibold mb-2 flex items-center gap-1.5"><AlertTriangle className="h-3.5 w-3.5 text-orange-500" /> Areas to improve</p>
@@ -933,6 +1038,82 @@ export default function DPP() {
 
               {showResults && !user && <ReminderSignupCard context="DPP" />}
 
+
+              {/* CAT-style Question Navigator Palette */}
+              {(inSession || showResults) && allQuestions.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-6 rounded-xl border bg-card p-4 sm:sticky sm:top-2 sm:z-30 sm:backdrop-blur-md sm:bg-card/95 shadow-sm"
+                >
+                  <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
+                    <div className="flex items-center gap-2">
+                      <div className="h-7 w-7 rounded-lg bg-primary/15 flex items-center justify-center">
+                        <Flag className="h-4 w-4 text-primary" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-heading font-semibold leading-none">Question Palette</p>
+                        <p className="text-[10px] text-muted-foreground mt-0.5">CAT-style navigator · tap to jump</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 text-[10px] text-muted-foreground flex-wrap">
+                      <span className="inline-flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-sm bg-green-500" /> Answered</span>
+                      <span className="inline-flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-sm bg-red-500" /> Not answered</span>
+                      <span className="inline-flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-sm bg-purple-500" /> Marked</span>
+                      <span className="inline-flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-sm border border-border bg-muted" /> Not visited</span>
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {allQuestions.map((q, idx) => {
+                      const status = showResults
+                        ? (isCorrectAnswer(q) ? "answered" : (answers[q.id] !== undefined && answers[q.id] !== "" ? "not-answered" : "not-visited"))
+                        : getQStatus(q.id);
+                      const num = displayNumbers.get(q.id) ?? idx + 1;
+                      const styles: Record<string, string> = {
+                        "answered": "bg-green-500 text-white border-green-600 hover:bg-green-600",
+                        "not-answered": "bg-red-500 text-white border-red-600 hover:bg-red-600",
+                        "marked": "bg-purple-500 text-white border-purple-600 hover:bg-purple-600",
+                        "answered-marked": "bg-purple-500 text-white border-purple-600 ring-2 ring-green-400 hover:bg-purple-600",
+                        "not-visited": "bg-muted text-foreground border-border hover:bg-muted-foreground/10",
+                      };
+                      const isActive = activeQId === q.id;
+                      return (
+                        <button
+                          key={q.id}
+                          onClick={() => scrollToQuestion(q.id)}
+                          className={`relative h-9 w-9 rounded-md border text-xs font-bold tabular-nums transition-all ${styles[status]} ${isActive ? "ring-2 ring-primary ring-offset-1 ring-offset-background scale-110" : ""}`}
+                          title={`Q${num} · ${status.replace("-", " ")}`}
+                        >
+                          {num}
+                          {status === "answered-marked" && (
+                            <span className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-green-400 border border-background" />
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {inSession && (
+                    <div className="mt-3 grid grid-cols-4 gap-2 text-center text-[10px]">
+                      <div className="rounded-md bg-green-500/10 border border-green-500/30 py-1.5">
+                        <div className="font-bold text-green-600 dark:text-green-400 text-sm tabular-nums">{allQuestions.filter(q => answers[q.id] !== undefined && answers[q.id] !== "").length}</div>
+                        <div className="text-muted-foreground">Answered</div>
+                      </div>
+                      <div className="rounded-md bg-red-500/10 border border-red-500/30 py-1.5">
+                        <div className="font-bold text-red-600 dark:text-red-400 text-sm tabular-nums">{allQuestions.filter(q => visited.has(q.id) && (answers[q.id] === undefined || answers[q.id] === "") && !markedForReview.has(q.id)).length}</div>
+                        <div className="text-muted-foreground">Skipped</div>
+                      </div>
+                      <div className="rounded-md bg-purple-500/10 border border-purple-500/30 py-1.5">
+                        <div className="font-bold text-purple-600 dark:text-purple-400 text-sm tabular-nums">{markedForReview.size}</div>
+                        <div className="text-muted-foreground">Marked</div>
+                      </div>
+                      <div className="rounded-md bg-muted border py-1.5">
+                        <div className="font-bold text-sm tabular-nums">{allQuestions.filter(q => !visited.has(q.id)).length}</div>
+                        <div className="text-muted-foreground">Not visited</div>
+                      </div>
+                    </div>
+                  )}
+                </motion.div>
+              )}
 
               {/* Questions */}
               {(inSession || showResults) ? (
@@ -1015,13 +1196,24 @@ export default function DPP() {
                           const isTita = isTitaQuestion(q);
                           const titaAnswer = getTitaAnswer(q);
                           const visibleSolution = isTita ? stripLeadingTitaAnswer(q.solution || "") : q.solution;
+                          const qTime = perQTime[q.id] || 0;
+                          const isMarked = markedForReview.has(q.id);
+                          const correctNow = showResults && isCorrectAnswer(q);
+                          const wrongNow = showResults && answers[q.id] !== undefined && answers[q.id] !== "" && !correctNow;
                           return (
                             <motion.div
                               key={q.id}
+                              ref={(el) => { questionRefs.current[q.id] = el; }}
+                              onMouseEnter={() => inSession && setActiveQId(q.id)}
+                              onFocus={() => inSession && setActiveQId(q.id)}
                               initial={{ opacity: 0, y: 12 }}
                               animate={{ opacity: 1, y: 0 }}
                               transition={{ delay: qi * 0.04 }}
-                              className="relative rounded-xl border bg-card p-6"
+                              className={`relative rounded-xl border bg-card p-6 scroll-mt-32 transition-shadow ${
+                                showResults && correctNow ? "border-green-500/40 shadow-[0_0_0_1px_hsl(var(--success)/0.2)]" : ""
+                              } ${showResults && wrongNow ? "border-destructive/40" : ""} ${
+                                inSession && activeQId === q.id ? "ring-2 ring-primary/30" : ""
+                              }`}
                             >
                               {manage && editingId !== q.id && (
                                 <div className="absolute top-2 right-2 z-10 flex gap-1">
@@ -1099,11 +1291,42 @@ export default function DPP() {
                                 </div>
                               ) : (
                                 <>
-                                  <div className="flex items-start justify-between mb-3 pr-20">
-                                    <div className="flex items-center gap-2">
-                                      <span className="text-sm font-medium text-muted-foreground">Q{displayNumbers.get(q.id) ?? qi + 1}</span>
+                                  <div className="flex items-start justify-between mb-3 gap-3 pr-20 flex-wrap">
+                                    <div className="flex items-center gap-2 flex-wrap">
+                                      <span className="inline-flex items-center justify-center h-7 min-w-[2rem] px-2 rounded-md bg-primary/10 text-primary text-xs font-bold tabular-nums">
+                                        Q{displayNumbers.get(q.id) ?? qi + 1}
+                                      </span>
                                       {isTita && <Badge variant="outline" className="text-[10px]">TITA</Badge>}
+                                      {s.kind === "set" && (
+                                        <Badge variant="outline" className="text-[10px] capitalize">{s.type}</Badge>
+                                      )}
+                                      {showResults && qTime > 0 && (
+                                        <Badge variant="outline" className="text-[10px] gap-1 font-mono">
+                                          <Timer className="h-3 w-3" /> {fmt(qTime)}
+                                        </Badge>
+                                      )}
+                                      {showResults && correctNow && (
+                                        <Badge className="text-[10px] gap-1 bg-green-500/15 text-green-600 dark:text-green-400 border border-green-500/30 hover:bg-green-500/15">
+                                          <CheckCircle2 className="h-3 w-3" /> Correct
+                                        </Badge>
+                                      )}
+                                      {showResults && wrongNow && (
+                                        <Badge variant="outline" className="text-[10px] gap-1 border-destructive/40 text-destructive">
+                                          <X className="h-3 w-3" /> Incorrect
+                                        </Badge>
+                                      )}
                                     </div>
+                                    {inSession && (
+                                      <Button
+                                        size="sm"
+                                        variant={isMarked ? "default" : "outline"}
+                                        className={`h-7 gap-1.5 text-xs ${isMarked ? "bg-purple-500 hover:bg-purple-600 text-white border-purple-600" : ""}`}
+                                        onClick={() => toggleMarkForReview(q.id)}
+                                      >
+                                        {isMarked ? <BookmarkCheck className="h-3.5 w-3.5" /> : <Bookmark className="h-3.5 w-3.5" />}
+                                        {isMarked ? "Marked" : "Mark for review"}
+                                      </Button>
+                                    )}
                                   </div>
                                   <QuestionBody text={q.question} className="mb-4" />
 
