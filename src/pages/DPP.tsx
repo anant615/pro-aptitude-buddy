@@ -1145,13 +1145,24 @@ export default function DPP() {
                           const isTita = isTitaQuestion(q);
                           const titaAnswer = getTitaAnswer(q);
                           const visibleSolution = isTita ? stripLeadingTitaAnswer(q.solution || "") : q.solution;
+                          const qTime = perQTime[q.id] || 0;
+                          const isMarked = markedForReview.has(q.id);
+                          const correctNow = showResults && isCorrectAnswer(q);
+                          const wrongNow = showResults && answers[q.id] !== undefined && answers[q.id] !== "" && !correctNow;
                           return (
                             <motion.div
                               key={q.id}
+                              ref={(el) => { questionRefs.current[q.id] = el; }}
+                              onMouseEnter={() => inSession && setActiveQId(q.id)}
+                              onFocus={() => inSession && setActiveQId(q.id)}
                               initial={{ opacity: 0, y: 12 }}
                               animate={{ opacity: 1, y: 0 }}
                               transition={{ delay: qi * 0.04 }}
-                              className="relative rounded-xl border bg-card p-6"
+                              className={`relative rounded-xl border bg-card p-6 scroll-mt-32 transition-shadow ${
+                                showResults && correctNow ? "border-green-500/40 shadow-[0_0_0_1px_hsl(var(--success)/0.2)]" : ""
+                              } ${showResults && wrongNow ? "border-destructive/40" : ""} ${
+                                inSession && activeQId === q.id ? "ring-2 ring-primary/30" : ""
+                              }`}
                             >
                               {manage && editingId !== q.id && (
                                 <div className="absolute top-2 right-2 z-10 flex gap-1">
