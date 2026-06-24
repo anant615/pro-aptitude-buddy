@@ -1240,11 +1240,42 @@ export default function DPP() {
                                 </div>
                               ) : (
                                 <>
-                                  <div className="flex items-start justify-between mb-3 pr-20">
-                                    <div className="flex items-center gap-2">
-                                      <span className="text-sm font-medium text-muted-foreground">Q{displayNumbers.get(q.id) ?? qi + 1}</span>
+                                  <div className="flex items-start justify-between mb-3 gap-3 pr-20 flex-wrap">
+                                    <div className="flex items-center gap-2 flex-wrap">
+                                      <span className="inline-flex items-center justify-center h-7 min-w-[2rem] px-2 rounded-md bg-primary/10 text-primary text-xs font-bold tabular-nums">
+                                        Q{displayNumbers.get(q.id) ?? qi + 1}
+                                      </span>
                                       {isTita && <Badge variant="outline" className="text-[10px]">TITA</Badge>}
+                                      {s.kind === "set" && (
+                                        <Badge variant="outline" className="text-[10px] capitalize">{s.type}</Badge>
+                                      )}
+                                      {showResults && qTime > 0 && (
+                                        <Badge variant="outline" className="text-[10px] gap-1 font-mono">
+                                          <Timer className="h-3 w-3" /> {fmt(qTime)}
+                                        </Badge>
+                                      )}
+                                      {showResults && correctNow && (
+                                        <Badge className="text-[10px] gap-1 bg-green-500/15 text-green-600 dark:text-green-400 border border-green-500/30 hover:bg-green-500/15">
+                                          <CheckCircle2 className="h-3 w-3" /> Correct
+                                        </Badge>
+                                      )}
+                                      {showResults && wrongNow && (
+                                        <Badge variant="outline" className="text-[10px] gap-1 border-destructive/40 text-destructive">
+                                          <X className="h-3 w-3" /> Incorrect
+                                        </Badge>
+                                      )}
                                     </div>
+                                    {inSession && (
+                                      <Button
+                                        size="sm"
+                                        variant={isMarked ? "default" : "outline"}
+                                        className={`h-7 gap-1.5 text-xs ${isMarked ? "bg-purple-500 hover:bg-purple-600 text-white border-purple-600" : ""}`}
+                                        onClick={() => toggleMarkForReview(q.id)}
+                                      >
+                                        {isMarked ? <BookmarkCheck className="h-3.5 w-3.5" /> : <Bookmark className="h-3.5 w-3.5" />}
+                                        {isMarked ? "Marked" : "Mark for review"}
+                                      </Button>
+                                    )}
                                   </div>
                                   <QuestionBody text={q.question} className="mb-4" />
 
