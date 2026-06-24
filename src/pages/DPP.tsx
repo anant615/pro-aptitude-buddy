@@ -197,6 +197,10 @@ export default function DPP() {
     setPreviousAttempt(null);
     setRank(null);
     setStats(null);
+    setMarkedForReview(new Set());
+    setVisited(new Set());
+    setPerQTime({});
+    setActiveQId(null);
     if (!current) return;
     setSecondsLeft(current.durationMinutes * 60);
     (async () => {
