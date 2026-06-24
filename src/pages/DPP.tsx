@@ -145,9 +145,10 @@ export default function DPP() {
   };
   useEffect(() => { load(); }, []);
 
-  // Countdown timer
+  // Countdown timer + per-question time accumulator
   useEffect(() => {
     if (!sessionStarted || sessionSubmitted) return;
+    lastTickRef.current = Date.now();
     const i = setInterval(() => {
       setSecondsLeft(s => {
         if (s <= 1) {
@@ -158,10 +159,14 @@ export default function DPP() {
         return s - 1;
       });
       setSecondsTaken(t => t + 1);
+      // attribute the second to currently active question
+      if (activeQId) {
+        setPerQTime(prev => ({ ...prev, [activeQId]: (prev[activeQId] || 0) + 1 }));
+      }
     }, 1000);
     return () => clearInterval(i);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sessionStarted, sessionSubmitted]);
+  }, [sessionStarted, sessionSubmitted, activeQId]);
 
   const fmt = (s: number) => `${Math.floor(s/60).toString().padStart(2,"0")}:${(s%60).toString().padStart(2,"0")}`;
 
