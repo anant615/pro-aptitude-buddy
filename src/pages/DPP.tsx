@@ -988,6 +988,82 @@ export default function DPP() {
               {showResults && !user && <ReminderSignupCard context="DPP" />}
 
 
+              {/* CAT-style Question Navigator Palette */}
+              {(inSession || showResults) && allQuestions.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-6 rounded-xl border bg-card p-4 sm:sticky sm:top-2 sm:z-30 sm:backdrop-blur-md sm:bg-card/95 shadow-sm"
+                >
+                  <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
+                    <div className="flex items-center gap-2">
+                      <div className="h-7 w-7 rounded-lg bg-primary/15 flex items-center justify-center">
+                        <Flag className="h-4 w-4 text-primary" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-heading font-semibold leading-none">Question Palette</p>
+                        <p className="text-[10px] text-muted-foreground mt-0.5">CAT-style navigator · tap to jump</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 text-[10px] text-muted-foreground flex-wrap">
+                      <span className="inline-flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-sm bg-green-500" /> Answered</span>
+                      <span className="inline-flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-sm bg-red-500" /> Not answered</span>
+                      <span className="inline-flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-sm bg-purple-500" /> Marked</span>
+                      <span className="inline-flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-sm border border-border bg-muted" /> Not visited</span>
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {allQuestions.map((q, idx) => {
+                      const status = showResults
+                        ? (isCorrectAnswer(q) ? "answered" : (answers[q.id] !== undefined && answers[q.id] !== "" ? "not-answered" : "not-visited"))
+                        : getQStatus(q.id);
+                      const num = displayNumbers.get(q.id) ?? idx + 1;
+                      const styles: Record<string, string> = {
+                        "answered": "bg-green-500 text-white border-green-600 hover:bg-green-600",
+                        "not-answered": "bg-red-500 text-white border-red-600 hover:bg-red-600",
+                        "marked": "bg-purple-500 text-white border-purple-600 hover:bg-purple-600",
+                        "answered-marked": "bg-purple-500 text-white border-purple-600 ring-2 ring-green-400 hover:bg-purple-600",
+                        "not-visited": "bg-muted text-foreground border-border hover:bg-muted-foreground/10",
+                      };
+                      const isActive = activeQId === q.id;
+                      return (
+                        <button
+                          key={q.id}
+                          onClick={() => scrollToQuestion(q.id)}
+                          className={`relative h-9 w-9 rounded-md border text-xs font-bold tabular-nums transition-all ${styles[status]} ${isActive ? "ring-2 ring-primary ring-offset-1 ring-offset-background scale-110" : ""}`}
+                          title={`Q${num} · ${status.replace("-", " ")}`}
+                        >
+                          {num}
+                          {status === "answered-marked" && (
+                            <span className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-green-400 border border-background" />
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {inSession && (
+                    <div className="mt-3 grid grid-cols-4 gap-2 text-center text-[10px]">
+                      <div className="rounded-md bg-green-500/10 border border-green-500/30 py-1.5">
+                        <div className="font-bold text-green-600 dark:text-green-400 text-sm tabular-nums">{allQuestions.filter(q => answers[q.id] !== undefined && answers[q.id] !== "").length}</div>
+                        <div className="text-muted-foreground">Answered</div>
+                      </div>
+                      <div className="rounded-md bg-red-500/10 border border-red-500/30 py-1.5">
+                        <div className="font-bold text-red-600 dark:text-red-400 text-sm tabular-nums">{allQuestions.filter(q => visited.has(q.id) && (answers[q.id] === undefined || answers[q.id] === "") && !markedForReview.has(q.id)).length}</div>
+                        <div className="text-muted-foreground">Skipped</div>
+                      </div>
+                      <div className="rounded-md bg-purple-500/10 border border-purple-500/30 py-1.5">
+                        <div className="font-bold text-purple-600 dark:text-purple-400 text-sm tabular-nums">{markedForReview.size}</div>
+                        <div className="text-muted-foreground">Marked</div>
+                      </div>
+                      <div className="rounded-md bg-muted border py-1.5">
+                        <div className="font-bold text-sm tabular-nums">{allQuestions.filter(q => !visited.has(q.id)).length}</div>
+                        <div className="text-muted-foreground">Not visited</div>
+                      </div>
+                    </div>
+                  )}
+                </motion.div>
+              )}
+
               {/* Questions */}
               {(inSession || showResults) ? (
                 <div className="space-y-8">
