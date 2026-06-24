@@ -970,6 +970,57 @@ export default function DPP() {
                     )}
                   </div>
 
+                  {/* CAT-style performance breakdown */}
+                  {(() => {
+                    const attempted = allQuestions.filter(q => answers[q.id] !== undefined && answers[q.id] !== "").length;
+                    const wrong = attempted - score;
+                    const accuracy = attempted ? Math.round((score / attempted) * 100) : 0;
+                    const attemptRate = total ? Math.round((attempted / total) * 100) : 0;
+                    const totalTimeSec = Object.values(perQTime).reduce((a, b) => a + b, 0) || (previousAttempt?.seconds_taken || secondsTaken);
+                    const avgPerQ = attempted ? Math.round(totalTimeSec / attempted) : 0;
+                    // CAT scoring: +3 correct, -1 incorrect MCQ (TITA no negative)
+                    const netScore = allQuestions.reduce((acc, q) => {
+                      const ans = answers[q.id];
+                      if (ans === undefined || ans === "") return acc;
+                      if (isCorrectAnswer(q)) return acc + 3;
+                      return isTitaQuestion(q) ? acc : acc - 1;
+                    }, 0);
+                    const maxNet = total * 3;
+                    return (
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+                        <div className="rounded-lg border bg-card p-3">
+                          <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground uppercase tracking-wide mb-1">
+                            <Zap className="h-3 w-3" /> CAT Net Score
+                          </div>
+                          <div className="font-heading text-lg font-bold tabular-nums">{netScore}<span className="text-xs text-muted-foreground">/{maxNet}</span></div>
+                          <div className="text-[10px] text-muted-foreground">+3 / -1 scheme</div>
+                        </div>
+                        <div className="rounded-lg border bg-card p-3">
+                          <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground uppercase tracking-wide mb-1">
+                            <TrendingUp className="h-3 w-3" /> Accuracy
+                          </div>
+                          <div className="font-heading text-lg font-bold tabular-nums text-green-600 dark:text-green-400">{accuracy}%</div>
+                          <div className="text-[10px] text-muted-foreground">{score} right · {wrong} wrong</div>
+                        </div>
+                        <div className="rounded-lg border bg-card p-3">
+                          <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground uppercase tracking-wide mb-1">
+                            <Eye className="h-3 w-3" /> Attempt Rate
+                          </div>
+                          <div className="font-heading text-lg font-bold tabular-nums">{attemptRate}%</div>
+                          <div className="text-[10px] text-muted-foreground">{attempted}/{total} attempted</div>
+                        </div>
+                        <div className="rounded-lg border bg-card p-3">
+                          <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground uppercase tracking-wide mb-1">
+                            <Timer className="h-3 w-3" /> Avg / Q
+                          </div>
+                          <div className="font-heading text-lg font-bold tabular-nums">{avgPerQ}s</div>
+                          <div className="text-[10px] text-muted-foreground">Target: &lt; 120s</div>
+                        </div>
+                      </div>
+                    );
+                  })()}
+
+
                   {weakAreas.length > 0 && (
                     <div className="rounded-lg bg-card border p-3">
                       <p className="text-xs font-semibold mb-2 flex items-center gap-1.5"><AlertTriangle className="h-3.5 w-3.5 text-orange-500" /> Areas to improve</p>
