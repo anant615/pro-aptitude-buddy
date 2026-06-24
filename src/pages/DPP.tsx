@@ -269,7 +269,44 @@ export default function DPP() {
     setSecondsLeft(current.durationMinutes * 60);
     setSecondsTaken(0);
     setAnswers({});
+    setMarkedForReview(new Set());
+    setVisited(new Set());
+    setPerQTime({});
+    // Mark first question as visited/active
+    const first = current.rows[0];
+    if (first) {
+      setActiveQId(first.id);
+      setVisited(new Set([first.id]));
+    }
     startedAt.current = Date.now();
+  };
+
+  const toggleMarkForReview = (qid: string) => {
+    setMarkedForReview(prev => {
+      const next = new Set(prev);
+      if (next.has(qid)) next.delete(qid); else next.add(qid);
+      return next;
+    });
+  };
+
+  const scrollToQuestion = (qid: string) => {
+    const el = questionRefs.current[qid];
+    if (!el) return;
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+    setActiveQId(qid);
+    setVisited(prev => prev.has(qid) ? prev : new Set(prev).add(qid));
+  };
+
+  const getQStatus = (qid: string): "answered" | "marked" | "answered-marked" | "not-answered" | "not-visited" => {
+    const a = answers[qid];
+    const isAnswered = a !== undefined && a !== null && a !== "";
+    const isMarked = markedForReview.has(qid);
+    const isVisited = visited.has(qid);
+    if (isAnswered && isMarked) return "answered-marked";
+    if (isAnswered) return "answered";
+    if (isMarked) return "marked";
+    if (isVisited) return "not-answered";
+    return "not-visited";
   };
 
   const submitSession = async (auto = false) => {
