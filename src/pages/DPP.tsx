@@ -114,6 +114,14 @@ export default function DPP() {
   const [rank, setRank] = useState<{ rank: number; total_attempts: number; user_pct: number } | null>(null);
   const startedAt = useRef<number>(0);
 
+  // CAT-style navigator state
+  const [markedForReview, setMarkedForReview] = useState<Set<string>>(new Set());
+  const [visited, setVisited] = useState<Set<string>>(new Set());
+  const [perQTime, setPerQTime] = useState<Record<string, number>>({});
+  const [activeQId, setActiveQId] = useState<string | null>(null);
+  const questionRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const lastTickRef = useRef<number>(0);
+
   // "Today" in IST — DPPs go live at 9 AM IST. Before 9 AM IST, today's date is yesterday's IST date.
   const today = (() => {
     const istNow = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
