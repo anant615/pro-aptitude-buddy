@@ -108,7 +108,7 @@ export default function Home() {
           <div className="absolute bottom-10 right-20 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
         </div>
         <div className="container relative z-10 text-center">
-          <div className="grid lg:grid-cols-3 gap-5 mb-8 md:mb-10 items-stretch">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8 md:mb-10 items-stretch">
             <div className="[&>div]:!mb-0 [&>div>div]:!max-w-none [&>div>div]:h-full">
               <DPPCountdown variant="hero" />
             </div>
@@ -209,6 +209,57 @@ export default function Home() {
                 <div className="mt-auto inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 text-white font-heading font-black text-sm md:text-base px-5 py-3 shadow-xl shadow-red-500/30 group-hover:shadow-red-500/50 transition-all uppercase tracking-wide">
                   <Swords className="h-4 w-4 md:h-5 md:w-5 group-hover:rotate-12 transition-transform" />
                   <EditableText storageKey="war_room_promo_cta" defaultValue="Enter War Room" isAdmin={isAdmin} />
+                  <ArrowRight className="h-4 w-4 md:h-5 md:w-5 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </Link>
+
+            <Link
+              to="/mentor"
+              className="group relative rounded-2xl border-2 border-emerald-500/50 bg-gradient-to-br from-emerald-500/20 via-primary/10 to-teal-500/15 backdrop-blur-md p-5 md:p-6 shadow-2xl shadow-emerald-500/15 overflow-hidden flex flex-col text-left hover:border-emerald-400 transition-all hover:shadow-emerald-500/30 hover:scale-[1.01]"
+            >
+              <div className="absolute -top-12 -left-12 w-40 h-40 bg-emerald-500/25 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-12 -right-12 w-40 h-40 bg-teal-500/20 rounded-full blur-3xl pointer-events-none" />
+
+              <div className="relative flex flex-col h-full">
+                <div className="inline-flex items-center gap-2 mb-3">
+                  <Brain className="h-5 w-5 text-emerald-300 animate-pulse" />
+                  <span className="text-xs md:text-sm font-bold uppercase tracking-wider text-emerald-300">
+                    <EditableText storageKey="mentor_promo_eyebrow" defaultValue="1:1 CAT Mentorship · ₹49" isAdmin={isAdmin} />
+                  </span>
+                </div>
+
+                <h3 className="font-heading font-black text-xl md:text-2xl leading-tight mb-2 text-primary-foreground">
+                  <EditableText
+                    storageKey="mentor_promo_title"
+                    defaultValue="Crack CAT 2026 with a personalized strategy"
+                    isAdmin={isAdmin}
+                  />
+                </h3>
+
+                <p className="text-xs md:text-sm text-primary-foreground/80 mb-4 leading-relaxed">
+                  <EditableText
+                    storageKey="mentor_promo_sub"
+                    defaultValue="Book a 1:1 doubt or full-roadmap session. QA + LRDI + VARC strategy, mock plan & weak-area fix — built for you."
+                    isAdmin={isAdmin}
+                  />
+                </p>
+
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {[
+                    { icon: Target, label: "5-month roadmap" },
+                    { icon: Sparkles, label: "₹49 doubt / ₹149 plan" },
+                    { icon: BarChart3, label: "Weak-area fix" },
+                  ].map((f) => (
+                    <span key={f.label} className="inline-flex items-center gap-1 rounded-full bg-primary-foreground/10 border border-primary-foreground/20 px-2.5 py-1 text-[10px] md:text-xs font-medium text-primary-foreground/90">
+                      <f.icon className="h-3 w-3" /> {f.label}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-auto inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-heading font-black text-sm md:text-base px-5 py-3 shadow-xl shadow-emerald-500/30 group-hover:shadow-emerald-500/50 transition-all uppercase tracking-wide">
+                  <Brain className="h-4 w-4 md:h-5 md:w-5 group-hover:rotate-12 transition-transform" />
+                  <EditableText storageKey="mentor_promo_cta" defaultValue="Book Your Session" isAdmin={isAdmin} />
                   <ArrowRight className="h-4 w-4 md:h-5 md:w-5 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
