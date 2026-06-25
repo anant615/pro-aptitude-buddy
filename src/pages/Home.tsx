@@ -108,7 +108,7 @@ export default function Home() {
           <div className="absolute bottom-10 right-20 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
         </div>
         <div className="container relative z-10 text-center">
-          <div className="grid lg:grid-cols-3 gap-5 mb-8 md:mb-10 items-stretch">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8 md:mb-10 items-stretch">
             <div className="[&>div]:!mb-0 [&>div>div]:!max-w-none [&>div>div]:h-full">
               <DPPCountdown variant="hero" />
             </div>
