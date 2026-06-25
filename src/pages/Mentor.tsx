@@ -21,7 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 
-const TOPMATE_URL = "https://topmate.io/proapc";
+const TOPMATE_URL = "https://topmate.io/proaptitude/";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
