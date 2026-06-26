@@ -108,6 +108,44 @@ export default function Home() {
           <div className="absolute bottom-10 right-20 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
         </div>
         <div className="container relative z-10 text-center">
+          {/* FEATURED: 1:1 CAT Mentorship Banner */}
+          <Link
+            to="/mentor"
+            className="group relative block mb-6 md:mb-8 rounded-3xl border-2 border-emerald-400/60 bg-gradient-to-r from-emerald-500/25 via-teal-500/20 to-emerald-500/25 backdrop-blur-md p-5 md:p-7 shadow-2xl shadow-emerald-500/25 overflow-hidden hover:scale-[1.005] hover:shadow-emerald-500/40 transition-all"
+          >
+            <div className="absolute -top-16 -left-16 w-56 h-56 bg-emerald-400/30 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-16 -right-16 w-56 h-56 bg-teal-400/25 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative flex flex-col md:flex-row items-center gap-4 md:gap-6 text-left">
+              <div className="flex h-14 w-14 md:h-16 md:w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 shadow-xl shadow-emerald-500/40">
+                <Brain className="h-7 w-7 md:h-8 md:w-8 text-white" />
+              </div>
+              <div className="flex-1 min-w-0 text-center md:text-left">
+                <div className="inline-flex items-center gap-2 mb-1.5 rounded-full bg-emerald-400/20 border border-emerald-300/40 px-3 py-1 text-[10px] md:text-xs font-bold uppercase tracking-wider text-emerald-200">
+                  <Sparkles className="h-3 w-3 animate-pulse" />
+                  <EditableText storageKey="mentor_banner_eyebrow" defaultValue="Featured · 1:1 CAT 2026 Mentorship" isAdmin={isAdmin} />
+                </div>
+                <h2 className="font-heading font-black text-xl md:text-3xl leading-tight text-primary-foreground">
+                  <EditableText
+                    storageKey="mentor_banner_title"
+                    defaultValue="Crack CAT 2026 with a Personalized Strategy — Book a 1:1 Session"
+                    isAdmin={isAdmin}
+                  />
+                </h2>
+                <p className="text-xs md:text-sm text-primary-foreground/85 mt-1.5">
+                  <EditableText
+                    storageKey="mentor_banner_sub"
+                    defaultValue="₹49 Doubt Session · ₹149 Full 5-Month Roadmap · QA + LRDI + VARC strategy by Aman Pandey"
+                    isAdmin={isAdmin}
+                  />
+                </p>
+              </div>
+              <div className="shrink-0 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 text-white font-heading font-black text-sm md:text-base px-5 md:px-6 py-3 shadow-xl shadow-emerald-500/40 group-hover:shadow-emerald-500/60 transition-all uppercase tracking-wide">
+                <EditableText storageKey="mentor_banner_cta" defaultValue="Book Your Session" isAdmin={isAdmin} />
+                <ArrowRight className="h-4 w-4 md:h-5 md:w-5 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+          </Link>
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8 md:mb-10 items-stretch">
             <div className="[&>div]:!mb-0 [&>div>div]:!max-w-none [&>div>div]:h-full">
               <DPPCountdown variant="hero" />
