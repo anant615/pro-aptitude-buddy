@@ -14,7 +14,6 @@ ProAptitude is a free web platform for MBA aspirants preparing for CAT, XAT, IIF
 - [War Room (Mock Analyzer)](https://proaptitude.lovable.app/war-room): Paste any mock link (SimCAT/AIMCAT/Cracku/IMS/TIME/CL/2IIM) — AI predicts your India rank out of 2.8 lakh, names the exact weak chapters, prescribes formulas, and gives a 3-day next-mock plan.
 - [AI Mentor (The Council)](https://proaptitude.lovable.app/mentor): 6 AI mentors build a month-by-month roadmap tailored to your target percentile (90 / 95 / 99 / 99.5+) and time available.
 - [Practice](https://proaptitude.lovable.app/practice): Topic-wise practice across QA, VARC, DILR with difficulty filters.
-- [Videos](https://proaptitude.lovable.app/videos): Concept videos for QA chapters.
 - [CAT Newspaper](https://proaptitude.lovable.app/newspaper): Daily MBA/CAT news digest.
 - [Community](https://proaptitude.lovable.app/community): Aspirant Q&A and discussions.
 

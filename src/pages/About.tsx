@@ -139,7 +139,7 @@ export default function About() {
               { k: "off3", d: "Previous Year Questions from 2015–2024 with detailed solutions" },
               { k: "off4", d: "Sectional mock tests for focused revision" },
               { k: "off5", d: "SNAP-specific tips & strategy from a SIBM Bengaluru alum" },
-              { k: "off6", d: "Curated YouTube video library for concept clarity" },
+              { k: "off6", d: "AI Solver, AI Mentor & 1:1 CAT mentorship for personalized guidance" },
             ].map((o) => (
               <li key={o.k} className="flex items-start gap-2">
                 <span className="h-2 w-2 rounded-full bg-accent mt-2 shrink-0" />

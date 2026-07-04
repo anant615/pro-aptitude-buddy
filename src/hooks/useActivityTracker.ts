@@ -3,14 +3,14 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 
-type ActivityType = "video_watched" | "dpp_completed" | "pyq_attempted" | "resource_opened";
+type ActivityType = "dpp_completed" | "pyq_attempted" | "resource_opened";
 
 const POINTS: Record<ActivityType, number> = {
-  video_watched: 3, dpp_completed: 5, pyq_attempted: 4, resource_opened: 2,
+  dpp_completed: 5, pyq_attempted: 4, resource_opened: 2,
 };
 
 const LABEL: Record<ActivityType, string> = {
-  video_watched: "Video watched", dpp_completed: "DPP completed",
+  dpp_completed: "DPP completed",
   pyq_attempted: "PYQ attempted", resource_opened: "Resource opened",
 };
 
