@@ -848,33 +848,6 @@ export type Database = {
         }
         Relationships: []
       }
-      videos: {
-        Row: {
-          created_at: string
-          creator: string
-          id: string
-          link: string
-          title: string
-          topic: string
-        }
-        Insert: {
-          created_at?: string
-          creator?: string
-          id?: string
-          link: string
-          title: string
-          topic: string
-        }
-        Update: {
-          created_at?: string
-          creator?: string
-          id?: string
-          link?: string
-          title?: string
-          topic?: string
-        }
-        Relationships: []
-      }
       war_room_reports: {
         Row: {
           created_at: string
