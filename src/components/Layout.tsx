@@ -11,7 +11,7 @@ const navLinks = [
   { to: "/dpp", label: "DPP" },
   { to: "/pyqs", label: "PYQs" },
   { to: "/mocks", label: "Mock Tests" },
-  { to: "/videos", label: "Videos" },
+  
   { to: "/resources", label: "Resources" },
   { to: "/newspaper", label: "Newspaper" },
   { to: "/ai-solver", label: "AI Solver" },

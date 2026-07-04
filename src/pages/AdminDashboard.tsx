@@ -157,7 +157,7 @@ export default function AdminDashboard() {
     const c: Record<string, number> = {};
     activity.forEach(a => { c[a.activity_type] = (c[a.activity_type] || 0) + 1; });
     const labels: Record<string, string> = {
-      video_watched: "Videos", dpp_completed: "DPPs", pyq_attempted: "PYQs", resource_opened: "Resources",
+      dpp_completed: "DPPs", pyq_attempted: "PYQs", resource_opened: "Resources",
     };
     return Object.entries(c).map(([type, count]) => ({ type: labels[type] || type, count }));
   }, [activity]);

@@ -9,7 +9,7 @@ import Practice from "@/pages/Practice";
 import LRDISets from "@/pages/LRDISets";
 import PYQs from "@/pages/PYQs";
 import MockTests from "@/pages/MockTests";
-import Videos from "@/pages/Videos";
+
 import About from "@/pages/About";
 import ReviewMode from "@/pages/ReviewMode";
 import DPP from "@/pages/DPP";
@@ -52,7 +52,7 @@ const App = () => (
             <Route path="/lrdi-sets" element={<LRDISets />} />
             <Route path="/pyqs" element={<PYQs />} />
             <Route path="/mocks" element={<MockTests />} />
-            <Route path="/videos" element={<Videos />} />
+            
             <Route path="/review" element={<ProtectedRoute><ReviewMode /></ProtectedRoute>} />
             <Route path="/dpp" element={<DPP />} />
             <Route path="/resources" element={<Resources />} />
