@@ -746,6 +746,119 @@ export type Database = {
         }
         Relationships: []
       }
+      study_plan_checkins: {
+        Row: {
+          checkin_date: string
+          created_at: string
+          id: string
+          plan_id: string | null
+          status: string
+          user_id: string
+        }
+        Insert: {
+          checkin_date?: string
+          created_at?: string
+          id?: string
+          plan_id?: string | null
+          status: string
+          user_id: string
+        }
+        Update: {
+          checkin_date?: string
+          created_at?: string
+          id?: string
+          plan_id?: string | null
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "study_plan_checkins_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "study_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      study_plans: {
+        Row: {
+          created_at: string
+          email: string | null
+          hours_per_day: string
+          id: string
+          latest_mock_score: number | null
+          level: string
+          lrdi_score: number | null
+          mocks_taken: number | null
+          name: string | null
+          plan: Json | null
+          qa_score: number | null
+          strengths: string[] | null
+          student_type: string
+          syllabus_lrdi: string | null
+          syllabus_qa: string | null
+          syllabus_varc: string | null
+          target_exam: string
+          target_percentile: string
+          target_year: string
+          updated_at: string
+          user_id: string
+          varc_score: number | null
+          weak_areas: string[] | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          hours_per_day: string
+          id?: string
+          latest_mock_score?: number | null
+          level: string
+          lrdi_score?: number | null
+          mocks_taken?: number | null
+          name?: string | null
+          plan?: Json | null
+          qa_score?: number | null
+          strengths?: string[] | null
+          student_type: string
+          syllabus_lrdi?: string | null
+          syllabus_qa?: string | null
+          syllabus_varc?: string | null
+          target_exam: string
+          target_percentile: string
+          target_year: string
+          updated_at?: string
+          user_id: string
+          varc_score?: number | null
+          weak_areas?: string[] | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          hours_per_day?: string
+          id?: string
+          latest_mock_score?: number | null
+          level?: string
+          lrdi_score?: number | null
+          mocks_taken?: number | null
+          name?: string | null
+          plan?: Json | null
+          qa_score?: number | null
+          strengths?: string[] | null
+          student_type?: string
+          syllabus_lrdi?: string | null
+          syllabus_qa?: string | null
+          syllabus_varc?: string | null
+          target_exam?: string
+          target_percentile?: string
+          target_year?: string
+          updated_at?: string
+          user_id?: string
+          varc_score?: number | null
+          weak_areas?: string[] | null
+        }
+        Relationships: []
+      }
       suppressed_emails: {
         Row: {
           created_at: string
