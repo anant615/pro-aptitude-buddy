@@ -113,7 +113,7 @@ export default function StudyPlanner() {
       });
       if (error) throw error;
       const plan: Plan = data?.plan || {};
-      const { data: inserted, error: insErr } = await supabase.from("study_plans").insert({
+      const insertRow: any = {
         user_id: user.id, name: form.name, email: form.email,
         target_exam: form.targetExam, target_year: form.targetYear, target_percentile: form.targetPercentile,
         level: form.level, student_type: form.studentType, hours_per_day: form.hoursPerDay,
@@ -125,7 +125,8 @@ export default function StudyPlanner() {
         strengths: form.strengths, weak_areas: form.weakAreas,
         syllabus_qa: form.syllabusQa, syllabus_lrdi: form.syllabusLrdi, syllabus_varc: form.syllabusVarc,
         plan,
-      }).select("*").single();
+      };
+      const { data: inserted, error: insErr } = await supabase.from("study_plans").insert(insertRow).select("*").single();
       if (insErr) throw insErr;
       setPlanRow(inserted);
       setStep("dashboard");
