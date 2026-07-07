@@ -143,6 +143,35 @@ export default function Home() {
             </div>
           </Link>
 
+          {/* AI Daily Study Planner CTA */}
+          <Link
+            to="/study-planner"
+            className="group relative block mb-6 md:mb-8 rounded-3xl border-2 border-indigo-400/50 bg-gradient-to-r from-indigo-500/25 via-purple-500/20 to-fuchsia-500/25 backdrop-blur-md p-5 md:p-6 shadow-2xl shadow-indigo-500/20 overflow-hidden hover:scale-[1.005] hover:shadow-indigo-500/40 transition-all"
+          >
+            <div className="absolute -top-16 -right-16 w-56 h-56 bg-fuchsia-400/25 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative flex flex-col md:flex-row items-center gap-4 md:gap-6 text-left">
+              <div className="flex h-14 w-14 md:h-16 md:w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-400 to-fuchsia-500 shadow-xl shadow-indigo-500/40">
+                <Sparkles className="h-7 w-7 md:h-8 md:w-8 text-white" />
+              </div>
+              <div className="flex-1 min-w-0 text-center md:text-left">
+                <div className="inline-flex items-center gap-2 mb-1.5 rounded-full bg-indigo-400/20 border border-indigo-300/40 px-3 py-1 text-[10px] md:text-xs font-bold uppercase tracking-wider text-indigo-100">
+                  <Zap className="h-3 w-3" /> New · AI Daily Study Planner
+                </div>
+                <h2 className="font-heading font-black text-xl md:text-2xl leading-tight text-primary-foreground">
+                  Generate My Study Plan — Tell us where you are, we'll tell you what to do today.
+                </h2>
+                <p className="text-xs md:text-sm text-primary-foreground/80 mt-1.5">
+                  Personalized daily / weekly / monthly plans for CAT, XAT, SNAP & NMAT aspirants.
+                </p>
+              </div>
+              <div className="shrink-0 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-400 to-fuchsia-500 text-white font-heading font-black text-sm md:text-base px-5 md:px-6 py-3 shadow-xl shadow-indigo-500/40 uppercase tracking-wide">
+                Create My Plan
+                <ArrowRight className="h-4 w-4 md:h-5 md:w-5 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+          </Link>
+
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8 md:mb-10 items-stretch">
             <div className="[&>div]:!mb-0 [&>div>div]:!max-w-none [&>div>div]:h-full">
               <DPPCountdown variant="hero" />
