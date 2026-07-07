@@ -9,6 +9,7 @@ const navLinks = [
   { to: "/", label: "Home" },
   { to: "/practice", label: "Practice" },
   { to: "/dpp", label: "DPP" },
+  { to: "/study-planner", label: "AI Planner" },
   { to: "/pyqs", label: "PYQs" },
   { to: "/mocks", label: "Mock Tests" },
   
