@@ -10,6 +10,7 @@ import LRDISets from "@/pages/LRDISets";
 import PYQs from "@/pages/PYQs";
 import MockTests from "@/pages/MockTests";
 import StudyPlanner from "@/pages/StudyPlanner";
+import Dashboard from "@/pages/Dashboard";
 
 import About from "@/pages/About";
 import ReviewMode from "@/pages/ReviewMode";
