@@ -28,6 +28,7 @@ import Leaderboard from "@/pages/Leaderboard";
 import AdminDashboard from "@/pages/AdminDashboard";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import FeedbackButton from "@/components/FeedbackButton";
+import MentorshipHook from "@/components/MentorshipHook";
 import PageTracker from "@/components/PageTracker";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
