@@ -44,6 +44,7 @@ const App = () => (
       <BrowserRouter>
         <PageTracker />
         <FeedbackButton />
+        <MentorshipHook />
         <Layout>
           <ErrorBoundary>
           <Routes>
