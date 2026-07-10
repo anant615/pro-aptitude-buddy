@@ -10,6 +10,7 @@ import LRDISets from "@/pages/LRDISets";
 import PYQs from "@/pages/PYQs";
 import MockTests from "@/pages/MockTests";
 import StudyPlanner from "@/pages/StudyPlanner";
+import Dashboard from "@/pages/Dashboard";
 
 import About from "@/pages/About";
 import ReviewMode from "@/pages/ReviewMode";
@@ -54,6 +55,7 @@ const App = () => (
             <Route path="/pyqs" element={<PYQs />} />
             <Route path="/mocks" element={<MockTests />} />
             <Route path="/study-planner" element={<StudyPlanner />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             
             <Route path="/review" element={<ProtectedRoute><ReviewMode /></ProtectedRoute>} />
             <Route path="/dpp" element={<DPP />} />

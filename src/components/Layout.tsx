@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 const navLinks = [
   { to: "/", label: "Home" },
+  { to: "/dashboard", label: "My Dashboard" },
   { to: "/practice", label: "Practice" },
   { to: "/dpp", label: "DPP" },
   { to: "/study-planner", label: "AI Planner" },
