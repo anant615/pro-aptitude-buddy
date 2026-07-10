@@ -55,6 +55,7 @@ const App = () => (
             <Route path="/pyqs" element={<PYQs />} />
             <Route path="/mocks" element={<MockTests />} />
             <Route path="/study-planner" element={<StudyPlanner />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             
             <Route path="/review" element={<ProtectedRoute><ReviewMode /></ProtectedRoute>} />
             <Route path="/dpp" element={<DPP />} />
