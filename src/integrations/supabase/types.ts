@@ -512,6 +512,143 @@ export type Database = {
         }
         Relationships: []
       }
+      mock_hub_entries: {
+        Row: {
+          analysis_quality: string | null
+          best_for: string | null
+          category_tags: string[] | null
+          cons: string[] | null
+          created_at: string
+          dashboard_experience: number | null
+          description: string | null
+          difficulty: string | null
+          exam: string
+          exam_similarity_pct: number | null
+          featured_rank: number | null
+          free_mocks_count: number | null
+          id: string
+          institute: string
+          institute_logo_url: string | null
+          is_free: boolean | null
+          is_sponsored: boolean | null
+          mock_name: string
+          official_link: string
+          overall_rating: number | null
+          price_inr: number | null
+          price_value: number | null
+          pros: string[] | null
+          question_quality: number | null
+          screenshots: string[] | null
+          sectional_analysis: number | null
+          total_mocks_count: number | null
+          updated_at: string
+        }
+        Insert: {
+          analysis_quality?: string | null
+          best_for?: string | null
+          category_tags?: string[] | null
+          cons?: string[] | null
+          created_at?: string
+          dashboard_experience?: number | null
+          description?: string | null
+          difficulty?: string | null
+          exam: string
+          exam_similarity_pct?: number | null
+          featured_rank?: number | null
+          free_mocks_count?: number | null
+          id?: string
+          institute: string
+          institute_logo_url?: string | null
+          is_free?: boolean | null
+          is_sponsored?: boolean | null
+          mock_name: string
+          official_link: string
+          overall_rating?: number | null
+          price_inr?: number | null
+          price_value?: number | null
+          pros?: string[] | null
+          question_quality?: number | null
+          screenshots?: string[] | null
+          sectional_analysis?: number | null
+          total_mocks_count?: number | null
+          updated_at?: string
+        }
+        Update: {
+          analysis_quality?: string | null
+          best_for?: string | null
+          category_tags?: string[] | null
+          cons?: string[] | null
+          created_at?: string
+          dashboard_experience?: number | null
+          description?: string | null
+          difficulty?: string | null
+          exam?: string
+          exam_similarity_pct?: number | null
+          featured_rank?: number | null
+          free_mocks_count?: number | null
+          id?: string
+          institute?: string
+          institute_logo_url?: string | null
+          is_free?: boolean | null
+          is_sponsored?: boolean | null
+          mock_name?: string
+          official_link?: string
+          overall_rating?: number | null
+          price_inr?: number | null
+          price_value?: number | null
+          pros?: string[] | null
+          question_quality?: number | null
+          screenshots?: string[] | null
+          sectional_analysis?: number | null
+          total_mocks_count?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      mock_hub_reviews: {
+        Row: {
+          comment: string | null
+          created_at: string
+          difficulty: string | null
+          id: string
+          mock_id: string
+          similarity_rating: number | null
+          stars: number
+          user_id: string
+          would_recommend: boolean | null
+        }
+        Insert: {
+          comment?: string | null
+          created_at?: string
+          difficulty?: string | null
+          id?: string
+          mock_id: string
+          similarity_rating?: number | null
+          stars: number
+          user_id: string
+          would_recommend?: boolean | null
+        }
+        Update: {
+          comment?: string | null
+          created_at?: string
+          difficulty?: string | null
+          id?: string
+          mock_id?: string
+          similarity_rating?: number | null
+          stars?: number
+          user_id?: string
+          would_recommend?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mock_hub_reviews_mock_id_fkey"
+            columns: ["mock_id"]
+            isOneToOne: false
+            referencedRelation: "mock_hub_entries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       mocks: {
         Row: {
           created_at: string
