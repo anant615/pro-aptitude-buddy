@@ -209,6 +209,7 @@ export default function AdminDashboard() {
           { k: "content", label: "Content", icon: FileText },
           { k: "dpp", label: "DPP Stats", icon: Trophy },
           { k: "crm", label: "CRM (RRR)", icon: MessageSquare },
+          { k: "mock-hub", label: "Mock Hub", icon: Trophy },
         ] as { k: Tab; label: string; icon: any }[]).map(({ k, label, icon: Icon }) => (
           <button
             key={k}
