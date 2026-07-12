@@ -390,7 +390,21 @@ export default function Home() {
         </div>
       </section>
 
-
+      {/* Mock Hub CTA */}
+      <section className="py-14 border-b bg-gradient-to-br from-primary/5 via-background to-accent/5">
+        <div className="container">
+          <div className="max-w-4xl mx-auto rounded-3xl border bg-card p-8 md:p-10 flex flex-col md:flex-row items-center gap-6 shadow-lg">
+            <div className="flex-1 text-center md:text-left">
+              <div className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">🚀 Mock Hub</div>
+              <h2 className="font-heading text-3xl md:text-4xl font-bold mb-2">🎯 Looking for the Best Mock Tests?</h2>
+              <p className="text-muted-foreground">Compare every CAT, SNAP, NMAT & XAT mock in one place — ratings, exam similarity, pricing, and honest pros & cons.</p>
+            </div>
+            <Button asChild size="lg" className="rounded-full bg-gradient-gold text-accent-foreground gap-2 whitespace-nowrap">
+              <Link to="/mocks">Explore Mock Hub <ArrowRight className="h-4 w-4" /></Link>
+            </Button>
+          </div>
+        </div>
+      </section>
 
       {/* Sections */}
       <section className="py-16 container">
