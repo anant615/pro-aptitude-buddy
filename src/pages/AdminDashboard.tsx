@@ -435,6 +435,7 @@ export default function AdminDashboard() {
       )}
 
       {tab === "crm" && <CRMPanel />}
+      {tab === "mock-hub" && <MockHubAdmin />}
     </div>
   );
 }
