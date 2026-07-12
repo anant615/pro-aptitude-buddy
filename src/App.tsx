@@ -9,6 +9,8 @@ import Practice from "@/pages/Practice";
 import LRDISets from "@/pages/LRDISets";
 import PYQs from "@/pages/PYQs";
 import MockTests from "@/pages/MockTests";
+import MockHub from "@/pages/MockHub";
+import MockDetail from "@/pages/MockDetail";
 import StudyPlanner from "@/pages/StudyPlanner";
 import Dashboard from "@/pages/Dashboard";
 
@@ -55,7 +57,9 @@ const App = () => (
             <Route path="/practice" element={<Practice />} />
             <Route path="/lrdi-sets" element={<LRDISets />} />
             <Route path="/pyqs" element={<PYQs />} />
-            <Route path="/mocks" element={<MockTests />} />
+            <Route path="/mocks" element={<MockHub />} />
+            <Route path="/mocks/:id" element={<MockDetail />} />
+            <Route path="/mocks-legacy" element={<MockTests />} />
             <Route path="/study-planner" element={<StudyPlanner />} />
             <Route path="/dashboard" element={<Dashboard />} />
             
