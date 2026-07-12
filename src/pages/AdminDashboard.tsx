@@ -18,7 +18,7 @@ import CRMPanel from "@/components/CRMPanel";
 
 type Range = "today" | "7d" | "30d" | "lifetime";
 const RANGE_HOURS: Record<Range, number | null> = { today: 24, "7d": 168, "30d": 720, lifetime: null };
-type Tab = "traffic" | "activation" | "retention" | "content" | "dpp" | "crm";
+type Tab = "traffic" | "activation" | "retention" | "content" | "dpp" | "crm" | "mock-hub";
 
 const COLORS = ["hsl(var(--primary))", "hsl(var(--accent))", "#f59e0b", "#10b981", "#ef4444", "#8b5cf6"];
 
