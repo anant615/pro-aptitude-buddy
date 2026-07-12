@@ -9,6 +9,8 @@ import Practice from "@/pages/Practice";
 import LRDISets from "@/pages/LRDISets";
 import PYQs from "@/pages/PYQs";
 import MockTests from "@/pages/MockTests";
+import MockHub from "@/pages/MockHub";
+import MockDetail from "@/pages/MockDetail";
 import StudyPlanner from "@/pages/StudyPlanner";
 import Dashboard from "@/pages/Dashboard";
 
