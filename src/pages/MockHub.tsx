@@ -98,17 +98,7 @@ export default function MockHub() {
 
   return (
     <div className="min-h-screen">
-      <div className="container py-10 max-w-7xl">
-        {/* Editable heading + subheading */}
-        <div className="mb-6">
-          <h1 className="font-heading text-3xl md:text-4xl font-bold tracking-tight">
-            <EditableText storageKey="mockhub_heading" defaultValue="Mock Test Hub" isAdmin={isAdmin} as="span" />
-          </h1>
-          <p className="text-muted-foreground mt-2 text-sm md:text-base">
-            <EditableText storageKey="mockhub_subheading" defaultValue="Compare mock tests across India's top coaching institutes — pick the one right for you." isAdmin={isAdmin} as="span" multiline />
-          </p>
-        </div>
-
+      <div className="container py-6 max-w-7xl">
         {/* Exam Tabs */}
         <div className="flex gap-2 overflow-x-auto pb-2 mb-6 border-b sticky top-16 bg-background/95 backdrop-blur z-20">
           {EXAMS.map(ex => {
