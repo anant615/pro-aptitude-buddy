@@ -8,19 +8,14 @@ import { supabase } from "@/integrations/supabase/client";
 const navLinks = [
   { to: "/", label: "Home" },
   { to: "/dashboard", label: "My Dashboard" },
+  { to: "/mocks", label: "🚀 Mock Hub" },
   { to: "/practice", label: "Practice" },
   { to: "/dpp", label: "DPP" },
   { to: "/study-planner", label: "AI Planner" },
   { to: "/pyqs", label: "PYQs" },
-  { to: "/mocks", label: "🚀 Mock Hub" },
-  
   { to: "/resources", label: "Resources" },
   { to: "/newspaper", label: "Newspaper" },
   { to: "/ai-solver", label: "AI Solver" },
-  { to: "/war-room", label: "War Room" },
-  { to: "/mentor", label: "AI Mentor" },
-  { to: "/community", label: "Community" },
-  { to: "/leaderboard", label: "Leaderboard" },
   { to: "/about", label: "About" },
 ];
 
